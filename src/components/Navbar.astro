@@ -1,0 +1,423 @@
+---
+const currentPath = Astro.url.pathname;
+const navItems = [
+  { label: 'HOME', href: '/', id: 'nav-home' },
+  { label: 'ABOUT', href: '/#about', id: 'nav-about' },
+  { label: 'SKILLS', href: '/#skills', id: 'nav-skills' },
+  { label: 'EXPERIENCE', href: '/#experience', id: 'nav-experience' },
+  { label: 'PROJECTS', href: '/#projects', id: 'nav-projects' },
+  { label: 'RESEARCH', href: '/#research', id: 'nav-research' },
+  { label: 'CONTACT', href: '/#contact', id: 'nav-contact' },
+];
+---
+
+<header class="nav-header" id="main-nav">
+  <div class="nav-container">
+    <a href="/" class="nav-logo" id="nav-logo" aria-label="Sundeep Dayalan Home">
+      <span class="logo-bracket">[</span>
+      <span class="logo-text">SD</span>
+      <span class="logo-bracket">]</span>
+      <span class="logo-status">
+        <span class="status-dot"></span>
+        ONLINE
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      {navItems.map(item => (
+        <a
+          href={item.href}
+          class={`nav-link ${currentPath === item.href ? 'active' : ''}`}
+          id={item.id}
+        >
+          <span class="nav-link-index">0{navItems.indexOf(item) + 1}</span>
+          <span class="nav-link-label">{item.label}</span>
+        </a>
+      ))}
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="toggle-line"></span>
+      <span class="toggle-line"></span>
+      <span class="toggle-line"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile overlay nav -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
+  <nav class="mobile-nav-links" aria-label="Mobile navigation">
+    {navItems.map(item => (
+      <a
+        href={item.href}
+        class="mobile-nav-link"
+        id={`mobile-${item.id}`}
+      >
+        <span class="mobile-nav-index">0{navItems.indexOf(item) + 1} //</span>
+        <span class="mobile-nav-label">{item.label}</span>
+      </a>
+    ))}
+  </nav>
+  <div class="mobile-nav-footer">
+    <span class="terminal-text">SYSTEM READY_</span>
+  </div>
+</div>
+
+<style>
+  .nav-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(10, 14, 20, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    transition: all var(--transition-normal);
+  }
+
+  .nav-header.scrolled {
+    background: rgba(10, 14, 20, 0.95);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .nav-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-bright);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-logo:hover {
+    color: var(--color-text-bright);
+  }
+
+  .logo-bracket {
+    color: var(--color-primary);
+    font-weight: 400;
+  }
+
+  .logo-text {
+    color: var(--color-text-bright);
+  }
+
+  .logo-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-secondary);
+    letter-spacing: 0.15em;
+    margin-left: var(--space-sm);
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-secondary);
+    border-radius: 50%;
+    animation: pulse-glow 2s ease-in-out infinite;
+    box-shadow: 0 0 6px var(--color-secondary-glow);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: var(--space-sm) var(--space-md);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-primary);
+    border-color: var(--color-border);
+    background: var(--color-primary-glow);
+  }
+
+  .nav-link-index {
+    color: var(--color-text-dim);
+    font-size: 0.6rem;
+  }
+
+  .nav-link:hover .nav-link-index,
+  .nav-link.active .nav-link-index {
+    color: var(--color-primary-dim);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: var(--space-sm);
+    background: none;
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .toggle-line {
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--color-primary);
+    transition: all var(--transition-normal);
+  }
+
+  .nav-toggle.active .toggle-line:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
+  }
+  .nav-toggle.active .toggle-line:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle.active .toggle-line:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -4px);
+  }
+
+  /* Mobile Overlay */
+  .mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(10, 14, 20, 0.98);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+  }
+
+  .mobile-nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: all var(--transition-fast);
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link.active {
+    color: var(--color-primary);
+    transform: translateX(10px);
+  }
+
+  .mobile-nav-link.active .mobile-nav-index {
+    color: var(--color-primary-dim);
+  }
+
+  .mobile-nav-index {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+  }
+
+  .mobile-nav-footer {
+    position: absolute;
+    bottom: var(--space-xl);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-dim);
+  }
+
+  .terminal-text::after {
+    content: '█';
+    animation: blink-cursor 1s step-end infinite;
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+    .nav-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  // Scroll effect
+  const header = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  });
+
+  // Mobile toggle
+  const toggle = document.getElementById('nav-toggle');
+  const overlay = document.getElementById('mobile-nav-overlay');
+  
+  toggle?.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    overlay?.classList.toggle('active');
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', (!expanded).toString());
+    overlay?.setAttribute('aria-hidden', expanded.toString());
+    document.body.style.overflow = expanded ? '' : 'hidden';
+  });
+
+  // Close mobile nav on link click
+  overlay?.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle?.classList.remove('active');
+      overlay?.classList.remove('active');
+      toggle?.setAttribute('aria-expanded', 'false');
+      overlay?.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ======== Scroll Spy ========
+  // Map section IDs to their corresponding nav links
+  const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'research', 'certifications', 'contact'];
+  const navLinkMap: Record<string, { desktop: Element | null; mobile: Element | null }> = {};
+
+  sectionIds.forEach(id => {
+    // 'hero' maps to the HOME link (nav-home)
+    const navId = id === 'hero' ? 'home' : id;
+    navLinkMap[id] = {
+      desktop: document.getElementById(`nav-${navId}`),
+      mobile: document.getElementById(`mobile-nav-${navId}`),
+    };
+  });
+
+  let currentActive = '';
+  let isAtBottom = false;
+
+  function setActiveLink(sectionId: string, force = false) {
+    if (!force && currentActive === sectionId) return;
+    if (!force && isAtBottom) return; // Don't let observer override bottom state
+
+    // Remove active from all nav links
+    document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+      link.classList.remove('active');
+    });
+
+    // Add active to the matching links
+    const entry = navLinkMap[sectionId];
+    if (entry) {
+      entry.desktop?.classList.add('active');
+      entry.mobile?.classList.add('active');
+    }
+
+    currentActive = sectionId;
+  }
+
+  // Use IntersectionObserver to track which sections are visible
+  const observerOptions: IntersectionObserverInit = {
+    root: null,
+    // trigger when section crosses top ~35% of viewport
+    rootMargin: '-10% 0px -55% 0px',
+    threshold: 0,
+  };
+
+  const visibleSections = new Set<string>();
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      if (entry.isIntersecting) {
+        visibleSections.add(id);
+      } else {
+        visibleSections.delete(id);
+      }
+    });
+
+    // Don't update if we're at the bottom (contact is forced)
+    if (isAtBottom) return;
+
+    // Pick the first visible section in DOM order
+    for (const id of sectionIds) {
+      if (visibleSections.has(id)) {
+        setActiveLink(id);
+        return;
+      }
+    }
+  }, observerOptions);
+
+  // Observe each section
+  sectionIds.forEach(id => {
+    const section = document.getElementById(id);
+    if (section) {
+      sectionObserver.observe(section);
+    }
+  });
+
+  // Set initial active state on page load
+  if (window.scrollY < 100) {
+    setActiveLink('hero');
+  }
+
+  // Scroll listener: activate CONTACT when near page bottom
+  window.addEventListener('scroll', () => {
+    const scrollBottom = window.innerHeight + window.scrollY;
+    const pageHeight = document.documentElement.scrollHeight;
+    const nearBottom = pageHeight - scrollBottom < 200;
+
+    if (nearBottom && !isAtBottom) {
+      isAtBottom = true;
+      setActiveLink('contact', true);
+    } else if (!nearBottom && isAtBottom) {
+      isAtBottom = false;
+      // Let observer take over again — find current visible section
+      for (const id of sectionIds) {
+        if (visibleSections.has(id)) {
+          setActiveLink(id, true);
+          return;
+        }
+      }
+    }
+  }, { passive: true });
+</script>

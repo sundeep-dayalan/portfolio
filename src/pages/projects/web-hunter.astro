@@ -1,0 +1,308 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+
+const title = "WEB HUNTER — Web Reconnaissance Software | Sundeep Dayalan";
+const description = "Python-based web reconnaissance tool with GUI for DNS enumeration, SSL certificate analysis, and streamlined security assessment.";
+
+const highlights = [
+  { label: "Institution", value: "UC Denver" },
+  { label: "Period", value: "Mar–May 2023" },
+  { label: "Domain", value: "Cybersecurity" },
+  { label: "Language", value: "Python" },
+];
+
+const features = [
+  {
+    title: "DNS Enumeration",
+    desc: "Comprehensive DNS enumeration revealing domain records, subdomains, and nameserver configurations. Uncover the full DNS footprint of any target domain.",
+    icon: "🌐"
+  },
+  {
+    title: "SSL Certificate Analysis",
+    desc: "Deep inspection of SSL/TLS certificates including issuer details, validity periods, cipher suites, and potential security weaknesses.",
+    icon: "🔒"
+  },
+  {
+    title: "User-Friendly Python GUI",
+    desc: "Intuitive graphical interface that makes complex reconnaissance tasks accessible to both beginners and experienced security professionals.",
+    icon: "🖥️"
+  },
+  {
+    title: "Minimal Dependencies",
+    desc: "Built with efficiency in mind — lightweight installation with minimal external dependencies for reliable deployment across environments.",
+    icon: "📦"
+  },
+  {
+    title: "Streamlined Workflow",
+    desc: "Merges multiple reconnaissance functionalities into a single streamlined application, reducing the need to switch between scattered tools.",
+    icon: "⚡"
+  },
+  {
+    title: "Standalone Executable",
+    desc: "Distributed as a standalone .exe file — no Python installation or complex setup required. Download, run, and start scanning immediately.",
+    icon: "💿"
+  },
+];
+
+const contributions = [
+  "Led the development of the user-friendly Python GUI",
+  "Implemented core functionalities: DNS Enumeration and SSL Certificate Details",
+  "Played a key role in GUI design and implementation using Figma",
+  "Ensured the software's efficiency with minimal dependencies",
+  "Comprehensive understanding of web security concepts and Python programming",
+];
+
+const challenges = [
+  "Balancing sophistication for effective reconnaissance with a user-friendly GUI",
+  "Overcoming integration and testing challenges for a robust, reliable tool",
+  "Ensuring cross-platform compatibility and minimal false positives",
+];
+
+const techStack = ["Python", "Tkinter", "Socket", "SSL", "DNS", "Figma", "PyInstaller", "Networking"];
+
+const keywords = "web reconnaissance tool, Python security tool, DNS enumeration, SSL certificate analysis, network security, cybersecurity software, Tkinter GUI, web hunter, Sundeep Dayalan";
+
+const additionalLD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "WEB HUNTER — Web Reconnaissance Software",
+    "description": "Python-based web reconnaissance tool with a Tkinter GUI for DNS enumeration, SSL certificate analysis, and streamlined security assessment. Packaged as a standalone executable.",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "url": "https://www.sundeepdayalan.in/projects/web-hunter",
+    "creator": {
+      "@type": "Person",
+      "name": "Sundeep Dayalan",
+      "url": "https://www.sundeepdayalan.in"
+    },
+    "dateCreated": "2023",
+    "keywords": "web reconnaissance, DNS enumeration, SSL analysis, cybersecurity, Python, security tool"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sundeepdayalan.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.sundeepdayalan.in/#projects" },
+      { "@type": "ListItem", "position": 3, "name": "WEB HUNTER — Web Reconnaissance Software", "item": "https://www.sundeepdayalan.in/projects/web-hunter" }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/project-web-hunter.png"
+  keywords={keywords}
+  additionalLD={additionalLD}
+>
+  <Navbar />
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="project-hero-bg">
+      <img src="/project-web-hunter.png" alt="WEB HUNTER — Web reconnaissance and cybersecurity tool" width="1200" height="600" loading="eager" />
+      <div class="project-hero-overlay"></div>
+    </div>
+    <div class="project-hero-content">
+      <a href="/#projects" class="back-link">← RETURN TO BASE</a>
+      <div class="project-hero-meta">
+        <span class="project-badge">UC DENVER</span>
+        <span class="project-badge cyber">CYBERSECURITY</span>
+        <span class="project-date">Mar 2023 — May 2023</span>
+      </div>
+      <h1 class="project-hero-title">WEB HUNTER</h1>
+      <p class="project-hero-subtitle">Web reconnaissance software focused on simplifying security assessment through DNS enumeration, SSL analysis, and a streamlined Python-powered GUI.</p>
+      <div class="project-hero-tags">
+        {techStack.map(tag => <span class="hero-tag">{tag}</span>)}
+      </div>
+      <div class="project-hero-actions">
+        <a href="https://github.com/Sundeep-D/WEB-HUNTER" target="_blank" rel="noopener noreferrer" class="hero-cta">
+          <span class="cta-bracket">[</span> VIEW ON GITHUB <span class="cta-bracket">]</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="section">
+    <div class="container">
+      <div class="highlights-grid">
+        {highlights.map(h => (
+          <div class="highlight-card">
+            <span class="highlight-label">{h.label}</span>
+            <span class="highlight-value">{h.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION BRIEFING</span>
+        <h2 class="section-title">About</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat recon_briefing.txt</span>
+          <span class="terminal-status">CLASSIFIED...</span>
+        </div>
+        <div class="project-text-block">
+          <p><span class="hl">WEB HUNTER</span> focuses on web security through thorough reconnaissance. The project aims to simplify the reconnaissance process using Python, with emphasis on merging multiple functionalities into a single <span class="hl">streamlined application</span>.</p>
+          <p>The tool provides <span class="hl">DNS Enumeration</span> to discover domain infrastructure and <span class="hl">SSL Certificate analysis</span> to assess encryption and certificate validity. All wrapped in a user-friendly GUI that makes professional reconnaissance accessible.</p>
+          <p>Built at the <span class="hl">University of Colorado Denver</span>, it demonstrates practical application of networking concepts and security principles in an intuitive tool.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM MODULES</span>
+        <h2 class="section-title">Capabilities</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="features-grid">
+        {features.map((feat, i) => (
+          <div class="feature-card animate-on-scroll" style={`--delay: ${i * 100}ms`}>
+            <span class="feature-icon">{feat.icon}</span>
+            <h3 class="feature-title">{feat.title}</h3>
+            <p class="feature-desc">{feat.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRIBUTIONS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">OPERATOR LOG</span>
+        <h2 class="section-title">My Contributions</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block animate-on-scroll">
+        {contributions.map(item => (
+          <div class="list-item"><span class="bullet-icon">▸</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">THREAT ANALYSIS</span>
+        <h2 class="section-title">Challenges Overcome</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block warn animate-on-scroll">
+        {challenges.map(item => (
+          <div class="list-item"><span class="bullet-icon warn">⚠</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALL -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">DEPLOYMENT PROTOCOL</span>
+        <h2 class="section-title">Installation</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat install.sh</span>
+          <span class="terminal-status">READY</span>
+        </div>
+        <div class="install-steps">
+          <div class="install-step"><span class="step-num">01</span><span>Download the .exe file from the <a href="https://github.com/Sundeep-D/WEB-HUNTER" target="_blank" rel="noopener noreferrer">GitHub repository</a></span></div>
+          <div class="install-step"><span class="step-num">02</span><span>Allow permission to execute the .exe file</span></div>
+          <div class="install-step"><span class="step-num">03</span><span>Open the software and run a search — e.g. <code>https://google.com</code></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="back-section">
+    <a href="/#projects" class="back-link-bottom">← RETURN TO PROJECTS</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .project-hero { position: relative; min-height: 70vh; display: flex; align-items: flex-end; overflow: hidden; }
+  .project-hero-bg { position: absolute; inset: 0; }
+  .project-hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) saturate(0.6); }
+  .project-hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,20,0.3) 0%, rgba(10,14,20,0.7) 50%, rgba(10,14,20,0.95) 100%); }
+  .project-hero-content { position: relative; z-index: 2; padding: var(--space-3xl) var(--space-2xl) var(--space-2xl); max-width: 1200px; margin: 0 auto; width: 100%; }
+  .back-link { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-primary-dim); text-decoration: none; letter-spacing: 0.1em; display: inline-block; transition: color var(--transition-fast); }
+  .back-link:hover { color: var(--color-primary); }
+  .project-hero-meta { display: flex; align-items: center; gap: var(--space-sm); margin: var(--space-lg) 0 var(--space-md); flex-wrap: wrap; }
+  .project-badge { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em; padding: 4px 12px; border: 1px solid; text-transform: uppercase; color: var(--color-warning); border-color: rgba(255,182,39,0.4); }
+  .project-badge.cyber { color: #00ff88; border-color: rgba(0,255,136,0.4); }
+  .project-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-dim); letter-spacing: 0.05em; }
+  .project-hero-title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; color: var(--color-text-bright); line-height: 1.1; margin-bottom: var(--space-md); text-transform: uppercase; letter-spacing: 0.05em; }
+  .project-hero-subtitle { font-size: 1.05rem; color: var(--color-text-secondary); margin-bottom: var(--space-lg); max-width: 700px; line-height: 1.6; }
+  .project-hero-tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-bottom: var(--space-lg); }
+  .hero-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-primary-dim); padding: 3px 10px; border: 1px solid var(--color-border); letter-spacing: 0.05em; }
+  .project-hero-actions { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .hero-cta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-primary); text-decoration: none; letter-spacing: 0.15em; padding: var(--space-sm) var(--space-lg); border: 1px solid var(--color-primary-dim); transition: all var(--transition-normal); }
+  .hero-cta:hover { background: rgba(0,229,255,0.08); border-color: var(--color-primary); }
+  .cta-bracket { color: var(--color-text-dim); }
+
+  .highlights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); padding: var(--space-xl) 0; }
+  .highlight-card { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-lg); text-align: center; display: flex; flex-direction: column; gap: var(--space-xs); transition: border-color var(--transition-normal); }
+  .highlight-card:hover { border-color: var(--color-border-bright); }
+  .highlight-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--color-primary-dim); letter-spacing: 0.15em; }
+  .highlight-value { font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; color: var(--color-text-bright); }
+
+  .project-terminal { background: var(--color-bg-card); border: 1px solid var(--color-border); overflow: hidden; }
+  .terminal-header-mini { display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm) var(--space-md); background: rgba(0,229,255,0.03); border-bottom: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.75rem; }
+  .terminal-prompt { color: var(--color-primary-dim); }
+  .terminal-status { color: var(--color-secondary-dim); font-size: 0.65rem; letter-spacing: 0.15em; }
+  .project-text-block { padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.8; }
+  .hl { color: var(--color-primary); font-weight: 500; }
+
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+  .feature-card { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-sm); transition: border-color var(--transition-normal), transform var(--transition-normal); }
+  .feature-card:hover { border-color: var(--color-border-bright); transform: translateY(-2px); }
+  .feature-icon { font-size: 2rem; margin-bottom: var(--space-xs); }
+  .feature-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; }
+  .feature-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; }
+
+  .list-block { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
+  .list-block.warn { border-color: rgba(255,182,39,0.2); }
+  .list-item { display: flex; align-items: flex-start; gap: var(--space-sm); font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .bullet-icon { color: var(--color-primary); flex-shrink: 0; margin-top: 2px; }
+  .bullet-icon.warn { color: var(--color-warning); }
+
+  .install-steps { padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
+  .install-step { display: flex; align-items: center; gap: var(--space-md); font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .install-step a { color: var(--color-primary); }
+  .install-step code { font-family: var(--font-mono); color: var(--color-primary-dim); background: rgba(0,229,255,0.05); padding: 2px 8px; font-size: 0.8rem; }
+  .step-num { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--color-primary-dim); flex-shrink: 0; min-width: 32px; }
+
+  .back-section { max-width: 1200px; margin: 0 auto; padding: var(--space-2xl); }
+  .back-link-bottom { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-primary-dim); text-decoration: none; letter-spacing: 0.1em; padding: var(--space-md) var(--space-lg); border: 1px solid var(--color-border); display: inline-block; transition: all var(--transition-normal); }
+  .back-link-bottom:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+  .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) { .highlights-grid { grid-template-columns: repeat(2, 1fr); } .features-grid { grid-template-columns: 1fr; } .project-hero { min-height: 50vh; } }
+  @media (max-width: 480px) { .highlights-grid { grid-template-columns: 1fr; } .project-hero-content { padding: var(--space-xl) var(--space-md); } }
+</style>

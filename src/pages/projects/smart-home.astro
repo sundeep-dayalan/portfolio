@@ -1,0 +1,897 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+
+const title = "Smart Home — IoT Home Automation | Sundeep Dayalan";
+const description = "1st Runner Up at Smart India Hackathon 2018 — affordable IoT home automation and energy management system with voice control, retrofit integration, and real-time bill analytics.";
+
+const highlights = [
+  { label: "Rank", value: "1st Runner Up" },
+  { label: "Event", value: "SIH 2018" },
+  { label: "Venue", value: "NCL Pune" },
+  { label: "Target", value: "Middle Class" },
+  { label: "Control", value: "Voice Enabled" },
+  { label: "Platform", value: "Android + IoT" },
+];
+
+const topFeatures = [
+  { title: "Energy", subtitle: "Monitoring", icon: "⚡" },
+  { title: "Retrofit", subtitle: "Integration", icon: "🔌" },
+  { title: "Voice", subtitle: "Control", icon: "🗣️" },
+  { title: "Mobile", subtitle: "Android App", icon: "📱" },
+  { title: "Bill", subtitle: "Prediction", icon: "📊" },
+];
+
+const features = [
+  {
+    num: "01",
+    title: "Energy Monitoring & Control",
+    icon: "⚡",
+    img: "/smart-home-screenshot-1.jpg",
+    desc: "Real-time monitoring and control of energy usage across the entire building. Track consumption patterns per appliance, visualize daily usage data, and optimize electricity spend with intelligent automation rules."
+  },
+  {
+    num: "02",
+    title: "Existing Appliance Integration",
+    icon: "🔌",
+    img: "/smart-home-prototype.jpg",
+    desc: "Works with your current appliances — no replacements required. Retrofit smart capabilities onto existing fans, lights, and gadgets through our custom relay modules. This is the key differentiator from mainstream smart home products in the market."
+  },
+  {
+    num: "03",
+    title: "Multi-Utility Controllers",
+    icon: "🎛️",
+    img: "/smart-home-prototype-implementation-1.jpg",
+    desc: "Custom-built hardware controllers that manage multiple appliances from a single node. Reduces wiring complexity and hardware cost while maximizing coverage — designed to minimize BoM (Bill of Materials) without sacrificing capability."
+  },
+  {
+    num: "04",
+    title: "Voice Control Access",
+    icon: "🗣️",
+    img: "/smart-home-screenshot-2.PNG",
+    desc: "Hands-free voice control designed for accessibility — enabling senior citizens and visually impaired users to interact effortlessly with home systems. No app required; just speak and the system responds."
+  },
+  {
+    num: "05",
+    title: "Android Companion App",
+    icon: "📱",
+    img: "/smart-home-screenshot-3.PNG",
+    desc: "Full-featured Android application and a central tablet application for user convenience. Simple UI holding calculated values stored in the database — remote appliance control, energy consumption history, and scheduling from anywhere."
+  },
+  {
+    num: "06",
+    title: "Bill Prediction & Analytics",
+    icon: "📊",
+    img: "/smart-home-about-image.jpg",
+    desc: "Predictive analytics engine that uses consumption patterns to forecast upcoming electricity bills. Empowers households with data-driven decisions before the bill arrives — a feature largely absent from other affordable home automation products."
+  },
+];
+
+const screenshotImages = [
+  { src: "/smart-home-screenshot-1.jpg", label: "APP_SCREEN_01", caption: "Smart Home Android app — appliance control and real-time energy dashboard" },
+  { src: "/smart-home-screenshot-2.PNG", label: "APP_SCREEN_02", caption: "Voice control interface — hands-free appliance management" },
+  { src: "/smart-home-screenshot-3.PNG", label: "APP_SCREEN_03", caption: "Energy analytics view — consumption history and bill prediction" },
+];
+
+const prototypeVideos = [
+  {
+    id: "proto-1",
+    youtubeId: "NGprT9-FhNg",
+    label: "PROTOTYPE_DEMO_01",
+    title: "Prototype Demo — Part 1",
+    desc: "Hardware prototype integrated with home appliances including lights and fans. Demonstrates real-time control via the Android app."
+  },
+  {
+    id: "proto-2",
+    youtubeId: "SvzY9U697Tg",
+    label: "PROTOTYPE_DEMO_02",
+    title: "Prototype Demo — Part 2",
+    desc: "Full end-to-end demonstration of the prototype — multi-utility controller triggering multiple appliances simultaneously."
+  },
+];
+
+const galleryImages = [
+  { src: "/smart-home-winning-moment-photo-pune.jpeg",              label: "WIN_01", caption: "Winning moment — SIH 2018 at CSR, National Chemical Laboratory, Pune, India" },
+  { src: "/smart-home-gallery-with-trophy.jpg",                    label: "WIN_02", caption: "1st Runner Up trophy — Smart India Hackathon 2018" },
+  { src: "/smart-home-gallery-with-judge.jpg",                     label: "JUDGE_03", caption: "With the judge panel at Smart India Hackathon 2018" },
+  { src: "/smart-home-gallery-team.jpg",                           label: "TEAM_04", caption: "Team photo — Smart Home at SIH 2018" },
+  { src: "/smart-home-gallery-appreciation-from-ceo-yourstory.jpg",     label: "RECOG_05", caption: "Appreciation from CEO of YourStory.com" },
+  { src: "/smart-home-gallery-appreciation-from-ceo-yourstory-2.JPG",   label: "RECOG_06", caption: "Appreciation from CEO of YourStory.com — with the team" },
+  { src: "/smart-home-gallery-appreciation-from-college-chairman.jpg",  label: "RECOG_07", caption: "Appreciation from college Chairman, Principal and dignitaries" },
+];
+
+const techStack = ["Arduino", "IoT", "Android", "Java", "Firebase", "Voice Recognition", "Sensors", "Relay Modules", "ESP8266", "MQTT"];
+
+const keywords = "smart home IoT automation, Arduino home automation, voice controlled home, energy monitoring, Firebase IoT, Android home control, Smart India Hackathon 2018, Sundeep Dayalan";
+
+const additionalLD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Smart Home — IoT Home Automation System",
+    "description": "Affordable IoT home automation system with energy monitoring, voice control, retrofit integration, real-time bill analytics, and an Android companion app. 1st Runner Up at Smart India Hackathon 2018.",
+    "applicationCategory": "HomeAndGardenApplication",
+    "operatingSystem": "Android, IoT",
+    "url": "https://www.sundeepdayalan.in/projects/smart-home",
+    "creator": {
+      "@type": "Person",
+      "name": "Sundeep Dayalan",
+      "url": "https://www.sundeepdayalan.in"
+    },
+    "award": "Smart India Hackathon 2018 — 1st Runner Up",
+    "dateCreated": "2018",
+    "keywords": "smart home, IoT automation, Arduino, voice control, energy monitoring, Android app"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sundeepdayalan.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.sundeepdayalan.in/#projects" },
+      { "@type": "ListItem", "position": 3, "name": "Smart Home — IoT Home Automation", "item": "https://www.sundeepdayalan.in/projects/smart-home" }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/project-smart-home.png"
+  keywords={keywords}
+  additionalLD={additionalLD}
+>
+  <Navbar />
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="project-hero-bg">
+      <img src="/project-smart-home.png" alt="Smart Home — IoT home automation system" width="1200" height="600" loading="eager" />
+      <div class="project-hero-overlay"></div>
+    </div>
+    <div class="project-hero-content">
+      <a href="/#projects" class="back-link">← RETURN TO BASE</a>
+      <div class="project-hero-meta">
+        <span class="project-badge runner">🥈 1ST RUNNER UP</span>
+        <span class="project-badge iot">IOT PROJECT</span>
+        <span class="project-badge proto">PROTOTYPE BUILT</span>
+      </div>
+      <h1 class="project-hero-title">Smart Home</h1>
+      <p class="project-hero-tagline">Save electricity wisely.<br/><span class="tagline-accent">Smart living for everyone, not just smart cities.</span></p>
+      <p class="project-hero-subtitle">An affordable IoT home automation and energy management system designed for the middle-class segment — retrofits existing appliances with voice control, real-time monitoring, and predictive bill analytics. Ranked #2 in India at Smart India Hackathon 2018.</p>
+      <div class="project-hero-tags">
+        {techStack.map(tag => <span class="hero-tag">{tag}</span>)}
+      </div>
+      <div class="project-hero-actions">
+        <a href="https://www.youtube.com/watch?v=vnYoKdTUpxI" target="_blank" rel="noopener noreferrer" class="hero-cta">
+          <span class="cta-bracket">[</span> WATCH REAL WORLD DEMO <span class="cta-bracket">]</span>
+        </a>
+        <a href="https://www.youtube.com/watch?v=NGprT9-FhNg" target="_blank" rel="noopener noreferrer" class="hero-cta secondary">
+          <span class="cta-bracket">[</span> WATCH PROTOTYPE <span class="cta-bracket">]</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="section">
+    <div class="container">
+      <div class="highlights-grid">
+        {highlights.map(h => (
+          <div class="highlight-card">
+            <span class="highlight-label">{h.label}</span>
+            <span class="highlight-value">{h.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TOP FEATURES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM CAPABILITIES</span>
+        <h2 class="section-title">What This System Does</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="top-features-grid animate-on-scroll">
+        {topFeatures.map((feat, i) => (
+          <div class="top-feature-card">
+            <div class="top-feature-icon-wrap">
+              <span class="top-feature-icon">{feat.icon}</span>
+              <div class="icon-ring"></div>
+            </div>
+            <span class="top-feature-title">{feat.title}</span>
+            <span class="top-feature-subtitle">{feat.subtitle}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION BRIEFING</span>
+        <h2 class="section-title">About</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="about-layout animate-on-scroll">
+        <div class="about-img-wrap">
+          <div class="frame-corner tl"></div>
+          <div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div>
+          <div class="frame-corner br"></div>
+          <div class="frame-scanline"></div>
+          <img src="/smart-home-about-image.jpg" alt="Smart Home prototype overview" loading="lazy" />
+          <div class="frame-hud">
+            <span class="frame-label">SYSTEM_OVERVIEW</span>
+            <span class="frame-status">● LIVE</span>
+          </div>
+        </div>
+        <div class="project-terminal about-terminal">
+          <div class="terminal-header-mini">
+            <span class="terminal-prompt">> cat smart_home_briefing.txt</span>
+            <span class="terminal-status">DECRYPTING...</span>
+          </div>
+          <div class="project-text-block">
+            <p>When it comes to energy saving, <span class="hl">energy management</span> is the process of monitoring, controlling, and conserving energy in a building. Today, many private companies sell smart home products — but they're priced for premium buyers only.</p>
+            <p>Our approach is different. We target the <span class="hl">middle-class segment</span>, embodying the philosophy: <span class="hl">why only smart cities, and why not smart huts?</span> Our products integrate with <span class="hl">existing home appliances</span> — automating what you already own, not replacing it — a feature most competitors don't offer.</p>
+            <p>We extend control through <span class="hl">multi-utility controllers</span> and <span class="hl">voice control</span> developed especially for senior citizens and the visually impaired. The system is designed by minimizing hardware cost to deliver affordable, efficient, market-ready products — with software that lets customers analyze <span class="hl">day-to-day energy consumption</span> and predict upcoming bills.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE FEATURES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM ARCHITECTURE</span>
+        <h2 class="section-title">6 Features We Built</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="module-list">
+        {features.map((feat) => (
+          <div class="module-card animate-on-scroll">
+            <div class="module-left">
+              <span class="module-num">{feat.num}</span>
+              <span class="module-icon">{feat.icon}</span>
+              <h3 class="module-title">{feat.title}</h3>
+              <p class="module-desc">{feat.desc}</p>
+            </div>
+            <div class="module-img-wrap">
+              <div class="frame-corner tl"></div>
+              <div class="frame-corner tr"></div>
+              <div class="frame-corner bl"></div>
+              <div class="frame-corner br"></div>
+              <img src={feat.img} alt={feat.title} loading="lazy" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">APP INTERFACE</span>
+        <h2 class="section-title">Screenshots</h2>
+        <div class="section-divider"></div>
+      </div>
+      <p class="section-intro animate-on-scroll">Built for Android and a central tablet application. Simple UI with calculated values stored in the database — remote control, energy history, and bill prediction in one place.</p>
+      <div class="screenshots-grid animate-on-scroll">
+        {screenshotImages.map(img => (
+          <div class="gallery-frame">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <div class="frame-scanline"></div>
+            <div class="gallery-img-wrap">
+              <img src={img.src} alt={img.caption} loading="lazy" />
+            </div>
+            <div class="frame-hud">
+              <span class="frame-label">{img.label}</span>
+              <span class="frame-status">● LIVE</span>
+            </div>
+            <div class="frame-caption-bar">
+              <span class="frame-caption">{img.caption}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROTOTYPE IMPLEMENTATION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">DEMO FOOTAGE</span>
+        <h2 class="section-title">Prototype Implementation</h2>
+        <div class="section-divider"></div>
+      </div>
+      <p class="section-intro animate-on-scroll">The developed product is integrated and tested in a home setup including lights, fans, and other appliances. Watch both prototype demonstrations below.</p>
+      <div class="video-pair animate-on-scroll">
+        {prototypeVideos.map(v => (
+          <div class="video-block" id={`container-${v.id}`}>
+            <div class="video-frame">
+              <div class="frame-corner tl"></div>
+              <div class="frame-corner tr"></div>
+              <div class="frame-corner bl"></div>
+              <div class="frame-corner br"></div>
+              <div class="frame-scanline"></div>
+              <div class="video-hud">
+                <span class="frame-label">{v.label}</span>
+                <span class="frame-status">● READY</span>
+              </div>
+              <div class="video-thumbnail" id={`thumb-${v.id}`}>
+                <img src={`https://img.youtube.com/vi/${v.youtubeId}/maxresdefault.jpg`} alt={v.title} loading="lazy" />
+                <div class="video-overlay">
+                  <div class="play-button">
+                    <svg viewBox="0 0 68 48" width="54" height="38">
+                      <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(0,229,255,0.85)"></path>
+                      <path d="M 45,24 27,14 27,34" fill="#0a0e14"></path>
+                    </svg>
+                  </div>
+                  <span class="play-label">▶ INITIALIZE PLAYBACK</span>
+                </div>
+              </div>
+              <div class="video-player" id={`player-${v.id}`} style="display:none;">
+                <iframe
+                  id={`iframe-${v.id}`}
+                  src=""
+                  title={v.title}
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              </div>
+            </div>
+            <div class="video-meta">
+              <h4 class="video-meta-title">{v.title}</h4>
+              <p class="video-meta-desc">{v.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Prototype photos -->
+      <div class="proto-photos animate-on-scroll">
+        <div class="gallery-frame">
+          <div class="frame-corner tl"></div>
+          <div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div>
+          <div class="frame-corner br"></div>
+          <div class="gallery-img-wrap">
+            <img src="/smart-home-prototype-implementation-1.jpg" alt="Prototype implementation — hardware setup 1" loading="lazy" />
+          </div>
+          <div class="frame-caption-bar">
+            <span class="frame-caption">Prototype hardware setup — relay modules integrated with home appliances</span>
+          </div>
+        </div>
+        <div class="gallery-frame">
+          <div class="frame-corner tl"></div>
+          <div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div>
+          <div class="frame-corner br"></div>
+          <div class="gallery-img-wrap">
+            <img src="/smart-home-prototype-implementation-2.jpg" alt="Prototype implementation — hardware setup 2" loading="lazy" />
+          </div>
+          <div class="frame-caption-bar">
+            <span class="frame-caption">Multi-utility controller node — single board managing multiple appliances</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REAL WORLD IMPLEMENTATION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">FIELD DEPLOYMENT</span>
+        <h2 class="section-title">Real World Implementation</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="realworld-layout animate-on-scroll">
+        <div class="realworld-video">
+          <div class="video-frame" id="container-realworld">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <div class="frame-scanline"></div>
+            <div class="video-hud">
+              <span class="frame-label">REALWORLD_DEMO_01</span>
+              <span class="frame-status">● READY</span>
+            </div>
+            <div class="video-thumbnail" id="thumb-realworld">
+              <img src="https://img.youtube.com/vi/vnYoKdTUpxI/maxresdefault.jpg" alt="Real world implementation demo" loading="lazy" />
+              <div class="video-overlay">
+                <div class="play-button">
+                  <svg viewBox="0 0 68 48" width="54" height="38">
+                    <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(0,229,255,0.85)"></path>
+                    <path d="M 45,24 27,14 27,34" fill="#0a0e14"></path>
+                  </svg>
+                </div>
+                <span class="play-label">▶ INITIALIZE PLAYBACK</span>
+              </div>
+            </div>
+            <div class="video-player" id="player-realworld" style="display:none;">
+              <iframe
+                id="iframe-realworld"
+                src=""
+                title="Real World Smart Home Implementation"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+        </div>
+        <div class="realworld-photos">
+          <div class="gallery-frame">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <div class="gallery-img-wrap">
+              <img src="/smart-home-realworld-implementation-1.JPG" alt="Real world home installation 1" loading="lazy" />
+            </div>
+            <div class="frame-caption-bar">
+              <span class="frame-caption">Real world installation — smart relay fitted into existing switchboard</span>
+            </div>
+          </div>
+          <div class="gallery-frame">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <div class="gallery-img-wrap">
+              <img src="/smart-home-realworld-implementation-2.JPG" alt="Real world home installation 2" loading="lazy" />
+            </div>
+            <div class="frame-caption-bar">
+              <span class="frame-caption">In-home deployment — existing appliances automated with zero hardware changes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARD -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION ACCOMPLISHED</span>
+        <h2 class="section-title">Award & Recognition</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="award-grid animate-on-scroll">
+        <div class="award-card award-card--primary">
+          <div class="award-photo-wrap">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <img src="/smart-home-winning-moment-photo-pune.jpeg" alt="Winning moment SIH 2018 at NCL Pune" loading="lazy" />
+          </div>
+          <div class="award-text">
+            <div class="award-badge-row">
+              <span class="award-badge">🥈 1ST RUNNER UP</span>
+            </div>
+            <h3 class="award-title">Smart India Hackathon 2018</h3>
+            <p class="award-desc">Ranked #2 in India at the Smart India Hackathon 2018 Grand Finale held at CSR — National Chemical Laboratory (NCL), Pune, India. Smart India Hackathon is a nationwide platform by the Government of India to solve pressing societal problems through student innovation.</p>
+          </div>
+        </div>
+        <div class="award-right">
+          <div class="award-card award-card--sm">
+            <div class="award-sm-icon">🏆</div>
+            <div>
+              <h4>Trophy & Certificate</h4>
+              <p>Official 1st Runner Up trophy and certificate issued at the Grand Finale — recognizing the Smart Home system as one of India's top 2 affordable home automation solutions.</p>
+            </div>
+          </div>
+          <div class="award-card award-card--sm">
+            <div class="award-sm-icon">📰</div>
+            <div>
+              <h4>YourStory.com Recognition</h4>
+              <p>Received personal appreciation from the CEO of YourStory.com — India's leading startup media platform — for the innovation and social impact of the project.</p>
+              <a href="https://yourstory.com/2018/07/hope-over-heat-why-smart-cities-why-not-smart-huts-asks-a-young-student-in-bikaner#:~:text=It%20was%20at,the%20final%20winners." target="_blank" rel="noopener noreferrer" class="patent-link">Read the YourStory feature →</a>
+            </div>
+          </div>
+          <div class="award-card award-card--sm">
+            <div class="award-sm-icon">🏛️</div>
+            <div>
+              <h4>College Recognition</h4>
+              <p>Formally appreciated by the College Chairman, Principal and academic dignitaries for representing the institution with distinction on a national stage.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">CLASSIFIED FOOTAGE</span>
+        <h2 class="section-title">Gallery</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="gallery-grid animate-on-scroll">
+        {galleryImages.map(img => (
+          <div class="gallery-frame">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <div class="frame-scanline"></div>
+            <div class="gallery-img-wrap">
+              <img src={img.src} alt={img.caption} loading="lazy" />
+            </div>
+            <div class="frame-hud">
+              <span class="frame-label">{img.label}</span>
+              <span class="frame-status">● REC</span>
+            </div>
+            <div class="frame-caption-bar">
+              <span class="frame-caption">{img.caption}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROTOTYPE VIDEO (local) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">RAW FOOTAGE</span>
+        <h2 class="section-title">Winning Moment Video</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="video-frame-native animate-on-scroll">
+        <div class="frame-corner tl"></div>
+        <div class="frame-corner tr"></div>
+        <div class="frame-corner bl"></div>
+        <div class="frame-corner br"></div>
+        <div class="frame-scanline"></div>
+        <div class="native-video-hud">
+          <span class="frame-label">FILE: WINNING_MOMENT_SIH2018.mp4</span>
+          <span class="frame-status">● READY</span>
+        </div>
+        <video controls preload="metadata" poster="/smart-home-winning-moment-photo-pune.jpeg">
+          <source src="/smart-home-winning-moment-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACK -->
+  <div class="back-section">
+    <a href="/#projects" class="back-link-bottom">← RETURN TO PROJECTS</a>
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // YouTube video players
+    const videoMap: Record<string, string> = {
+      'proto-1':  'NGprT9-FhNg',
+      'proto-2':  'SvzY9U697Tg',
+      'realworld':'vnYoKdTUpxI',
+    };
+
+    Object.entries(videoMap).forEach(([id, ytId]) => {
+      const thumb  = document.getElementById(`thumb-${id}`);
+      const player = document.getElementById(`player-${id}`);
+      const iframe = document.getElementById(`iframe-${id}`) as HTMLIFrameElement | null;
+      if (thumb && player && iframe) {
+        thumb.addEventListener('click', () => {
+          iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+          thumb.style.display  = 'none';
+          player.style.display = 'block';
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  /* ============================================
+     HERO
+     ============================================ */
+  .project-hero {
+    position: relative;
+    min-height: 75vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .project-hero-bg { position: absolute; inset: 0; }
+  .project-hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) saturate(0.5); }
+  .project-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,14,20,0.2) 0%, rgba(10,14,20,0.65) 50%, rgba(10,14,20,0.97) 100%);
+  }
+  .project-hero-content {
+    position: relative; z-index: 2;
+    padding: var(--space-3xl) var(--space-2xl) var(--space-2xl);
+    max-width: 1200px; margin: 0 auto; width: 100%;
+  }
+  .back-link {
+    font-family: var(--font-mono); font-size: 0.75rem;
+    color: var(--color-primary-dim); text-decoration: none;
+    letter-spacing: 0.1em; display: inline-block;
+    transition: color var(--transition-fast);
+  }
+  .back-link:hover { color: var(--color-primary); }
+
+  .project-hero-meta { display: flex; align-items: center; gap: var(--space-sm); margin: var(--space-lg) 0 var(--space-md); flex-wrap: wrap; }
+  .project-badge { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em; padding: 4px 12px; border: 1px solid; text-transform: uppercase; }
+  .project-badge.runner { color: #e2e8f0; border-color: rgba(226,232,240,0.4); }
+  .project-badge.iot    { color: var(--color-warning); border-color: rgba(255,182,39,0.4); }
+  .project-badge.proto  { color: var(--color-primary); border-color: var(--color-primary-dim); }
+
+  .project-hero-title {
+    font-family: var(--font-display); font-size: clamp(2.2rem, 5.5vw, 4rem);
+    font-weight: 700; color: var(--color-text-bright);
+    line-height: 1.08; margin-bottom: var(--space-sm);
+    text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .project-hero-tagline {
+    font-family: var(--font-display); font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    color: var(--color-text-secondary); font-weight: 300;
+    margin-bottom: var(--space-md); line-height: 1.35;
+  }
+  .tagline-accent { color: var(--color-primary); font-style: italic; }
+  .project-hero-subtitle { font-size: 0.95rem; color: var(--color-text-dim); margin-bottom: var(--space-lg); max-width: 680px; line-height: 1.75; }
+
+  .project-hero-tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-bottom: var(--space-lg); }
+  .hero-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-primary-dim); padding: 3px 10px; border: 1px solid var(--color-border); letter-spacing: 0.05em; }
+
+  .project-hero-actions { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .hero-cta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-primary); text-decoration: none; letter-spacing: 0.15em; padding: var(--space-sm) var(--space-lg); border: 1px solid var(--color-primary-dim); transition: all var(--transition-normal); }
+  .hero-cta:hover { background: rgba(0,229,255,0.08); border-color: var(--color-primary); }
+  .hero-cta.secondary { color: var(--color-text-secondary); border-color: var(--color-border); }
+  .hero-cta.secondary:hover { color: var(--color-primary); border-color: var(--color-primary); background: rgba(0,229,255,0.04); }
+  .cta-bracket { color: var(--color-text-dim); }
+
+  /* ============================================
+     HIGHLIGHTS
+     ============================================ */
+  .highlights-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); padding: var(--space-xl) 0; }
+  .highlight-card { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-lg); text-align: center; display: flex; flex-direction: column; gap: var(--space-xs); transition: border-color var(--transition-normal); }
+  .highlight-card:hover { border-color: var(--color-border-bright); }
+  .highlight-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--color-primary-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .highlight-value { font-family: var(--font-display); font-size: 0.85rem; font-weight: 600; color: var(--color-text-bright); }
+
+  /* ============================================
+     SECTION COMMONS
+     ============================================ */
+  .section-header { margin-bottom: var(--space-2xl); text-align: center; }
+  .section-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-primary-dim); letter-spacing: 0.25em; display: block; margin-bottom: var(--space-sm); }
+  .section-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: var(--color-text-bright); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-md); }
+  .section-divider { width: 60px; height: 1px; background: var(--color-primary-dim); margin: 0 auto; }
+  .section-intro { text-align: center; font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.75; max-width: 700px; margin: 0 auto var(--space-2xl); }
+
+  /* ============================================
+     TOP FEATURES
+     ============================================ */
+  .top-features-grid { display: flex; gap: var(--space-lg); justify-content: center; flex-wrap: wrap; }
+  .top-feature-card {
+    display: flex; flex-direction: column; align-items: center; gap: var(--space-sm);
+    padding: var(--space-xl) var(--space-lg); background: var(--color-bg-card);
+    border: 1px solid var(--color-border); flex: 1; min-width: 140px; max-width: 200px;
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+  .top-feature-card:hover { border-color: var(--color-border-bright); transform: translateY(-3px); }
+  .top-feature-icon-wrap { position: relative; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; }
+  .top-feature-icon { font-size: 1.8rem; position: relative; z-index: 1; }
+  .icon-ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--color-border-bright); opacity: 0.4; }
+  .top-feature-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--color-text-bright); text-transform: uppercase; letter-spacing: 0.05em; text-align: center; }
+  .top-feature-subtitle { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-primary-dim); text-align: center; letter-spacing: 0.05em; }
+
+  /* ============================================
+     ABOUT
+     ============================================ */
+  .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
+  .about-img-wrap { position: relative; border: 1px solid var(--color-border); overflow: hidden; }
+  .about-img-wrap img { width: 100%; display: block; filter: saturate(0.8); }
+
+  /* ============================================
+     TERMINAL
+     ============================================ */
+  .project-terminal { background: var(--color-bg-card); border: 1px solid var(--color-border); overflow: hidden; }
+  .terminal-header-mini { display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm) var(--space-md); background: rgba(0,229,255,0.03); border-bottom: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.75rem; }
+  .terminal-prompt { color: var(--color-primary-dim); }
+  .terminal-status { color: #a78bfa88; font-size: 0.65rem; letter-spacing: 0.15em; }
+  .project-text-block { padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.8; }
+  .hl { color: var(--color-primary); font-weight: 500; }
+
+  /* ============================================
+     MODULE LIST
+     ============================================ */
+  .module-list { display: flex; flex-direction: column; gap: var(--space-lg); }
+  .module-card {
+    display: grid; grid-template-columns: 1fr 300px; gap: var(--space-xl);
+    background: var(--color-bg-card); border: 1px solid var(--color-border);
+    padding: var(--space-xl); align-items: center;
+    transition: border-color var(--transition-normal);
+  }
+  .module-card:hover { border-color: var(--color-border-bright); }
+  .module-left { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .module-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-primary-dim); letter-spacing: 0.2em; opacity: 0.7; }
+  .module-icon { font-size: 1.5rem; }
+  .module-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; letter-spacing: 0.04em; margin: 0; }
+  .module-desc { font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.75; margin: 0; }
+  .module-img-wrap { position: relative; overflow: hidden; border: 1px solid var(--color-border); flex-shrink: 0; }
+  .module-img-wrap img { width: 100%; height: 200px; object-fit: cover; display: block; filter: saturate(0.85); transition: filter var(--transition-normal); }
+  .module-card:hover .module-img-wrap img { filter: saturate(1); }
+
+  /* ============================================
+     FRAME CORNERS + SHARED
+     ============================================ */
+  .frame-corner { position: absolute; width: 12px; height: 12px; z-index: 6; pointer-events: none; }
+  .frame-corner.tl { top: 6px; left: 6px; border-top: 1px solid var(--color-primary-dim); border-left: 1px solid var(--color-primary-dim); }
+  .frame-corner.tr { top: 6px; right: 6px; border-top: 1px solid var(--color-primary-dim); border-right: 1px solid var(--color-primary-dim); }
+  .frame-corner.bl { bottom: 6px; left: 6px; border-bottom: 1px solid var(--color-primary-dim); border-left: 1px solid var(--color-primary-dim); }
+  .frame-corner.br { bottom: 6px; right: 6px; border-bottom: 1px solid var(--color-primary-dim); border-right: 1px solid var(--color-primary-dim); }
+
+  .frame-scanline { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px); z-index: 2; pointer-events: none; }
+
+  .frame-hud { position: absolute; top: 10px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 14px; z-index: 5; pointer-events: none; }
+  .frame-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--color-primary-dim); background: rgba(10,14,20,0.8); padding: 2px 7px; letter-spacing: 0.08em; }
+  .frame-status { font-family: var(--font-mono); font-size: 0.55rem; color: #ef4444; background: rgba(10,14,20,0.8); padding: 2px 7px; letter-spacing: 0.08em; }
+  .frame-caption-bar { padding: var(--space-sm) var(--space-md); background: var(--color-bg-card); border-top: 1px solid var(--color-border); flex-shrink: 0; }
+  .frame-caption { font-family: var(--font-mono); font-size: 0.62rem; color: var(--color-text-dim); display: block; line-height: 1.5; }
+
+  /* ============================================
+     GALLERY
+     ============================================ */
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+  .screenshots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+
+  .gallery-frame {
+    position: relative; background: var(--color-bg-card); border: 1px solid var(--color-border);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: border-color var(--transition-normal);
+  }
+  .gallery-frame:hover { border-color: var(--color-border-bright); }
+
+  .gallery-img-wrap { position: relative; overflow: hidden; background: #000; flex-shrink: 0; }
+  .gallery-img-wrap img { width: 100%; height: 210px; object-fit: cover; display: block; filter: saturate(0.85); transition: filter var(--transition-normal), transform var(--transition-normal); }
+  .gallery-frame:hover .gallery-img-wrap img { filter: saturate(1); transform: scale(1.03); }
+
+  /* ============================================
+     VIDEOS
+     ============================================ */
+  .video-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-bottom: var(--space-xl); }
+
+  .video-block { display: flex; flex-direction: column; gap: var(--space-md); }
+
+  .video-frame {
+    position: relative; border: 1px solid var(--color-border); background: #000; overflow: hidden;
+  }
+  .video-hud { position: absolute; top: 10px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 14px; z-index: 5; pointer-events: none; }
+
+  .video-thumbnail { position: relative; cursor: pointer; }
+  .video-thumbnail img { width: 100%; display: block; filter: saturate(0.75); aspect-ratio: 16/9; object-fit: cover; }
+  .video-thumbnail:hover img { filter: saturate(1); }
+
+  .video-overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: var(--space-sm);
+    background: rgba(10,14,20,0.4); transition: background var(--transition-normal);
+  }
+  .video-thumbnail:hover .video-overlay { background: rgba(10,14,20,0.25); }
+
+  .play-button { display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 0 12px rgba(0,229,255,0.4)); transition: transform var(--transition-normal); }
+  .video-thumbnail:hover .play-button { transform: scale(1.08); }
+
+  .play-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-primary); letter-spacing: 0.2em; background: rgba(10,14,20,0.7); padding: 3px 10px; }
+
+  .video-player { position: relative; }
+  .video-player iframe { width: 100%; aspect-ratio: 16/9; display: block; }
+
+  .video-meta { padding: var(--space-sm) 0; }
+  .video-meta-title { font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 var(--space-xs); }
+  .video-meta-desc { font-size: 0.82rem; color: var(--color-text-secondary); line-height: 1.6; margin: 0; }
+
+  .proto-photos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+
+  /* ============================================
+     REAL WORLD
+     ============================================ */
+  .realworld-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
+  .realworld-video { display: flex; flex-direction: column; }
+  .realworld-photos { display: flex; flex-direction: column; gap: var(--space-md); }
+
+  /* ============================================
+     AWARD
+     ============================================ */
+  .award-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); align-items: start; }
+  .award-card { background: var(--color-bg-card); border: 1px solid var(--color-border); overflow: hidden; }
+  .award-card--primary { border-color: rgba(226,232,240,0.25); }
+
+  .award-photo-wrap { position: relative; overflow: hidden; }
+  .award-photo-wrap img { width: 100%; height: 260px; object-fit: cover; display: block; filter: saturate(0.85); }
+
+  .award-text { padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-sm); }
+  .award-badge-row { display: flex; gap: var(--space-sm); }
+  .award-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; padding: 4px 12px; border: 1px solid rgba(226,232,240,0.3); color: #e2e8f0; }
+  .award-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--color-text-bright); text-transform: uppercase; letter-spacing: 0.03em; margin: 0; }
+  .award-desc { font-size: 0.88rem; color: var(--color-text-secondary); line-height: 1.75; margin: 0; }
+
+  .award-right { display: flex; flex-direction: column; gap: var(--space-md); }
+  .award-card--sm { display: flex; gap: var(--space-md); align-items: flex-start; padding: var(--space-lg); }
+  .award-sm-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .award-card--sm h4 { font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; margin: 0 0 var(--space-xs); letter-spacing: 0.03em; }
+  .award-card--sm p { font-size: 0.82rem; color: var(--color-text-secondary); line-height: 1.6; margin: 0; }
+
+  /* ============================================
+     NATIVE VIDEO
+     ============================================ */
+  .video-frame-native { position: relative; border: 1px solid var(--color-border); background: #000; overflow: hidden; }
+  .native-video-hud { position: absolute; top: 10px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 14px; z-index: 5; pointer-events: none; }
+  .video-frame-native video { width: 100%; max-height: 520px; display: block; }
+
+  /* ============================================
+     BACK
+     ============================================ */
+  .back-section { max-width: 1200px; margin: 0 auto; padding: var(--space-2xl); }
+  .back-link-bottom { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-primary-dim); text-decoration: none; letter-spacing: 0.1em; padding: var(--space-md) var(--space-lg); border: 1px solid var(--color-border); display: inline-block; transition: all var(--transition-normal); }
+  .back-link-bottom:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+  /* ============================================
+     ANIMATION
+     ============================================ */
+  .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 1100px) {
+    .module-card { grid-template-columns: 1fr 240px; }
+  }
+  @media (max-width: 1024px) {
+    .highlights-grid { grid-template-columns: repeat(3, 1fr); }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-layout { grid-template-columns: 1fr; }
+    .award-grid { grid-template-columns: 1fr; }
+    .realworld-layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .screenshots-grid { grid-template-columns: 1fr; }
+    .video-pair { grid-template-columns: 1fr; }
+    .proto-photos { grid-template-columns: 1fr; }
+    .module-card { grid-template-columns: 1fr; }
+    .module-img-wrap { display: none; }
+    .project-hero { min-height: 55vh; }
+  }
+  @media (max-width: 480px) {
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+    .project-hero-content { padding: var(--space-xl) var(--space-md); }
+  }
+</style>

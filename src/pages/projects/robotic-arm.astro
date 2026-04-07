@@ -1,0 +1,364 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+
+const title = "Study Table Organizing Robotic Arm | Sundeep Dayalan";
+const description = "Computer vision-powered robotic arm that autonomously detects, picks up, and organizes pens and pencils on study tables using TensorFlow and servo motor control.";
+
+const highlights = [
+  { label: "Institution", value: "UC Denver" },
+  { label: "Period", value: "Mar–May 2023" },
+  { label: "Domain", value: "Robotics + CV" },
+  { label: "Framework", value: "TensorFlow" },
+];
+
+const implementation = [
+  { step: "Image Capture", desc: "HD webcam captures high-resolution images of the study table surface in real-time." },
+  { step: "Object Detection", desc: "TensorFlow model trained to accurately recognize and classify pens and pencils from the captured frames." },
+  { step: "Coordinate Mapping", desc: "Custom algorithm determines precise object coordinates in 3D space relative to the robotic arm base." },
+  { step: "Servo Control", desc: "Python serial communication drives precise servo motor movements for arm positioning." },
+  { step: "Object Grasping", desc: "Robotic claw activates to grip the detected pen with controlled force." },
+  { step: "Placement", desc: "Algorithm determines pen holder location and the arm places objects with precision." },
+];
+
+const contributions = [
+  "Led design of robotic arm control algorithm",
+  "Developed coordination algorithms for object coordinates in 3D space",
+  "Contributed to Python programming for image processing and arm control",
+  "Designed a user-friendly interface for seamless interaction",
+];
+
+const challenges = [
+  "Single pen placement limitation — optimizing for sequential multi-object handling",
+  "4DoF robotic arm constraints — compensating for limited degrees of freedom",
+  "Webcam coverage limitations — maximizing detection area with constrained field of view",
+];
+
+const techStack = ["Python", "TensorFlow", "Computer Vision", "Robotics", "Servo Motors", "Serial Communication", "OpenCV", "HD Webcam"];
+
+const keywords = "robotic arm computer vision, TensorFlow object detection, pen organizer robot, servo motor control, autonomous robotics, study table organizer, UC Denver project, Sundeep Dayalan";
+
+const additionalLD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "Study Table Organizing Robotic Arm",
+    "description": "Computer vision-powered robotic arm that autonomously detects, picks up, and organizes pens and pencils on study tables using TensorFlow object detection and precision servo motor control.",
+    "url": "https://www.sundeepdayalan.in/projects/robotic-arm",
+    "creator": {
+      "@type": "Person",
+      "name": "Sundeep Dayalan",
+      "url": "https://www.sundeepdayalan.in"
+    },
+    "dateCreated": "2023",
+    "keywords": "robotic arm, computer vision, TensorFlow, object detection, servo motors, Python"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sundeepdayalan.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.sundeepdayalan.in/#projects" },
+      { "@type": "ListItem", "position": 3, "name": "Study Table Organizing Robotic Arm", "item": "https://www.sundeepdayalan.in/projects/robotic-arm" }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/project-robotic-arm.png"
+  keywords={keywords}
+  additionalLD={additionalLD}
+>
+  <Navbar />
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="project-hero-bg">
+      <img src="/project-robotic-arm.png" alt="Study Table Organizing Robotic Arm — computer vision robotic system" width="1200" height="600" loading="eager" />
+      <div class="project-hero-overlay"></div>
+    </div>
+    <div class="project-hero-content">
+      <a href="/#projects" class="back-link">← RETURN TO BASE</a>
+      <div class="project-hero-meta">
+        <span class="project-badge">UC DENVER</span>
+        <span class="project-badge green">ROBOTICS × CV</span>
+        <span class="project-date">Mar 2023 — May 2023</span>
+      </div>
+      <h1 class="project-hero-title">Study Table Organizing Robotic Arm</h1>
+      <p class="project-hero-subtitle">Merging computer vision and robotics to automate the organization of pens and pencils on study tables using TensorFlow-powered object detection and precision servo control.</p>
+      <div class="project-hero-tags">
+        {techStack.map(tag => <span class="hero-tag">{tag}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="section">
+    <div class="container">
+      <div class="highlights-grid">
+        {highlights.map(h => (
+          <div class="highlight-card">
+            <span class="highlight-label">{h.label}</span>
+            <span class="highlight-value">{h.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION BRIEFING</span>
+        <h2 class="section-title">About the Project</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat robotic_arm_brief.txt</span>
+          <span class="terminal-status">DECRYPTING...</span>
+        </div>
+        <div class="project-text-block">
+          <p>This project merges <span class="hl">computer vision</span> and <span class="hl">robotics</span> to automate a surprisingly common task — keeping a study table organized. The robotic arm autonomously detects pens and pencils scattered on a desk, picks them up, and places them neatly in a holder.</p>
+          <p>Using an <span class="hl">HD webcam</span> for image capture, a <span class="hl">TensorFlow</span>-trained model for object detection, and custom algorithms for coordinate determination and <span class="hl">servo motor control</span>, the system achieves end-to-end automation from detection to placement.</p>
+          <p>Built as an academic project at the <span class="hl">University of Colorado Denver</span>, it demonstrates practical applications of ML-powered robotics in everyday environments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPLEMENTATION PIPELINE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">EXECUTION PIPELINE</span>
+        <h2 class="section-title">Implementation</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="pipeline">
+        {implementation.map((item, i) => (
+          <div class="pipeline-step animate-on-scroll" style={`--delay: ${i * 100}ms`}>
+            <div class="step-number">{String(i + 1).padStart(2, '0')}</div>
+            <div class="step-content">
+              <h3 class="step-title">{item.step}</h3>
+              <p class="step-desc">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">DEMO FOOTAGE</span>
+        <h2 class="section-title">Project Action & Explanation</h2>
+        <div class="section-divider"></div>
+      </div>
+      
+      <div class="videos-grid">
+        <div class="video-item animate-on-scroll">
+          <div class="video-frame">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <div class="frame-scanline"></div>
+            <video autoplay loop muted playsinline class="project-video">
+              <source src="/table-organiser-robot-demo-web.mp4" type="video/mp4" />
+            </video>
+            <div class="frame-hud">
+              <span class="frame-label">PROJECT_DEMO_01</span>
+              <span class="frame-status">● LIVE</span>
+            </div>
+            <div class="frame-caption-bar">
+              <span class="frame-caption">Robotic Arm Action Demo</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="video-item animate-on-scroll" style="--delay: 200ms">
+          <div class="video-frame">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <div class="frame-scanline" style="--scan-delay: 0.7s"></div>
+            <video autoplay loop muted playsinline class="project-video">
+              <source src="/table-organiser-robot-explaination.mp4" type="video/mp4" />
+            </video>
+            <div class="frame-hud">
+              <span class="frame-label">SYSTEM_EXPLANATION_02</span>
+              <span class="frame-status">● LIVE</span>
+            </div>
+            <div class="frame-caption-bar">
+              <span class="frame-caption">Project Technical Explanation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRIBUTIONS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">OPERATOR LOG</span>
+        <h2 class="section-title">My Contributions</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block animate-on-scroll">
+        {contributions.map(item => (
+          <div class="list-item"><span class="bullet-icon">▸</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">THREAT ANALYSIS</span>
+        <h2 class="section-title">Challenges Overcome</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block warn animate-on-scroll">
+        {challenges.map(item => (
+          <div class="list-item"><span class="bullet-icon warn">⚠</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ACKNOWLEDGMENT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SUPERVISION</span>
+        <h2 class="section-title">Acknowledgment</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat acknowledgment.txt</span>
+          <span class="terminal-status">DECRYPTING...</span>
+        </div>
+        <div class="project-text-block">
+          <p>This system was designed and developed as an academic project at the <span class="hl">University of Colorado Denver</span> under the supervision of Professor <a href="https://cse.ucdenver.edu/mazen-alborno/" target="_blank" rel="noopener noreferrer" class="hl" style="text-decoration: underline; text-underline-offset: 4px;">Dr. Mazen Alborno</a>. I extend my gratitude for his invaluable technical guidance, mentorship, and for supporting access to the robotic arm hardware essential for completing this project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="back-section">
+    <a href="/#projects" class="back-link-bottom">← RETURN TO PROJECTS</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .project-hero { position: relative; min-height: 70vh; display: flex; align-items: flex-end; overflow: hidden; }
+  .project-hero-bg { position: absolute; inset: 0; }
+  .project-hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) saturate(0.6); }
+  .project-hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,20,0.3) 0%, rgba(10,14,20,0.7) 50%, rgba(10,14,20,0.95) 100%); }
+  .project-hero-content { position: relative; z-index: 2; padding: var(--space-3xl) var(--space-2xl) var(--space-2xl); max-width: 1200px; margin: 0 auto; width: 100%; }
+  .back-link { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-primary-dim); text-decoration: none; letter-spacing: 0.1em; display: inline-block; transition: color var(--transition-fast); }
+  .back-link:hover { color: var(--color-primary); }
+  .project-hero-meta { display: flex; align-items: center; gap: var(--space-sm); margin: var(--space-lg) 0 var(--space-md); flex-wrap: wrap; }
+  .project-badge { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em; padding: 4px 12px; border: 1px solid; text-transform: uppercase; color: var(--color-warning); border-color: rgba(255,182,39,0.4); }
+  .project-badge.green { color: var(--color-secondary); border-color: var(--color-secondary-dim); }
+  .project-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-dim); letter-spacing: 0.05em; }
+  .project-hero-title { font-family: var(--font-display); font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 700; color: var(--color-text-bright); line-height: 1.1; margin-bottom: var(--space-md); text-transform: uppercase; }
+  .project-hero-subtitle { font-size: 1.05rem; color: var(--color-text-secondary); margin-bottom: var(--space-lg); max-width: 700px; line-height: 1.6; }
+  .project-hero-tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+  .hero-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-primary-dim); padding: 3px 10px; border: 1px solid var(--color-border); letter-spacing: 0.05em; }
+
+  .highlights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); padding: var(--space-xl) 0; }
+  .highlight-card { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-lg); text-align: center; display: flex; flex-direction: column; gap: var(--space-xs); transition: border-color var(--transition-normal); }
+  .highlight-card:hover { border-color: var(--color-border-bright); }
+  .highlight-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--color-primary-dim); letter-spacing: 0.15em; }
+  .highlight-value { font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; color: var(--color-text-bright); }
+
+  .project-terminal { background: var(--color-bg-card); border: 1px solid var(--color-border); overflow: hidden; }
+  .terminal-header-mini { display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm) var(--space-md); background: rgba(0,229,255,0.03); border-bottom: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.75rem; }
+  .terminal-prompt { color: var(--color-primary-dim); }
+  .terminal-status { color: var(--color-secondary-dim); font-size: 0.65rem; letter-spacing: 0.15em; }
+  .project-text-block { padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.8; }
+  .hl { color: var(--color-primary); font-weight: 500; }
+
+  /* Pipeline */
+  .pipeline { display: flex; flex-direction: column; gap: var(--space-md); }
+  .pipeline-step { display: flex; gap: var(--space-lg); background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-lg) var(--space-xl); align-items: flex-start; transition: border-color var(--transition-normal); }
+  .pipeline-step:hover { border-color: var(--color-border-bright); }
+  .step-number { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-primary-dim); flex-shrink: 0; min-width: 40px; line-height: 1; }
+  .step-content { display: flex; flex-direction: column; gap: var(--space-xs); }
+  .step-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; }
+  .step-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; }
+
+  /* Videos */
+  .videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); width: 100%; }
+  .video-frame {
+    position: relative; overflow: hidden; background: var(--color-bg-panel); border: 1px solid var(--color-border);
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+  }
+  .video-frame:hover { border-color: var(--color-primary-dim); box-shadow: 0 0 25px rgba(0, 229, 255, 0.08), inset 0 0 40px rgba(0, 229, 255, 0.02); }
+  
+  .frame-corner { position: absolute; width: 16px; height: 16px; z-index: 3; transition: all var(--transition-normal); }
+  .frame-corner.tl { top: 6px; left: 6px; border-top: 2px solid var(--color-primary-dim); border-left: 2px solid var(--color-primary-dim); }
+  .frame-corner.tr { top: 6px; right: 6px; border-top: 2px solid var(--color-primary-dim); border-right: 2px solid var(--color-primary-dim); }
+  .frame-corner.bl { bottom: 6px; left: 6px; border-bottom: 2px solid var(--color-primary-dim); border-left: 2px solid var(--color-primary-dim); }
+  .frame-corner.br { bottom: 6px; right: 6px; border-bottom: 2px solid var(--color-primary-dim); border-right: 2px solid var(--color-primary-dim); }
+  
+  .video-frame:hover .frame-corner { border-color: var(--color-primary); }
+  .video-frame:hover .frame-corner.tl { top: 4px; left: 4px; }
+  .video-frame:hover .frame-corner.tr { top: 4px; right: 4px; }
+  .video-frame:hover .frame-corner.bl { bottom: 4px; left: 4px; }
+  .video-frame:hover .frame-corner.br { bottom: 4px; right: 4px; }
+
+  .frame-scanline {
+    position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.4), transparent);
+    z-index: 4; opacity: 0; animation: frame-scan 4s linear infinite; animation-delay: var(--scan-delay, 0s);
+  }
+  @keyframes frame-scan { 0% { top: -3px; opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+  .project-video { width: 100%; height: auto; display: block; filter: saturate(0.8) contrast(1.05); transition: transform var(--transition-normal), filter var(--transition-normal); }
+  .video-frame:hover .project-video { filter: saturate(1) contrast(1.1); transform: scale(1.02); }
+
+  .frame-hud {
+    position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
+    background: linear-gradient(180deg, rgba(10, 14, 20, 0.8), transparent); z-index: 2; font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em;
+  }
+  .frame-label { color: var(--color-primary-dim); }
+  .frame-status { color: var(--color-secondary); font-size: 0.5rem; }
+
+  .frame-caption-bar {
+    position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(10, 14, 20, 0.9));
+    padding: var(--space-lg) var(--space-md) var(--space-sm); z-index: 2; transform: translateY(100%); transition: transform var(--transition-normal);
+  }
+  .video-frame:hover .frame-caption-bar { transform: translateY(0); }
+  .frame-caption { font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-secondary); letter-spacing: 0.05em; }
+
+  /* Lists */
+  .list-block { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
+  .list-block.warn { border-color: rgba(255,182,39,0.2); }
+  .list-item { display: flex; align-items: flex-start; gap: var(--space-sm); font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .bullet-icon { color: var(--color-primary); flex-shrink: 0; margin-top: 2px; }
+  .bullet-icon.warn { color: var(--color-warning); }
+
+  .back-section { max-width: 1200px; margin: 0 auto; padding: var(--space-2xl); }
+  .back-link-bottom { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-primary-dim); text-decoration: none; letter-spacing: 0.1em; padding: var(--space-md) var(--space-lg); border: 1px solid var(--color-border); display: inline-block; transition: all var(--transition-normal); }
+  .back-link-bottom:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+  .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) { .highlights-grid { grid-template-columns: repeat(2, 1fr); } .project-hero { min-height: 50vh; } .videos-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .highlights-grid { grid-template-columns: 1fr; } .project-hero-content { padding: var(--space-xl) var(--space-md); } .pipeline-step { flex-direction: column; gap: var(--space-sm); } }
+</style>

@@ -1,0 +1,17 @@
+/* TEAM */
+Developer & Designer: Sundeep Dayalan
+Site: https://www.sundeepdayalan.in
+LinkedIn: https://www.linkedin.com/in/sundeep-dayalan
+GitHub: https://github.com/sundeep-dayalan
+Location: Columbus, Ohio, USA
+
+/* THANKS */
+Astro — https://astro.build
+Google Fonts — https://fonts.google.com
+
+/* SITE */
+Last update: 2026/04
+Language: English
+Standards: HTML5, CSS3
+Components: Astro, TypeScript
+Hosted on: Static hosting

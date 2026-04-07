@@ -1,0 +1,1533 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+
+const title = "Digital Traffic Management System | Sundeep Dayalan";
+const description = "Smart India Hackathon 2019 #1 Winner — ML-powered traffic management system with emergency vehicle prioritization, pothole detection, and real-time signal control. ₹1,00,000 cash award by Maruti Suzuki & Government of India.";
+
+const highlights = [
+  { label: "Award", value: "₹1,00,000 Prize" },
+  { label: "Rank", value: "#1 in India" },
+  { label: "Event", value: "SIH 2019" },
+  { label: "Patent", value: "202041024036" },
+  { label: "Sponsor", value: "Maruti Suzuki" },
+  { label: "Recognition", value: "Gov. of India" },
+];
+
+const topFeatures = [
+  { title: "ML Based Live", subtitle: "Traffic Density", icon: "🚦" },
+  { title: "Emergency", subtitle: "Vehicle Routing", icon: "🚑" },
+  { title: "Pothole", subtitle: "Detection", icon: "🕳️" },
+  { title: "Live", subtitle: "Navigation (INS)", icon: "🗺️" },
+  { title: "Remote", subtitle: "Control Interface", icon: "🖥️" },
+];
+
+const modules = [
+  {
+    num: "01",
+    title: "Traffic Density Calculation",
+    icon: "🚦",
+    img: "/traffic-live-signal-status.png",
+    desc: "Instead of tracking every vehicle, we painted horizontal slot words (BAY 1, BAY 2, BAY 3) on road surfaces. CCTV cameras use Tesseract OCR + OpenCV to detect which words are hidden by vehicles — giving a real-time density level (0–3) that dynamically triggers signal timing. No fixed timers, no wasted green time.",
+  },
+  {
+    num: "02",
+    title: "Intelligent Navigation System (INS)",
+    icon: "🗺️",
+    img: "/traffic-user-navigation-map-live-signal.PNG",
+    desc: "A dedicated GPS-based navigation system for emergency and regular vehicles. As an ambulance approaches a junction, INS syncs wirelessly with STC, turns that lane green, forces all others red — with zero driver interaction. Nearby drivers simultaneously receive: 'Save a Life! Please keep left as ambulance is heading forward.'",
+  },
+  {
+    num: "03",
+    title: "Traffic Violation Detection",
+    icon: "📷",
+    img: "/traffic-vehicle-violations.png",
+    desc: "When a signal is red, the system scans for the stop line using computer vision. Any vehicle crossing the line is flagged — its license plate extracted via OCR and stored in the cloud with a timestamp. If CCTV is absent and the driver uses INS, the app captures the violation and pushes it to the server automatically.",
+  },
+  {
+    num: "04",
+    title: "Pothole Detection Module",
+    icon: "🕳️",
+    img: "/traffic-realtime-pothole-detection.jpg",
+    desc: "A trained object detection model running on dashboard cameras identifies potholes in real time with up to 99% confidence. The exact GPS coordinates are sent to the server and plotted on INS maps. Drivers approaching that location receive a geofenced alert — crowdsourcing road safety data for proactive government maintenance.",
+  },
+  {
+    num: "05",
+    title: "Extraordinary Event Detection",
+    icon: "📡",
+    img: "/traffic-communication-with-server-flow.png",
+    desc: "The system scrapes news articles and web headlines to detect protests, parades, VIP convoys, and accidents. Locations are extracted from the JSON payload and plotted as markers on the INS map. Data refreshes continuously so drivers re-route before reaching congestion. Police can also lock down road segments remotely.",
+  },
+  {
+    num: "06",
+    title: "Control Interface (Cloud Dashboard)",
+    icon: "🖥️",
+    img: "/traffic-traffice-police-dashboard.png",
+    desc: "A centralized dashboard gives traffic police remote control over every signal in the city. Operators can view real-time density data, change signal states, block roads for special events, view live CCTV feeds, and monitor violation logs — all without stepping onto the street.",
+  },
+  {
+    num: "07",
+    title: "Smart Traffic Controller (STC)",
+    icon: "⚡",
+    img: "/traffic-hardware.png",
+    desc: "The STC is a hardware device installed on existing traffic light poles — no infrastructure replacement required. It runs on 240V AC converted to 12V DC, with a 4-channel relay. It communicates via a private network with the server. When offline, it auto-falls back to SMPP-encoded SMS via Non-cellular Data Transmission, ensuring zero downtime.",
+  },
+  {
+    num: "08",
+    title: "Emergency Vehicle Prioritization",
+    icon: "🔔",
+    img: "/traffic-stc-device-sync.jpg",
+    desc: "GPS modules embedded in ambulances broadcast real-time location. When the vehicle enters the pre-defined radius of a junction, INS and STC auto-sync: that lane turns green, all others red, and the state pushes to cloud — alerting all drivers along the route. The system coordinates multiple junctions simultaneously along the full emergency corridor.",
+  },
+];
+
+const bayLevels = [
+  { level: "0", color: "#00e5ff",  img: "/traffic-level0.png", signal: "NO SIGNAL",   duration: "—",      desc: "All bays visible. No vehicles. Green not triggered — saves unnecessary wait cycles." },
+  { level: "1", color: "#22c55e",  img: "/traffic-level1.png", signal: "GREEN — 20s",  duration: "20 SEC", desc: "BAY 1 hidden. Low density. 20 seconds of green — sufficient for queue clearance." },
+  { level: "2", color: "#f59e0b",  img: "/traffic-level2.png", signal: "GREEN — 40s",  duration: "40 SEC", desc: "BAY 1 & 2 hidden. Medium density. 40 seconds for moderate traffic throughput." },
+  { level: "3", color: "#ef4444",  img: "/traffic-level3.png", signal: "GREEN — 60s",  duration: "60 SEC", desc: "All 3 bays hidden. Max density. Full 60-second green for complete intersection clearance." },
+];
+
+const galleryImages = [
+  { src: "/traffic-prototype.PNG",                   label: "PROTOTYPE_01",  caption: "Hardware prototype — STC device with signal model, built by team Musketeers" },
+  { src: "/traffic-control-interfacePNG.PNG",         label: "CTRL_UI_02",    caption: "Control Interface — traffic police dashboard with lane density monitoring" },
+  { src: "/traffic-traffice-police-dashboard.png",    label: "DASHBOARD_03",  caption: "City Traffic Police dashboard — Locate Signals, Traffic Violations, Event Recognition" },
+  { src: "/traffic-android-auto.PNG",                 label: "INS_USER_04",   caption: "Android Auto — INS dashboard with live signal status and lane traffic density" },
+  { src: "/traffic-ambulance-demo.png",               label: "AMBULANCE_05",  caption: "Emergency INS — ambulance entry/exit points auto-synced with STC for green corridor" },
+  { src: "/traffic-notification-by-ins.jpg",          label: "ALERT_06",      caption: "'Save a Life' — push notification sent to nearby drivers when ambulance approaches" },
+  { src: "/traffic-realtime-pothole-detection.jpg",   label: "POTHOLE_07",    caption: "Realtime pothole detection via dashboard camera — 99% confidence, trained CV model" },
+  { src: "/traffic-live-signal-status.png",           label: "SIGNAL_08",     caption: "Live traffic signal status — map markers show real-time state and wait time" },
+  { src: "/traffic-vehicle-violations.png",           label: "VIOLATION_09",  caption: "City dashboard — violation log with license plates and timestamp analytics" },
+  { src: "/traffic-stc-device-sync.jpg",              label: "SYNC_10",       caption: "INS syncing with nearby STC — Lane A at Eswara Doss Street, Chennai" },
+  { src: "/traffic-winner-check.jpg",                 label: "AWARD_11",      caption: "Winner of SIH 2019 — ₹1,00,000 cheque by Maruti Suzuki & Banaras Hindu University" },
+  { src: "/traffic-team-picture.jpg",                 label: "TEAM_12",       caption: "Team Musketeers with Prof. Anil D. Sahasrabudhe, Chairman AICTE — Grand Finale, March 2019" },
+];
+
+const jury = [
+  { name: "Abhijit Bora",    role: "Deputy General Manager\nMaruti Suzuki India Limited",  img: "/traffic-jury-abijith.jpg" },
+  { name: "Nikhil Madan",    role: "Senior Manager\nMaruti Suzuki India Limited",           img: "/traffic-jury-nikhil-mohan.jpg" },
+];
+
+const techStack = ["OpenCV", "Tesseract OCR", "TensorFlow", "Python", "Node.js", "Firebase", "Google Maps API", "Arduino", "Raspberry Pi", "IoT", "GPS", "Android", "SMPP Protocol", "Computer Vision"];
+
+const keywords = "digital traffic management system, smart traffic control, machine learning traffic, computer vision traffic, Smart India Hackathon 2019, emergency vehicle prioritization, pothole detection, IoT traffic, Sundeep Dayalan";
+
+const additionalLD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Digital Traffic Management System",
+    "description": "ML-powered city-scale traffic management system with real-time computer vision, emergency vehicle prioritization, pothole detection, traffic violation capture, and remote police dashboard.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Cloud, Android, IoT",
+    "url": "https://www.sundeepdayalan.in/projects/smart-traffic-management",
+    "creator": {
+      "@type": "Person",
+      "name": "Sundeep Dayalan",
+      "url": "https://www.sundeepdayalan.in"
+    },
+    "award": "Smart India Hackathon 2019 — 1st Place, ₹1,00,000 — Government of India & Maruti Suzuki",
+    "dateCreated": "2019",
+    "keywords": "traffic management, machine learning, computer vision, IoT, smart city, emergency vehicle routing"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sundeepdayalan.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.sundeepdayalan.in/#projects" },
+      { "@type": "ListItem", "position": 3, "name": "Digital Traffic Management System", "item": "https://www.sundeepdayalan.in/projects/smart-traffic-management" }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/project-traffic.png"
+  keywords={keywords}
+  additionalLD={additionalLD}
+>
+  <Navbar />
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="project-hero-bg">
+      <img src="/project-traffic.png" alt="Smart Traffic Management System" width="1200" height="600" loading="eager" />
+      <div class="project-hero-overlay"></div>
+    </div>
+    <div class="project-hero-content">
+      <a href="/#projects" class="back-link">← RETURN TO BASE</a>
+      <div class="project-hero-meta">
+        <span class="project-badge winner">🏆 INDIA #1</span>
+        <span class="project-badge gov">GOV. RECOGNIZED</span>
+        <span class="project-badge patent">PATENT FILED</span>
+      </div>
+      <h1 class="project-hero-title">Digital Traffic<br/>Management System</h1>
+      <p class="project-hero-tagline">Smarter Roads.<br/><span class="tagline-accent">Faster Ambulances. Safer Cities.</span></p>
+      <p class="project-hero-subtitle">An ML-powered traffic ecosystem that dynamically controls city signals, prioritizes emergency vehicles, detects potholes, and flags traffic violations — built and won at Smart India Hackathon 2019 against teams from across the entire country.</p>
+      <div class="project-hero-tags">
+        {techStack.map(tag => <span class="hero-tag">{tag}</span>)}
+      </div>
+      <div class="project-hero-actions">
+        <a href="https://link.springer.com/chapter/10.1007/978-3-030-77637-4_2" target="_blank" rel="noopener noreferrer" class="hero-cta">
+          <span class="cta-bracket">[</span> READ PUBLICATION <span class="cta-bracket">]</span>
+        </a>
+        <a href="/media-hits" class="hero-cta secondary">
+          <span class="cta-bracket">[</span> VIEW MEDIA COVERAGE <span class="cta-bracket">]</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="section">
+    <div class="container">
+      <div class="highlights-grid">
+        {highlights.map(h => (
+          <div class="highlight-card">
+            <span class="highlight-label">{h.label}</span>
+            <span class="highlight-value">{h.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TOP FEATURES OVERVIEW -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM CAPABILITIES</span>
+        <h2 class="section-title">What This System Does</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="top-features-grid">
+        {topFeatures.map((feat, i) => (
+          <div class="top-feature-card animate-on-scroll" style={`animation-delay: ${i * 100}ms`}>
+            <div class="top-feature-icon-wrap">
+              <span class="top-feature-icon">{feat.icon}</span>
+              <div class="icon-ring"></div>
+            </div>
+            <span class="top-feature-title">{feat.title}</span>
+            <span class="top-feature-subtitle">{feat.subtitle}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM STATEMENT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION BRIEFING</span>
+        <h2 class="section-title">The Problem</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat india_traffic_crisis.txt</span>
+          <span class="terminal-status">DECRYPTING...</span>
+        </div>
+        <div class="project-text-block">
+          <p>India's traffic congestion problem isn't just inconvenient — it's <span class="hl">lethal</span>. Every day, <span class="hl">1,214 road crashes</span> occur across the country. Most are caused by traffic violations or congestion-induced risk. In 2017 alone, <span class="hl">3,597 people were killed due to potholes</span>.</p>
+          <p>Intelligent Transport Systems (ITS) exist in developed nations, but the cost of implementation, maintenance, and per-vehicle tracking is prohibitively high for India. Emergency vehicles — ambulances, fire engines — are stuck in the same traffic as everyone else. Not a single second saved when lives are on the line.</p>
+          <p>The <span class="hl">Maruti Suzuki</span> problem statement at Smart India Hackathon 2019 challenged teams across India: build a cost-effective, scalable, ML-driven traffic system that could actually be deployed on Indian roads — without replacing existing infrastructure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">OPERATION CLEARWAY</span>
+        <h2 class="section-title">Our Solution</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat solution_overview.txt</span>
+          <span class="terminal-status">VERIFIED ✓</span>
+        </div>
+        <div class="project-text-block">
+          <p>Instead of tracking every vehicle — computationally expensive and data-heavy — we use a <span class="hl">Bay Detection approach</span>: horizontal slot words painted on road surfaces are monitored by existing CCTV cameras. When vehicles obscure the words, density is measured instantly using OCR. This eliminates costly per-vehicle sensors entirely.</p>
+          <p>The <span class="hl">Smart Traffic Controller (STC)</span> device installs on any existing traffic light pole, making the system fully backward-compatible. It receives density values from the cloud and triggers signals dynamically — no fixed timing, no manual control required.</p>
+          <p>For emergency vehicles, our <span class="hl">Intelligent Navigation System (INS)</span> syncs with STC automatically when an ambulance enters junction range, creating an instant green corridor. Regular drivers are simultaneously notified via voice alerts. The system is self-healing: if the network drops, STC falls back to SMPP-based SMS, maintaining zero downtime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 SYSTEM MODULES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM ARCHITECTURE</span>
+        <h2 class="section-title">8 Modules We Built</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="module-list">
+        {modules.map((mod) => (
+          <div class="module-card animate-on-scroll">
+            <div class="module-left">
+              <span class="module-num">{mod.num}</span>
+              <span class="module-icon">{mod.icon}</span>
+              <h3 class="module-title">{mod.title}</h3>
+              <p class="module-desc">{mod.desc}</p>
+            </div>
+            <div class="module-img-wrap">
+              <div class="frame-corner tl"></div>
+              <div class="frame-corner tr"></div>
+              <div class="frame-corner bl"></div>
+              <div class="frame-corner br"></div>
+              <img src={mod.img} alt={mod.title} loading="lazy" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BAY DETECTION LEVELS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">CORE ALGORITHM</span>
+        <h2 class="section-title">Bay Detection System</h2>
+        <div class="section-divider"></div>
+      </div>
+      <p class="section-intro animate-on-scroll">Each lane is divided into 3 bays with words painted on the road. CCTV cameras with OCR check which labels are hidden by vehicles, generating a density level 0–3. The STC device fires the exact green duration — no vehicles, no wasted green time.</p>
+      <div class="bay-grid animate-on-scroll">
+        {bayLevels.map(bay => (
+          <div class="bay-card" style={`--bay-color: ${bay.color}`}>
+            <div class="bay-header">
+              <span class="bay-level">LEVEL {bay.level}</span>
+              <span class="bay-signal">{bay.signal}</span>
+            </div>
+            <div class="bay-img-wrap">
+              <img src={bay.img} alt={`Level ${bay.level} bay detection`} loading="lazy" />
+            </div>
+            <p class="bay-desc">{bay.desc}</p>
+            <div class="bay-duration">
+              <span class="bay-dur-label">GREEN DURATION</span>
+              <span class="bay-dur-val">{bay.duration}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEM DIAGRAMS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">TECHNICAL DIAGRAMS</span>
+        <h2 class="section-title">System Design</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="diagrams-grid animate-on-scroll">
+        <div class="diagram-frame">
+          <div class="frame-corner tl"></div>
+          <div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div>
+          <div class="frame-corner br"></div>
+          <img src="/traffic-cctv-placement-image.png" alt="CCTV camera placement above traffic signals" loading="lazy" />
+          <div class="diagram-label">CCTV PLACEMENT — Camera positioning for density detection</div>
+        </div>
+        <div class="diagram-frame">
+          <div class="frame-corner tl"></div>
+          <div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div>
+          <div class="frame-corner br"></div>
+          <img src="/traffic-communication-with-server-flow.png" alt="Communication with server flow diagram" loading="lazy" />
+          <div class="diagram-label">SERVER FLOW — CCTV → Processing → STC communication chain</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATENT & PUBLICATION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">CLASSIFIED INTEL</span>
+        <h2 class="section-title">Patent & Publication</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="patent-grid animate-on-scroll">
+        <div class="patent-card">
+          <span class="patent-badge">PATENT PENDING</span>
+          <h3>Live Digital Traffic Management System</h3>
+          <p>Registered under the Ministry of Commerce and Industry, Government of India. Application number: <strong>202041024036</strong>. The entire concept — Bay Detection algorithm and STC hardware design — is IP-protected.</p>
+          <a href="https://drive.google.com/file/d/1Ur__gmwB91YKjq48sG-yFrC1cBP3nKmA/view" target="_blank" rel="noopener noreferrer" class="patent-link">View Patent Document →</a>
+        </div>
+        <div class="patent-card">
+          <span class="patent-badge pub">SPRINGER PUBLICATION</span>
+          <h3>Intelligent Traffic Management using ML and IoT</h3>
+          <p>Peer-reviewed research published in Springer Journal. Documents the full system architecture, ML models, and deployment results from the Smart India Hackathon 2019 prototype.</p>
+          <a href="https://link.springer.com/chapter/10.1007/978-3-030-77637-4_2" target="_blank" rel="noopener noreferrer" class="patent-link">DOI: 10.1007/978-3-030-77637-4_2 →</a>
+        </div>
+        <div class="patent-card">
+          <span class="patent-badge gov">COPYRIGHT RECORD</span>
+          <h3>Digital Traffic Management Software Idea Copyright</h3>
+          <p>Official software concept copyright registration covering the intelligent Bay Detection System and STC hardware interactions.</p>
+          <a href="https://drive.google.com/file/d/1NrXzeD30T9rA4qHtdrpEinY-YCkyFL0H/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="patent-link">View Copyright Document →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">CLASSIFIED FOOTAGE</span>
+        <h2 class="section-title">Project Gallery</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="gallery-grid animate-on-scroll">
+        {galleryImages.map((img) => (
+          <div class="gallery-frame">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <div class="frame-scanline"></div>
+            <div class="gallery-img-wrap">
+              <img src={img.src} alt={img.caption} loading="lazy" />
+            </div>
+            <div class="frame-hud">
+              <span class="frame-label">{img.label}</span>
+              <span class="frame-status">● REC</span>
+            </div>
+            <div class="frame-caption-bar">
+              <span class="frame-caption">{img.caption}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">DEMO FOOTAGE</span>
+        <h2 class="section-title">Prototype in Action</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="video-frame animate-on-scroll">
+        <div class="frame-corner tl"></div>
+        <div class="frame-corner tr"></div>
+        <div class="frame-corner bl"></div>
+        <div class="frame-corner br"></div>
+        <div class="frame-scanline"></div>
+        <div class="video-hud">
+          <span class="frame-label">FILE: TRAFFIC_PROTOTYPE_DEMO.mp4</span>
+          <span class="frame-status">● READY</span>
+        </div>
+        <video controls preload="metadata" poster="/traffic-prototype.PNG">
+          <source src="/traffic-Project-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARD & RECOGNITION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION ACCOMPLISHED</span>
+        <h2 class="section-title">Award & Recognition</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="award-grid animate-on-scroll">
+        <div class="award-card award-card--primary">
+          <div class="award-check-img">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <img src="/traffic-winner-check.jpg" alt="SIH 2019 Winner cheque — ₹1,00,000" loading="lazy" />
+          </div>
+          <div class="award-text">
+            <div class="award-amount">₹1,00,000</div>
+            <span class="award-amount-label">Cash Award — One Lakh Rupees</span>
+            <h3 class="award-title">Winner of Smart India Hackathon 2019</h3>
+            <p class="award-desc">Grand Finale — Software Edition, 2nd & 3rd March 2019 at Banaras Hindu University, Varanasi. Team Musketeers was officially declared #1 by Maruti Suzuki and the Government of India.</p>
+          </div>
+        </div>
+        <div class="award-right">
+          <div class="award-card award-card--sm">
+            <div class="award-sm-icon">📰</div>
+            <div>
+              <h4>Media Coverage</h4>
+              <p>Telecasted and published across multiple news channels and newspapers in India.</p>
+              <a href="/media-hits" class="patent-link">View media coverage →</a>
+            </div>
+          </div>
+          <div class="award-card award-card--sm">
+            <div class="award-sm-icon">🏛️</div>
+            <div>
+              <h4>National Recognition</h4>
+              <p>Recognized by MHRD (Ministry of Human Resource Development), Government of India, and endorsed by Maruti Suzuki at the national level.</p>
+            </div>
+          </div>
+          <div class="award-card award-card--sm">
+            <div class="award-sm-icon">📚</div>
+            <div>
+              <h4>AICTE Acknowledgment</h4>
+              <p>Team met with Prof. Anil D. Sahasrabudhe, Chairman of All India Council for Technical Education, at the Grand Finale ceremony.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JURY -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">EVALUATORS</span>
+        <h2 class="section-title">Jury Panel</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="jury-grid animate-on-scroll">
+        {jury.map(j => (
+          <div class="jury-card">
+            <div class="jury-photo-wrap">
+              <div class="frame-corner tl"></div>
+              <div class="frame-corner tr"></div>
+              <div class="frame-corner bl"></div>
+              <div class="frame-corner br"></div>
+              <img src={j.img} alt={j.name} loading="lazy" />
+            </div>
+            <h3 class="jury-name">{j.name}</h3>
+            <p class="jury-role">{j.role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">CREW MANIFEST</span>
+        <h2 class="section-title">Team Musketeers</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="team-layout animate-on-scroll">
+        <div class="team-photo-wrap">
+          <div class="frame-corner tl"></div>
+          <div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div>
+          <div class="frame-corner br"></div>
+          <div class="frame-scanline"></div>
+          <img src="/traffic-team-picture-aicte-chairman.jpg" alt="Team Musketeers with AICTE Chairman at SIH 2019" loading="lazy" />
+          <div class="frame-hud">
+            <span class="frame-label">TEAM_SIH_2019</span>
+            <span class="frame-status">● WINNERS</span>
+          </div>
+        </div>
+        <div class="project-terminal team-terminal">
+          <div class="terminal-header-mini">
+            <span class="terminal-prompt">> cat team.txt</span>
+            <span class="terminal-status">7 MEMBERS ACTIVE</span>
+          </div>
+          <div class="project-text-block">
+            <p>A team of <span class="hl">7 engineers</span> from <span class="hl">Panimalar Engineering College, Chennai</span> built this system end-to-end — hardware, ML, mobile, and cloud — in under 36 hours at the Grand Finale.</p>
+            <p><span class="hl">Sundeep Dayalan</span> served as Lead Developer, architecting the full system and coordinating every module. The team name — <span class="hl">Musketeers</span> — is signed on the hardware prototype itself.</p>
+            <p>The project spanned from <span class="hl">January 2019 to March 2019</span>, covering ideation, prototype, hackathon win, patent filing, media appearances, and final Springer publication.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACK -->
+  <div class="back-section">
+    <a href="/#projects" class="back-link-bottom">← RETURN TO PROJECTS</a>
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+  });
+</script>
+
+<style>
+  /* ============================================
+     HERO
+     ============================================ */
+  .project-hero {
+    position: relative;
+    min-height: 75vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .project-hero-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .project-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.1) saturate(0.5);
+  }
+
+  .project-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,14,20,0.2) 0%, rgba(10,14,20,0.65) 50%, rgba(10,14,20,0.97) 100%);
+  }
+
+  .project-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-3xl) var(--space-2xl) var(--space-2xl);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-primary-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    display: inline-block;
+    transition: color var(--transition-fast);
+  }
+  .back-link:hover { color: var(--color-primary); }
+
+  .project-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: var(--space-lg) 0 var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .project-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 4px 12px;
+    border: 1px solid;
+    text-transform: uppercase;
+  }
+  .project-badge.winner { color: #fbbf24; border-color: rgba(251,191,36,0.5); }
+  .project-badge.gov    { color: var(--color-primary); border-color: var(--color-primary-dim); }
+  .project-badge.patent { color: #a78bfa; border-color: rgba(167,139,250,0.4); }
+
+  .project-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    font-weight: 700;
+    color: var(--color-text-bright);
+    line-height: 1.08;
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .project-hero-tagline {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    color: var(--color-text-secondary);
+    font-weight: 300;
+    margin-bottom: var(--space-md);
+    line-height: 1.35;
+  }
+  .tagline-accent { color: var(--color-primary); font-style: italic; }
+
+  .project-hero-subtitle {
+    font-size: 0.95rem;
+    color: var(--color-text-dim);
+    margin-bottom: var(--space-lg);
+    max-width: 680px;
+    line-height: 1.75;
+  }
+
+  .project-hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-primary-dim);
+    padding: 3px 10px;
+    border: 1px solid var(--color-border);
+    letter-spacing: 0.05em;
+  }
+
+  .project-hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .hero-cta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    padding: var(--space-sm) var(--space-lg);
+    border: 1px solid var(--color-primary-dim);
+    transition: all var(--transition-normal);
+  }
+  .hero-cta:hover { background: rgba(0,229,255,0.08); border-color: var(--color-primary); }
+  .hero-cta.secondary { color: var(--color-text-secondary); border-color: var(--color-border); }
+  .hero-cta.secondary:hover { color: var(--color-primary); border-color: var(--color-primary); background: rgba(0,229,255,0.04); }
+  .cta-bracket { color: var(--color-text-dim); }
+
+  /* ============================================
+     HIGHLIGHTS
+     ============================================ */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-md);
+    padding: var(--space-xl) 0;
+  }
+
+  .highlight-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-lg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    transition: border-color var(--transition-normal);
+  }
+  .highlight-card:hover { border-color: var(--color-border-bright); }
+
+  .highlight-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-primary-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .highlight-value {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-bright);
+    letter-spacing: 0.02em;
+  }
+
+  /* ============================================
+     SECTION COMMONS
+     ============================================ */
+  .section-header {
+    margin-bottom: var(--space-2xl);
+    text-align: center;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-primary-dim);
+    letter-spacing: 0.25em;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--color-text-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-md);
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--color-primary-dim);
+    margin: 0 auto;
+  }
+
+  .section-intro {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+    max-width: 700px;
+    margin: 0 auto var(--space-2xl);
+  }
+
+  /* ============================================
+     TOP FEATURES
+     ============================================ */
+  .top-features-grid {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .top-feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xl) var(--space-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    flex: 1;
+    min-width: 140px;
+    max-width: 200px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: border-color var(--transition-normal), transform 0.3s ease;
+  }
+  .top-feature-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .top-feature-card:hover {
+    border-color: var(--color-border-bright);
+    transform: translateY(-3px);
+  }
+
+  .top-feature-icon-wrap {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .top-feature-icon { font-size: 1.8rem; position: relative; z-index: 1; }
+  .icon-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-bright);
+    opacity: 0.4;
+  }
+
+  .top-feature-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+
+  .top-feature-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-primary-dim);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================
+     TERMINAL
+     ============================================ */
+  .project-terminal {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .terminal-header-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(0, 229, 255, 0.03);
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+  .terminal-prompt { color: var(--color-primary-dim); }
+  .terminal-status { color: #a78bfa88; font-size: 0.65rem; letter-spacing: 0.15em; }
+
+  .project-text-block {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+  }
+  .hl { color: var(--color-primary); font-weight: 500; }
+
+  /* ============================================
+     MODULES
+     ============================================ */
+  .module-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .module-card {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-xl);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    align-items: center;
+    transition: border-color var(--transition-normal);
+  }
+  .module-card:hover { border-color: var(--color-border-bright); }
+
+  .module-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .module-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-primary-dim);
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+  }
+
+  .module-icon { font-size: 1.5rem; }
+
+  .module-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .module-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .module-img-wrap {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-card);
+    flex-shrink: 0;
+  }
+  .module-img-wrap img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.85);
+    transition: filter var(--transition-normal);
+  }
+  .module-card:hover .module-img-wrap img { filter: saturate(1); }
+
+  /* ============================================
+     BAY DETECTION
+     ============================================ */
+  .bay-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .bay-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--bay-color);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    overflow: hidden;
+  }
+
+  .bay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-md) 0;
+  }
+
+  .bay-level {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--bay-color);
+    letter-spacing: 0.2em;
+    font-weight: 700;
+  }
+
+  .bay-signal {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-text-dim);
+  }
+
+  .bay-img-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+  }
+  .bay-img-wrap img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.8);
+  }
+
+  .bay-desc {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    flex: 1;
+    padding: 0 var(--space-md);
+  }
+
+  .bay-duration {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    border-top: 1px solid var(--color-border);
+    margin-top: auto;
+  }
+
+  .bay-dur-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .bay-dur-val {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--bay-color);
+  }
+
+  /* ============================================
+     SYSTEM DIAGRAMS
+     ============================================ */
+  .diagrams-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .diagram-frame {
+    position: relative;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-card);
+    overflow: hidden;
+    transition: border-color var(--transition-normal);
+  }
+  .diagram-frame:hover { border-color: var(--color-border-bright); }
+  .diagram-frame img {
+    width: 100%;
+    display: block;
+    filter: saturate(0.8);
+  }
+  .diagram-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-text-dim);
+    padding: var(--space-sm) var(--space-md);
+    border-top: 1px solid var(--color-border);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================
+     PATENT
+     ============================================ */
+  .patent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .patent-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .patent-card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-bright);
+    margin: 0;
+  }
+
+  .patent-card p {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    flex: 1;
+    margin: 0;
+  }
+
+  .patent-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-warning);
+    letter-spacing: 0.2em;
+    padding: 2px 8px;
+    border: 1px solid rgba(255,182,39,0.3);
+    width: fit-content;
+    text-transform: uppercase;
+  }
+  .patent-badge.pub { color: var(--color-primary); border-color: var(--color-primary-dim); }
+
+  .patent-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-primary-dim);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .patent-link:hover { color: var(--color-primary); }
+
+  .patent-footnote {
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+    font-style: italic;
+    margin-top: auto;
+  }
+
+  /* ============================================
+     GALLERY
+     ============================================ */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .gallery-frame {
+    position: relative;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color var(--transition-normal);
+  }
+  .gallery-frame:hover { border-color: var(--color-border-bright); }
+
+  .gallery-img-wrap {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    flex-shrink: 0;
+  }
+
+  .gallery-img-wrap img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.85);
+    transition: filter var(--transition-normal), transform var(--transition-normal);
+  }
+  .gallery-frame:hover .gallery-img-wrap img {
+    filter: saturate(1);
+    transform: scale(1.03);
+  }
+
+  .frame-scanline {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .frame-hud, .video-hud {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 14px;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .frame-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--color-primary-dim);
+    background: rgba(10,14,20,0.8);
+    padding: 2px 7px;
+    letter-spacing: 0.08em;
+  }
+
+  .frame-status {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: #ef4444;
+    background: rgba(10,14,20,0.8);
+    padding: 2px 7px;
+    letter-spacing: 0.08em;
+  }
+
+  .frame-caption-bar {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .frame-caption {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--color-text-dim);
+    display: block;
+    line-height: 1.5;
+  }
+
+  /* frame corners shared */
+  .frame-corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    z-index: 6;
+    pointer-events: none;
+  }
+  .frame-corner.tl { top: 6px; left: 6px; border-top: 1px solid var(--color-primary-dim); border-left: 1px solid var(--color-primary-dim); }
+  .frame-corner.tr { top: 6px; right: 6px; border-top: 1px solid var(--color-primary-dim); border-right: 1px solid var(--color-primary-dim); }
+  .frame-corner.bl { bottom: 6px; left: 6px; border-bottom: 1px solid var(--color-primary-dim); border-left: 1px solid var(--color-primary-dim); }
+  .frame-corner.br { bottom: 6px; right: 6px; border-bottom: 1px solid var(--color-primary-dim); border-right: 1px solid var(--color-primary-dim); }
+
+  /* ============================================
+     VIDEO
+     ============================================ */
+  .video-frame {
+    position: relative;
+    border: 1px solid var(--color-border);
+    background: #000;
+    overflow: hidden;
+  }
+
+  .video-hud {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 14px;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .video-frame video {
+    width: 100%;
+    max-height: 560px;
+    display: block;
+  }
+
+  /* ============================================
+     AWARD
+     ============================================ */
+  .award-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .award-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .award-card--primary {
+    border-color: rgba(251,191,36,0.3);
+  }
+
+  .award-check-img {
+    position: relative;
+    overflow: hidden;
+  }
+  .award-check-img img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.85);
+  }
+
+  .award-text {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .award-amount {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fbbf24;
+    line-height: 1;
+  }
+
+  .award-amount-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .award-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: var(--space-xs) 0 0;
+  }
+
+  .award-desc {
+    font-size: 0.88rem;
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .award-right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .award-card--sm {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+    padding: var(--space-lg);
+  }
+  .award-sm-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .award-card--sm h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-bright);
+    text-transform: uppercase;
+    margin: 0 0 var(--space-xs);
+    letter-spacing: 0.03em;
+  }
+  .award-card--sm p {
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0 0 var(--space-xs);
+  }
+
+  /* ============================================
+     JURY
+     ============================================ */
+  .jury-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .jury-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: border-color var(--transition-normal);
+  }
+  .jury-card:hover { border-color: var(--color-border-bright); }
+
+  .jury-photo-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  .jury-photo-wrap img {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    object-position: center;
+    background: #0d1117;
+    display: block;
+    filter: saturate(0.8) contrast(1.05);
+  }
+
+  .jury-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: var(--space-md) var(--space-md) var(--space-xs);
+  }
+
+  .jury-role {
+    font-size: 0.78rem;
+    color: var(--color-text-dim);
+    line-height: 1.5;
+    font-family: var(--font-mono);
+    white-space: pre-line;
+    margin: 0 var(--space-md) var(--space-lg);
+  }
+
+  /* ============================================
+     TEAM
+     ============================================ */
+  .team-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .team-photo-wrap {
+    position: relative;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+  .team-photo-wrap img {
+    width: 100%;
+    display: block;
+    filter: saturate(0.85);
+  }
+
+  .team-terminal {
+    height: 100%;
+  }
+
+  /* ============================================
+     BACK
+     ============================================ */
+  .back-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-2xl);
+  }
+
+  .back-link-bottom {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--color-border);
+    display: inline-block;
+    transition: all var(--transition-normal);
+  }
+  .back-link-bottom:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  /* ============================================
+     ANIMATION
+     ============================================ */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 1100px) {
+    .module-card { grid-template-columns: 1fr 260px; }
+  }
+
+  @media (max-width: 1024px) {
+    .highlights-grid { grid-template-columns: repeat(3, 1fr); }
+    .bay-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .award-grid { grid-template-columns: 1fr; }
+    .team-layout { grid-template-columns: 1fr; }
+    .diagrams-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+    .patent-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .bay-grid { grid-template-columns: 1fr 1fr; }
+    .module-card { grid-template-columns: 1fr; }
+    .module-img-wrap { display: none; }
+    .jury-grid { grid-template-columns: 1fr; max-width: 360px; }
+    .top-features-grid { gap: var(--space-sm); }
+    .top-feature-card { min-width: 120px; }
+    .project-hero { min-height: 55vh; }
+  }
+
+  @media (max-width: 480px) {
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+    .bay-grid { grid-template-columns: 1fr; }
+    .project-hero-content { padding: var(--space-xl) var(--space-md); }
+  }
+</style>

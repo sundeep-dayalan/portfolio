@@ -1,0 +1,541 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import { marked } from 'marked';
+
+const title = "Media & Press Hits | Sundeep Dayalan";
+const description = "News clippings and television broadcasts highlighting the Smart India Hackathon wins for the Smart Traffic Management project.";
+
+const printMedia = [
+  {
+    image: "/media-hit-Amar-Ujala.jpg",
+    headline: "The model of young scientists will be helpful in development",
+    source: "Amar Ujala (Hindi)",
+    translation: `**Subtitle:** Conclusion of Smart India Hackathon-2019 at BHU\n\nVaranasi. Models prepared by young scientists will be helpful to the country for providing immediate information to family members after a road accident, ensuring safe transport, managing water-borne diseases, and handling disaster management. Participants from various universities and technical institutes across the country developed software and mobile apps during the 36-hour-long Smart India Hackathon-2019 at BHU.\n\nUnder the instructions of the Ministry of Human Resource Development, starting Saturday morning at 8 AM across 48 centers in 42 cities, 1,400 teams created software and apps to solve various problems. In the Central Discovery Center located on the BHU campus, 29 teams from UP, Tamil Nadu, Delhi, Maharashtra, Rajasthan, and Andhra Pradesh showcased their technical skills. The evaluation included the rapid application of the app or software, technical development, ease of use, accessibility to the common public, and successful experimentation. Chief Guest Registrar Dr. Neeraj Tripathi wished a bright future for all the participants. During the event, Coordinator Prof. Rajiv Kumar, Dr. Nitin Bhide, Prof. Kavita Shah, Prof. BC Kapri, Dr. Manish Arora, Sunita Verma, and Mayuri Pandey were present.\n\n**Box: Winning team participants rewarded**\nTeams performing excellently in creating software and apps for different problems were rewarded. Teams MahaFrotec, Musketeers, and I/O Hackers won a prize of one lakh rupees for developing software to provide immediate information on road accidents, solve traffic issues, and address problems related to water-borne diseases. The Cyber Thugs Swyade team won a prize of 75 thousand rupees, and the Bitwise team won a prize of 50 thousand rupees for a model involving the installation of affordable CCTV cameras in residential colonies. In the closing ceremony, Chief Guest Registrar Dr. Neeraj Tripathi distributed the cash prizes.`
+  },
+  {
+    image: "/media-hit-dinakaran.jpg",
+    headline: "Achievement of Panimalar Engineering College Students",
+    source: "Dinakaran (Tamil)",
+    translation: `Thiruvallur, Mar 11: In a competition held jointly by the Union Ministry of Human Resource Development and AICTE, students won the first prize of Rs. 1 lakh by creating transport management software during the Smart India Hackathon 2019, a 36-hour non-stop software development competition.\n\nThis competition was conducted across India in 48 centers with 1,348 teams participating. Final-year CSE students from Panimalar Engineering College in Poonamallee—Nithesh, Rahul, Raj Prabhakar, Sandeep, Praveen, and Swetha—participated in the center at Banaras Hindu University in Varanasi.\n\nFurthermore, final-year IT students Avinash, Sanjayraj, Someswar, Arunachalam, Vidhya, and Nishanthini, along with Associate Professor Sridhar, participated in the competition held at Lovely Professional University in Punjab. They won the first prize of Rs. 75,000 for creating software for an email and short messaging web portal.\n\nThis competition was inaugurated by the Human Resource Development Minister Prakash Javadekar. On the final day of the competition, Prime Minister Narendra Modi addressed and congratulated the students via video conferencing.\n\nCollege Secretary and Correspondent P. Chinnadurai, Director C. Sakthikumar, and Principal K. Mani congratulated the students of Panimalar Engineering College who achieved success in these competitions.\n\n*(Image Caption: The Union Ministry of Human Resource Development and AICTE jointly conducted the Smart India Hackathon 2019 across 48 centers...)*`
+  },
+  {
+    image: "/media-hit-Hindustan times.jpg",
+    headline: "Hackathon: Budding scientists display software solutions",
+    source: "Hindustan Times (English)",
+    translation: `VARANASI: Budding scientists from various states came up with their innovative ideas and software applications to solve our various problems during the 36-hour Smart India Hackathon-2019 which ended at BHU on Sunday night.\n\nA team from Panimalar Engineering College, Chennai, worked on developing a software on traffic management using line detection and prioritised queuing system. With the help of the software, potholes and traffic signals could also be identified.\n\n"The solution is to provide a complete traffic congestion resolving and monitoring system achieved by identifying patterns on roads through CCTV cameras and allowing signals to clear density of vehicles," said Nithesh KG, a team member.\n\nUnion HRD minister Prakash Javadekar addressed the participants through videoconferencing and motivated them to come out with innovative solutions.\n\nProf Kavita Shah, a coordinator of the event, said some ideas on which the software building was done were getting real time accident information, disaster management assess impact on environment among others.\n\nA mobile app named 'Secupia' was developed by a team from BITS, Pilani, Rajasthan. Aryan Mehra, a team member said, "Our system logs all the vehicles entering/exiting the society makes guest visits seamless and tracks domestic staff in the society. Our system analyses all the data and makes smart recommendations not only to residents but also the guards he added."\n- SAMBHAV SHARMA`
+  },
+  {
+    image: "/media-hit-jagran.jpg",
+    headline: "Gathering of young scientists, searching for traffic solutions",
+    source: "Jagran (Hindi)",
+    translation: `**Smart India Hackathon:**\n36-hour competition started at BHU's Central Discovery Center\nApps are being developed on disaster management, smart traffic systems, etc.\n\nVaranasi (Jagran Correspondent): Everyone is affected by the problem of traffic. Now, a solution to these problems is coming soon. Young scientists from various educational institutions across the country, gathered at BHU, are developing apps that will not only provide accurate information about road accidents but will also suggest smart management solutions for traffic problems.\n\nAfter the formal inauguration of the 36-hour continuous Smart India Hackathon-2019 competition on Saturday morning in the auditorium of the Central Discovery Center located at BHU, Human Resource Development Minister Prakash Javadekar, Co-chairman of the Smart India Hackathon organizing committee Dr. Anand Deshpande, and AICTE Chairman Prof. Anil Sahasrabudhe encouraged the participants via video conferencing. Meanwhile, AICTE committee member Prof. Rajiv Kumar stated that around 37,000 teams comprising more than two lakh students had applied for the competition.\n\nOut of these, only 1,400 teams were selected for the competition organized across 48 centers in the country. AICTE's BHU coordinator Dr. Nitin Bhide said that the responsibility of solving about 500 digital problems posed by the government, institutions, and private companies rests on the shoulders of young scientists. Because of them, the country will move towards a major transformation. Meanwhile, SIH-2019 BHU Convener Prof. Kavita Shah mentioned that the government, institutions, and private companies had presented their problem statements.\n\n**Apps being developed for these problems:**\nParticipating teams at the Central Discovery Center are working on six problem statements. These include traffic management, capturing road accidents on camera, providing accurate information about accidents, informing relevant individuals in case of an emergency, and environmental protection. The participating teams must find digital solutions to these within just 36 hours. Late at night, Prime Minister Narendra Modi also interacted with the participants via video conferencing. Following this, a Zumba dance session infused fresh enthusiasm among the participants.`
+  },
+  {
+    image: "/media-hit-Sakshi-telugu.jpg",
+    headline: "Encouragement for students interested in software fields",
+    source: "Sakshi (Telugu)",
+    translation: `*(Photo Caption: College Correspondent Chinnadurai and Director Sakthikumar congratulating the students.)*\n\nThiruvallur: Panimalar Engineering College Correspondent Chinnadurai stated that they are identifying students studying in Panimalar educational institutions who possess an interest in software development and are continuously encouraging them.\n\nUnder the auspices of the Central Government's Human Resource Development department, a nationwide program focused on software development, named Smart India Hackathon-2019, was held across 48 centers. CSE final-year students Nithesh, Rahul, Raj Prabhakar, Sandeep, Praveen, and Swetha from Panimalar College in Poonamallee participated in the competition held at Banaras Hindu University in Varanasi and developed a software application useful for the Transport Management Board.\n\nSimilarly, IT final-year students from the same college—Avinash, Sanjayraj, Vidhya, and Nishanthini—participated in the competition held at Lovely Professional University in Punjab and created new software for Email, SMS, and Internet communications. The software developed by both of these Panimalar teams secured first prizes.\n\nIn light of this, a felicitation ceremony was held on Tuesday morning on the college premises for the students who participated in the national-level competitions and won first prizes. Principal Mani, Correspondent Chinnadurai, and Director Sakthikumar attended the event and commended the students. Speaking afterward, Correspondent Chinnadurai emphasized that their educational institutions will always support students who show a keen interest in the software field.`
+  }
+];
+
+const videoMedia = [
+  {
+    video: "/media-hit-video-murasu.mp4",
+    source: "Murasu News",
+    translation: `**News Anchor / Voiceover:**\n"In the Smart India Hackathon competition held among universities for software development, Panimalar Engineering College from Poonamallee bagged the first place. The Smart India Hackathon competitions for software development are being conducted for universities. In this competition—organized at the state university coordination center to encourage students' talents—1,348 teams from all over the country participated. In this event, students from Panimalar Engineering College, located near Poonamallee, created a software called 'Transport Management' and won a cash prize of one lakh rupees as the first prize."`
+  },
+  {
+    video: "/media-hit-video-cauvery.mp4",
+    source: "Cauvery News",
+    translation: `**News Anchor / Voiceover:**\n"Let us look at some more news briefly. In the competition jointly organized by universities in states including Varanasi (Uttar Pradesh) and Punjab, 1,348 teams from across the country participated. In this, students belonging to a private engineering college near Poonamallee in Chennai created a software named 'Transport Management' in the engineering department and received the first prize of one lakh rupees. Following this, in the competition held in the Information Technology department, they achieved a record by creating a software for an Email and Short Message communication web portal and won 75,000 rupees."`
+  },
+  {
+    video: "/media-hit-video-velicham.mp4",
+    source: "Velicham TV",
+    translation: `**Voiceover:**\n"At a private engineering college near Poonamallee, Chennai, a competition for new inventions was held in the engineering department under the name 'Smart Hackathon' on behalf of the Central Government's Ministry of Human Resource Development. In this, students have invented a new technology-integrated device to control traffic congestion in Chennai. The students stated that this will operate automatically according to the traffic congestion."\n\n**Interview Segment (College Official):**\n"The MHRD Ministry and AICTE (All India Council for Technical Education) jointly conducted a hackathon competition. This competition ran continuously for 36 hours. This 36-hour competition was held across 48 coordination centers throughout India. Around 1,348 teams participated in these 48 centers. Six to ten people participated in each team. In two of these centers, students from our Panimalar Engineering College secured the first place in both."`
+  },
+  {
+    video: "/media-hit-video-sunnews crop.mp4",
+    source: "Sun News",
+    translation: `**Voiceover:**\n"Students from a private engineering college have invented a new technology-integrated device to control traffic congestion. On behalf of the Central Government's Ministry of Human Resource Development, a competition for new inventions in the engineering department named 'Smart Hackathon' was held. In this event, students from a private engineering college in Poonamallee participated and showcased a new invention equipped with new technology that reduces traffic congestion."`
+  },
+  {
+    video: "/media-hit-video-Qtv.mp4",
+    source: "Q TV",
+    translation: `**Voiceover:**\n"In the software-developing Smart India Hackathon 2019 competition, students from Panimalar Engineering College in Poonamallee, Chennai, made a record by winning the first two prizes. In the Smart India Hackathon competition held at coordination centers in universities across states including Varanasi and Punjab in India, 1,348 teams from across the country participated. The objective of this competition is to bring out the unique individual talents among students.\n\nAccordingly, in the competition held in these universities, students belonging to Panimalar Engineering College near Poonamallee, Chennai, developed a software named 'Transport Management' in the engineering department and won one lakh rupees as the first prize. Following this, in the competition held in the Information Technology department, they created a software for an Email and Short Message communication web portal and set a record by winning 75,000 rupees as the first prize. The winning students were appreciated and congratulated by the Secretary and Correspondent of Panimalar Educational Institutions."\n\n**Interview Segment (College Official):**\n"At the all-India level, the MHRD Ministry and AICTE (All India Council for Technical Education) jointly conducted a hackathon competition. This competition ran continuously for 36 hours. This 36-hour competition was held in 48 coordination centers all over India. Around 1,348 teams participated in these 48 centers. 6 to 10 members participated in each team. In two centers, the students of our Panimalar Engineering College secured the first place in both... A prize of 1 lakh and 75,000 rupees was provided to each respective team."`
+  },
+  {
+     video: "/media-hit-video-tamilan.mp4",
+     source: "Tamilan TV",
+     translation: `*(Television broadcast covering the Smart India Hackathon victory and traffic management software pitch)*`
+  }
+];
+
+const keywords = "Sundeep Dayalan media coverage, Smart India Hackathon 2019 press, traffic management news, Amar Ujala, Dinakaran, Hindustan Times, Dainik Jagran, TV broadcast hackathon winner";
+
+const additionalLD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sundeepdayalan.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Media & Press Hits", "item": "https://www.sundeepdayalan.in/media-hits" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Media & Press Coverage — Sundeep Dayalan",
+    "description": "News clippings and television broadcasts covering Sundeep Dayalan's Smart India Hackathon 2019 victory for the Smart Traffic Management project.",
+    "url": "https://www.sundeepdayalan.in/media-hits",
+    "author": {
+      "@type": "Person",
+      "name": "Sundeep Dayalan",
+      "url": "https://www.sundeepdayalan.in"
+    }
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  additionalLD={additionalLD}
+>
+  <Navbar />
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <a href="/projects/smart-traffic-management" class="back-link">← RETURN TO PROJECT</a>
+      <h1 class="page-title">Media & Press Archive</h1>
+      <p class="page-subtitle">A collection of news publications and television broadcasts chronicling the nationwide Smart India Hackathon-2019 victory for the Smart Traffic Management platform.</p>
+    </div>
+  </section>
+
+  <!-- PRINT MEDIA -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">PUBLICATION ARCHIVE</span>
+        <h2 class="section-title">Print Media Hits</h2>
+        <div class="section-divider"></div>
+      </div>
+      
+      <div class="media-stack">
+        {printMedia.map((item, i) => (
+          <div class="media-card animate-on-scroll" style={`--delay: ${i * 50}ms`}>
+            <div class="media-visual">
+              <div class="gallery-frame">
+                <div class="frame-corner tl"></div>
+                <div class="frame-corner tr"></div>
+                <div class="frame-corner bl"></div>
+                <div class="frame-corner br"></div>
+                <div class="frame-scanline"></div>
+                <a href={item.image} target="_blank" rel="noopener noreferrer">
+                  <img src={item.image} alt={`Newspaper clipping from ${item.source}`} loading="lazy" />
+                </a>
+                <div class="frame-hud">
+                  <span class="frame-label">{item.source.toUpperCase()}</span>
+                  <span class="frame-status">● VERIFIED</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="media-text-container">
+              <div class="project-terminal">
+                <div class="terminal-header-mini">
+                  <span class="terminal-prompt">> cat {item.source.replace(/\s+/g, '_').toLowerCase()}.txt</span>
+                  <span class="terminal-status">TRANSLATED</span>
+                </div>
+                <div class="project-text-block">
+                  <h3 class="translation-headline">{item.headline}</h3>
+                  <div class="translation-body" set:html={marked.parse(item.translation)} />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO BROADCASTS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">BROADCAST ARCHIVE</span>
+        <h2 class="section-title">Television News Hits</h2>
+        <div class="section-divider"></div>
+      </div>
+      
+      <div class="media-stack">
+        {videoMedia.map((item, i) => (
+          <div class="media-card animate-on-scroll alternate" style={`--delay: ${i * 50}ms`}>
+            <div class="media-visual">
+              <div class="video-frame">
+                <div class="frame-corner tl"></div>
+                <div class="frame-corner tr"></div>
+                <div class="frame-corner bl"></div>
+                <div class="frame-corner br"></div>
+                <div class="frame-scanline"></div>
+                <video controls playsinline class="project-video">
+                  <source src={item.video} type="video/mp4" />
+                </video>
+                <div class="frame-hud">
+                  <span class="frame-label">{item.source.toUpperCase()}</span>
+                  <span class="frame-status">● BROADCAST</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="media-text-container">
+              <div class="project-terminal">
+                <div class="terminal-header-mini">
+                  <span class="terminal-prompt">> parse_audio_transcript {item.source.replace(/\s+/g, '_').toLowerCase()}.mp4</span>
+                  <span class="terminal-status">TRANSLATED</span>
+                </div>
+                <div class="project-text-block">
+                  <div class="translation-body" set:html={marked.parse(item.translation)} />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTERNAL ARTICLES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">EXTERNAL ARCHIVE</span>
+        <h2 class="section-title">Online Articles</h2>
+        <div class="section-divider"></div>
+      </div>
+      
+      <div class="media-stack">
+        <a href="https://yourstory.com/2018/07/hope-over-heat-why-smart-cities-why-not-smart-huts-asks-a-young-student-in-bikaner#:~:text=It%20was%20at,home%20automation%20solutions." target="_blank" rel="noopener noreferrer" class="project-terminal external-card animate-on-scroll">
+          <div class="terminal-header-mini">
+            <span class="terminal-prompt">> curl -I yourstory.com</span>
+            <span class="terminal-status">EXTERNAL LINK</span>
+          </div>
+          <div class="project-text-block external-block">
+            <div class="external-meta">
+              <span class="frame-label">YOURSTORY.COM</span>
+              <span class="article-date">JUL 2018</span>
+            </div>
+            <h3 class="translation-headline">Hope over heat: 'Why Smart Cities, why not Smart Huts?' asks a young student in Bikaner</h3>
+            <span class="article-cta">READ FULL ARTICLE ↗</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACK -->
+  <div class="back-section">
+    <a href="/projects/smart-traffic-management" class="back-link-bottom">← RETURN TO PROJECT</a>
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+  });
+</script>
+
+<style>
+  /* ============================================
+     HERO
+     ============================================ */
+  .page-hero {
+    position: relative;
+    padding: calc(var(--space-3xl) * 2) var(--space-xl) var(--space-2xl);
+    background: linear-gradient(180deg, var(--color-bg-card), var(--color-bg-base));
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .page-hero-content {
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-primary-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    display: inline-block;
+    margin-bottom: var(--space-lg);
+    transition: color var(--transition-fast);
+  }
+  
+  .back-link:hover { color: var(--color-primary); }
+  
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--color-text-bright);
+    line-height: 1.1;
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+  }
+  
+  .page-subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-secondary);
+    max-width: 800px;
+    line-height: 1.6;
+  }
+
+  /* ============================================
+     MEDIA STACK
+     ============================================ */
+  .media-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+  }
+  
+  .media-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+  
+  .media-card.alternate {
+    direction: ltr; /* Keeping text easy to read despite flex ordering tricks */
+  }
+
+  @media (max-width: 992px) {
+    .media-card {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+  }
+
+  /* ============================================
+     VISUAL COMPONENTS (FRAMES & VIDEOS)
+     ============================================ */
+  .media-visual {
+    width: 100%;
+    position: sticky;
+    top: 120px;
+    align-self: start;
+  }
+
+  .gallery-frame, .video-frame {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  .gallery-frame:hover, .video-frame:hover {
+    border-color: var(--color-primary-dim);
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.08), inset 0 0 40px rgba(0, 229, 255, 0.02);
+  }
+
+  .gallery-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.8) contrast(1.05);
+    transition: transform var(--transition-normal), filter var(--transition-normal);
+  }
+
+  .gallery-frame:hover img {
+    transform: scale(1.02);
+    filter: saturate(1.1) contrast(1.1);
+  }
+
+  .project-video {
+    width: 100%;
+    height: auto;
+    max-height: 650px;
+    display: block;
+    background: #000;
+  }
+
+  .frame-corner { position: absolute; width: 16px; height: 16px; z-index: 3; transition: all var(--transition-normal); }
+  .frame-corner.tl { top: 6px; left: 6px; border-top: 2px solid var(--color-primary-dim); border-left: 2px solid var(--color-primary-dim); }
+  .frame-corner.tr { top: 6px; right: 6px; border-top: 2px solid var(--color-primary-dim); border-right: 2px solid var(--color-primary-dim); }
+  .frame-corner.bl { bottom: 6px; left: 6px; border-bottom: 2px solid var(--color-primary-dim); border-left: 2px solid var(--color-primary-dim); }
+  .frame-corner.br { bottom: 6px; right: 6px; border-bottom: 2px solid var(--color-primary-dim); border-right: 2px solid var(--color-primary-dim); }
+
+  .gallery-frame:hover .frame-corner, .video-frame:hover .frame-corner { border-color: var(--color-primary); }
+  .gallery-frame:hover .frame-corner.tl, .video-frame:hover .frame-corner.tl { top: 4px; left: 4px; }
+  .gallery-frame:hover .frame-corner.tr, .video-frame:hover .frame-corner.tr { top: 4px; right: 4px; }
+  .gallery-frame:hover .frame-corner.bl, .video-frame:hover .frame-corner.bl { bottom: 4px; left: 4px; }
+  .gallery-frame:hover .frame-corner.br, .video-frame:hover .frame-corner.br { bottom: 4px; right: 4px; }
+
+  .frame-scanline {
+    position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.4), transparent);
+    z-index: 4; opacity: 0; animation: frame-scan 4s linear infinite; animation-delay: var(--scan-delay, 0s); pointer-events: none;
+  }
+  @keyframes frame-scan { 0% { top: -3px; opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+  .frame-hud {
+    position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
+    background: linear-gradient(180deg, rgba(10, 14, 20, 0.8), transparent); z-index: 2; font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em;
+    pointer-events: none;
+  }
+  .frame-label { color: var(--color-primary-dim); }
+  .frame-status { color: var(--color-secondary); font-size: 0.5rem; }
+
+  /* ============================================
+     TEXT / TRANSLATIONS
+     ============================================ */
+  .media-text-container {
+    height: 100%;
+  }
+
+  .project-terminal {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .terminal-header-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(0,229,255,0.03);
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .terminal-prompt { color: var(--color-primary-dim); }
+  .terminal-status { color: var(--color-secondary-dim); font-size: 0.65rem; letter-spacing: 0.15em; }
+
+  .project-text-block {
+    padding: var(--space-xl);
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+  }
+
+  .translation-headline {
+    color: var(--color-text-bright);
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: var(--space-md);
+    text-transform: uppercase;
+  }
+
+  .translation-body p {
+    margin-bottom: var(--space-md);
+  }
+  
+  .translation-body strong {
+    color: var(--color-text-bright);
+    font-weight: 600;
+  }
+  
+  .translation-body em {
+    color: var(--color-text-dim);
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ============================================
+     EXTERNAL CARDS
+     ============================================ */
+  .external-card {
+    display: block;
+    text-decoration: none;
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  .external-card:hover {
+    border-color: var(--color-primary-dim);
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.05);
+  }
+
+  .external-card:hover .translation-headline {
+    color: var(--color-primary);
+  }
+
+  .external-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .external-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+  }
+
+  .article-cta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    margin-top: var(--space-sm);
+    letter-spacing: 0.1em;
+  }
+
+  /* ============================================
+     BACK
+     ============================================ */
+  .back-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-xl);
+  }
+
+  .back-link-bottom {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--color-border);
+    display: inline-block;
+    transition: all var(--transition-normal);
+  }
+
+  .back-link-bottom:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  /* ============================================
+     ANIMATION
+     ============================================ */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: var(--delay, 0ms);
+  }
+
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
