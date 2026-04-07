@@ -1,6 +1,8 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
 import satori from 'satori';
 import sharp from 'sharp';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
 const ogPages: Record<string, { title: string; role: string; description: string; tags: string[] }> = {
   home: {
@@ -56,30 +58,21 @@ const ogPages: Record<string, { title: string; role: string; description: string
 export const getStaticPaths: GetStaticPaths = () =>
   Object.keys(ogPages).map(slug => ({ params: { slug } }));
 
-// Cache fonts across pages during build
+// Load font from bundled npm package — reliable at build time
 let orbitronFont: ArrayBuffer | null = null;
 
-async function loadFont(): Promise<ArrayBuffer | null> {
+function loadFont(): ArrayBuffer {
   if (orbitronFont) return orbitronFont;
-  try {
-    const css = await fetch(
-      'https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap',
-      { headers: { 'User-Agent': 'Mozilla/5.0' } }
-    ).then(r => r.text());
-    const match = css.match(/src: url\(([^)]+)\) format\('(woff2|woff)'\)/);
-    if (!match) return null;
-    orbitronFont = await fetch(match[1]).then(r => r.arrayBuffer());
-    return orbitronFont;
-  } catch {
-    return null;
-  }
+  const fontPath = resolve('./node_modules/@fontsource/orbitron/files/orbitron-latin-700-normal.woff');
+  orbitronFont = readFileSync(fontPath).buffer as ArrayBuffer;
+  return orbitronFont;
 }
 
 export const GET: APIRoute = async ({ params }) => {
   const data = ogPages[params.slug as string];
   if (!data) return new Response('Not found', { status: 404 });
 
-  const font = await loadFont();
+  const font = loadFont();
 
   const node = {
     type: 'div',
@@ -92,7 +85,7 @@ export const GET: APIRoute = async ({ params }) => {
         height: '630px',
         background: '#0a0e14',
         padding: '56px 64px',
-        fontFamily: font ? 'Orbitron' : 'sans-serif',
+        fontFamily: 'Orbitron',
         boxSizing: 'border-box' as const,
         border: '1px solid rgba(0,229,255,0.18)',
       },
@@ -224,9 +217,7 @@ export const GET: APIRoute = async ({ params }) => {
   const svg = await satori(node as Parameters<typeof satori>[0], {
     width: 1200,
     height: 630,
-    fonts: font
-      ? [{ name: 'Orbitron', data: font, weight: 700, style: 'normal' }]
-      : [],
+    fonts: [{ name: 'Orbitron', data: font, weight: 700, style: 'normal' }],
   });
 
   const png = await sharp(Buffer.from(svg)).png().toBuffer();
