@@ -2,6 +2,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import { marked } from 'marked';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const rawImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*', { eager: true });
+function assetImg(filename: string): ImageMetadata {
+  const clean = filename.startsWith('/') ? filename.slice(1) : filename;
+  const mod = rawImages[`/src/assets/images/${clean}`];
+  if (!mod) throw new Error(`Image not found: ${clean}`);
+  return mod.default;
+}
 
 const title = "Media & Press Hits | Sundeep Dayalan";
 const description = "News clippings and television broadcasts highlighting the Smart India Hackathon wins for the Smart Traffic Management project.";
@@ -136,7 +146,7 @@ const additionalLD = [
                 <div class="frame-corner br"></div>
                 <div class="frame-scanline"></div>
                 <a href={item.image} target="_blank" rel="noopener noreferrer">
-                  <img src={item.image} alt={`Newspaper clipping from ${item.source}`} loading="lazy" />
+                  <Image src={assetImg(item.image)} alt={`Newspaper clipping from ${item.source}`} width={600} loading="lazy" />
                 </a>
                 <div class="frame-hud">
                   <span class="frame-label">{item.source.toUpperCase()}</span>

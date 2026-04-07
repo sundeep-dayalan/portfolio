@@ -1,6 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navbar from '../../components/Navbar.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const rawImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*', { eager: true });
+function assetImg(filename: string): ImageMetadata {
+  const clean = filename.startsWith('/') ? filename.slice(1) : filename;
+  const mod = rawImages[`/src/assets/images/${clean}`];
+  if (!mod) throw new Error(`Image not found: ${clean}`);
+  return mod.default;
+}
 
 const title = "Smart Home — IoT Home Automation | Sundeep Dayalan";
 const description = "1st Runner Up at Smart India Hackathon 2018 — affordable IoT home automation and energy management system with voice control, retrofit integration, and real-time bill analytics.";
@@ -146,7 +156,7 @@ const additionalLD = [
   <!-- HERO -->
   <section class="project-hero">
     <div class="project-hero-bg">
-      <img src="/project-smart-home.png" alt="Smart Home — IoT home automation system" width="1200" height="600" loading="eager" />
+      <Image src={assetImg('project-smart-home.png')} alt="Smart Home — IoT home automation system" width={1200} height={600} loading="eager" fetchpriority="high" />
       <div class="project-hero-overlay"></div>
     </div>
     <div class="project-hero-content">
@@ -225,7 +235,7 @@ const additionalLD = [
           <div class="frame-corner bl"></div>
           <div class="frame-corner br"></div>
           <div class="frame-scanline"></div>
-          <img src="/smart-home-about-image.jpg" alt="Smart Home prototype overview" loading="lazy" />
+          <Image src={assetImg('smart-home-about-image.jpg')} alt="Smart Home prototype overview" width={800} loading="lazy" />
           <div class="frame-hud">
             <span class="frame-label">SYSTEM_OVERVIEW</span>
             <span class="frame-status">● LIVE</span>
@@ -268,7 +278,7 @@ const additionalLD = [
               <div class="frame-corner tr"></div>
               <div class="frame-corner bl"></div>
               <div class="frame-corner br"></div>
-              <img src={feat.img} alt={feat.title} loading="lazy" />
+              <Image src={assetImg(feat.img)} alt={feat.title} width={800} loading="lazy" />
             </div>
           </div>
         ))}
@@ -294,7 +304,7 @@ const additionalLD = [
             <div class="frame-corner br"></div>
             <div class="frame-scanline"></div>
             <div class="gallery-img-wrap">
-              <img src={img.src} alt={img.caption} loading="lazy" />
+              <Image src={assetImg(img.src)} alt={img.caption} width={900} loading="lazy" />
             </div>
             <div class="frame-hud">
               <span class="frame-label">{img.label}</span>
@@ -370,7 +380,7 @@ const additionalLD = [
           <div class="frame-corner bl"></div>
           <div class="frame-corner br"></div>
           <div class="gallery-img-wrap">
-            <img src="/smart-home-prototype-implementation-1.jpg" alt="Prototype implementation — hardware setup 1" loading="lazy" />
+            <Image src={assetImg('smart-home-prototype-implementation-1.jpg')} alt="Prototype implementation — hardware setup 1" width={800} loading="lazy" />
           </div>
           <div class="frame-caption-bar">
             <span class="frame-caption">Prototype hardware setup — relay modules integrated with home appliances</span>
@@ -382,7 +392,7 @@ const additionalLD = [
           <div class="frame-corner bl"></div>
           <div class="frame-corner br"></div>
           <div class="gallery-img-wrap">
-            <img src="/smart-home-prototype-implementation-2.jpg" alt="Prototype implementation — hardware setup 2" loading="lazy" />
+            <Image src={assetImg('smart-home-prototype-implementation-2.jpg')} alt="Prototype implementation — hardware setup 2" width={800} loading="lazy" />
           </div>
           <div class="frame-caption-bar">
             <span class="frame-caption">Multi-utility controller node — single board managing multiple appliances</span>
@@ -443,7 +453,7 @@ const additionalLD = [
             <div class="frame-corner bl"></div>
             <div class="frame-corner br"></div>
             <div class="gallery-img-wrap">
-              <img src="/smart-home-realworld-implementation-1.JPG" alt="Real world home installation 1" loading="lazy" />
+              <Image src={assetImg('smart-home-realworld-implementation-1.JPG')} alt="Real world home installation 1" width={800} loading="lazy" />
             </div>
             <div class="frame-caption-bar">
               <span class="frame-caption">Real world installation — smart relay fitted into existing switchboard</span>
@@ -455,7 +465,7 @@ const additionalLD = [
             <div class="frame-corner bl"></div>
             <div class="frame-corner br"></div>
             <div class="gallery-img-wrap">
-              <img src="/smart-home-realworld-implementation-2.JPG" alt="Real world home installation 2" loading="lazy" />
+              <Image src={assetImg('smart-home-realworld-implementation-2.JPG')} alt="Real world home installation 2" width={800} loading="lazy" />
             </div>
             <div class="frame-caption-bar">
               <span class="frame-caption">In-home deployment — existing appliances automated with zero hardware changes</span>
@@ -481,7 +491,7 @@ const additionalLD = [
             <div class="frame-corner tr"></div>
             <div class="frame-corner bl"></div>
             <div class="frame-corner br"></div>
-            <img src="/smart-home-winning-moment-photo-pune.jpeg" alt="Winning moment SIH 2018 at NCL Pune" loading="lazy" />
+            <Image src={assetImg('smart-home-winning-moment-photo-pune.jpeg')} alt="Winning moment SIH 2018 at NCL Pune" width={800} loading="lazy" />
           </div>
           <div class="award-text">
             <div class="award-badge-row">
@@ -536,7 +546,7 @@ const additionalLD = [
             <div class="frame-corner br"></div>
             <div class="frame-scanline"></div>
             <div class="gallery-img-wrap">
-              <img src={img.src} alt={img.caption} loading="lazy" />
+              <Image src={assetImg(img.src)} alt={img.caption} width={900} loading="lazy" />
             </div>
             <div class="frame-hud">
               <span class="frame-label">{img.label}</span>

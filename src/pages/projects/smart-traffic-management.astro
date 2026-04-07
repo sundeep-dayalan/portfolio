@@ -1,6 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navbar from '../../components/Navbar.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const rawImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*', { eager: true });
+function assetImg(filename: string): ImageMetadata {
+  const clean = filename.startsWith('/') ? filename.slice(1) : filename;
+  const mod = rawImages[`/src/assets/images/${clean}`];
+  if (!mod) throw new Error(`Image not found: ${clean}`);
+  return mod.default;
+}
 
 const title = "Digital Traffic Management System | Sundeep Dayalan";
 const description = "Smart India Hackathon 2019 #1 Winner — ML-powered traffic management system with emergency vehicle prioritization, pothole detection, and real-time signal control. ₹1,00,000 cash award by Maruti Suzuki & Government of India.";
@@ -154,7 +164,7 @@ const additionalLD = [
   <!-- HERO -->
   <section class="project-hero">
     <div class="project-hero-bg">
-      <img src="/project-traffic.png" alt="Smart Traffic Management System" width="1200" height="600" loading="eager" />
+      <Image src={assetImg('project-traffic.png')} alt="Smart Traffic Management System" width={1200} height={600} loading="eager" fetchpriority="high" />
       <div class="project-hero-overlay"></div>
     </div>
     <div class="project-hero-content">
@@ -284,7 +294,7 @@ const additionalLD = [
               <div class="frame-corner tr"></div>
               <div class="frame-corner bl"></div>
               <div class="frame-corner br"></div>
-              <img src={mod.img} alt={mod.title} loading="lazy" />
+              <Image src={assetImg(mod.img)} alt={mod.title} width={800} loading="lazy" />
             </div>
           </div>
         ))}
@@ -309,7 +319,7 @@ const additionalLD = [
               <span class="bay-signal">{bay.signal}</span>
             </div>
             <div class="bay-img-wrap">
-              <img src={bay.img} alt={`Level ${bay.level} bay detection`} loading="lazy" />
+              <Image src={assetImg(bay.img)} alt={`Level ${bay.level} bay detection`} width={600} loading="lazy" />
             </div>
             <p class="bay-desc">{bay.desc}</p>
             <div class="bay-duration">
@@ -336,7 +346,7 @@ const additionalLD = [
           <div class="frame-corner tr"></div>
           <div class="frame-corner bl"></div>
           <div class="frame-corner br"></div>
-          <img src="/traffic-cctv-placement-image.png" alt="CCTV camera placement above traffic signals" loading="lazy" />
+          <Image src={assetImg('traffic-cctv-placement-image.png')} alt="CCTV camera placement above traffic signals" width={800} loading="lazy" />
           <div class="diagram-label">CCTV PLACEMENT — Camera positioning for density detection</div>
         </div>
         <div class="diagram-frame">
@@ -344,7 +354,7 @@ const additionalLD = [
           <div class="frame-corner tr"></div>
           <div class="frame-corner bl"></div>
           <div class="frame-corner br"></div>
-          <img src="/traffic-communication-with-server-flow.png" alt="Communication with server flow diagram" loading="lazy" />
+          <Image src={assetImg('traffic-communication-with-server-flow.png')} alt="Communication with server flow diagram" width={800} loading="lazy" />
           <div class="diagram-label">SERVER FLOW — CCTV → Processing → STC communication chain</div>
         </div>
       </div>
@@ -399,7 +409,7 @@ const additionalLD = [
             <div class="frame-corner br"></div>
             <div class="frame-scanline"></div>
             <div class="gallery-img-wrap">
-              <img src={img.src} alt={img.caption} loading="lazy" />
+              <Image src={assetImg(img.src)} alt={img.caption} width={900} loading="lazy" />
             </div>
             <div class="frame-hud">
               <span class="frame-label">{img.label}</span>
@@ -455,7 +465,7 @@ const additionalLD = [
             <div class="frame-corner tr"></div>
             <div class="frame-corner bl"></div>
             <div class="frame-corner br"></div>
-            <img src="/traffic-winner-check.jpg" alt="SIH 2019 Winner cheque — ₹1,00,000" loading="lazy" />
+            <Image src={assetImg('traffic-winner-check.jpg')} alt="SIH 2019 Winner cheque — ₹1,00,000" width={600} loading="lazy" />
           </div>
           <div class="award-text">
             <div class="award-amount">₹1,00,000</div>
@@ -508,7 +518,7 @@ const additionalLD = [
               <div class="frame-corner tr"></div>
               <div class="frame-corner bl"></div>
               <div class="frame-corner br"></div>
-              <img src={j.img} alt={j.name} loading="lazy" />
+              <Image src={assetImg(j.img)} alt={j.name} width={200} height={200} loading="lazy" />
             </div>
             <h3 class="jury-name">{j.name}</h3>
             <p class="jury-role">{j.role}</p>
@@ -533,7 +543,7 @@ const additionalLD = [
           <div class="frame-corner bl"></div>
           <div class="frame-corner br"></div>
           <div class="frame-scanline"></div>
-          <img src="/traffic-team-picture-aicte-chairman.jpg" alt="Team Musketeers with AICTE Chairman at SIH 2019" loading="lazy" />
+          <Image src={assetImg('traffic-team-picture-aicte-chairman.jpg')} alt="Team Musketeers with AICTE Chairman at SIH 2019" width={900} loading="lazy" />
           <div class="frame-hud">
             <span class="frame-label">TEAM_SIH_2019</span>
             <span class="frame-status">● WINNERS</span>

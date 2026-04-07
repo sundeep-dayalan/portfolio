@@ -1,6 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navbar from '../../components/Navbar.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const rawImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*', { eager: true });
+function assetImg(filename: string): ImageMetadata {
+  const clean = filename.startsWith('/') ? filename.slice(1) : filename;
+  const mod = rawImages[`/src/assets/images/${clean}`];
+  if (!mod) throw new Error(`Image not found: ${clean}`);
+  return mod.default;
+}
 
 const title = "WEB HUNTER — Web Reconnaissance Software | Sundeep Dayalan";
 const description = "Python-based web reconnaissance tool with GUI for DNS enumeration, SSL certificate analysis, and streamlined security assessment.";
@@ -104,7 +114,7 @@ const additionalLD = [
   <!-- HERO -->
   <section class="project-hero">
     <div class="project-hero-bg">
-      <img src="/project-web-hunter.png" alt="WEB HUNTER — Web reconnaissance and cybersecurity tool" width="1200" height="600" loading="eager" />
+      <Image src={assetImg('project-web-hunter.png')} alt="WEB HUNTER — Web reconnaissance and cybersecurity tool" width={1200} height={600} loading="eager" fetchpriority="high" />
       <div class="project-hero-overlay"></div>
     </div>
     <div class="project-hero-content">

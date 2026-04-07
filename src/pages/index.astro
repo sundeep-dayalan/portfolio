@@ -1,6 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const rawImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*', { eager: true });
+function assetImg(filename: string): ImageMetadata {
+  const clean = filename.startsWith('/') ? filename.slice(1) : filename;
+  const mod = rawImages[`/src/assets/images/${clean}`];
+  if (!mod) throw new Error(`Image not found: ${clean}`);
+  return mod.default;
+}
 
 const title = "Sundeep Dayalan | Senior Software Engineer — Distributed Systems · LLM Infrastructure · Real-Time Fintech";
 const description = "Portfolio of Sundeep Dayalan — Senior Software Engineer with 5+ years architecting fault-tolerant distributed systems, LLM orchestration, and real-time fintech platforms. Python/Django, Java/Spring Boot, React/TypeScript. Published researcher & patent holder.";
@@ -230,13 +240,14 @@ const additionalLD = [
             <div class="profile-corner tr"></div>
             <div class="profile-corner bl"></div>
             <div class="profile-corner br"></div>
-            <img 
-              src="/profile.png" 
-              alt="Sundeep Dayalan - Senior Software Engineer" 
+            <Image
+              src={assetImg('profile.png')}
+              alt="Sundeep Dayalan - Senior Software Engineer"
               class="profile-image"
-              width="400"
-              height="400"
+              width={400}
+              height={400}
               loading="eager"
+              fetchpriority="high"
             />
             <div class="profile-scanline"></div>
             <div class="profile-overlay"></div>
