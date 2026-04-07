@@ -74,9 +74,9 @@ const googlebotContent = noindex
 <!-- Generator -->
 <meta name="generator" content={Astro.generator} />
 
-<!-- Preconnect for Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Preload critical self-hosted fonts (eliminates render-blocking FOUT) -->
+<link rel="preload" href="/fonts/orbitron-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/share-tech-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
 
 <!-- Google Search Console verification — replace content value after deploying -->
 <meta name="google-site-verification" content="5zHy8hNtipLNJNEyU7BokJH91_O0hhGAGxBp-aY9DJE" />
