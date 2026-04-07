@@ -81,6 +81,8 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -127,6 +129,7 @@ img {
   height: auto;
   display: block;
 }
+
 
 a {
   color: var(--color-primary);
@@ -511,5 +514,64 @@ a:hover {
   .gallery-frame:hover {
     transform: none;
     box-shadow: none;
+    border-color: var(--color-border) !important;
+  }
+  .gallery-frame:hover .gallery-img-wrap img,
+  .module-card:hover .module-img-wrap img,
+  .diagram-frame:hover img {
+    filter: saturate(0.85) !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #lb-overlay {
+    padding: 12px;
+  }
+
+  #lb-img {
+    max-width: 95vw;
+    max-height: 75vh;
+  }
+
+  #lb-inner {
+    max-width: 96vw;
+    max-height: 96vh;
+  }
+
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+}
+
+@media (max-width: 480px) {
+  #lb-overlay {
+    padding: 8px;
+  }
+
+  #lb-img {
+    max-width: 96vw;
+    max-height: 70vh;
+  }
+
+  .lb-hud {
+    padding: 5px 10px;
+  }
+
+  #lb-caption {
+    font-size: 0.58rem;
+    padding: 6px 10px;
+  }
+
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+}
+
+/* Landscape mobile: reclaim vertical space */
+@media (max-height: 500px) and (orientation: landscape) {
+  #lb-img {
+    max-height: 80vh;
+    max-width: 70vw;
   }
 }

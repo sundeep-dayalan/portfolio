@@ -1081,5 +1081,13 @@ const additionalLD = [
     .highlights-grid { grid-template-columns: 1fr; }
     .top-features-grid { grid-template-columns: repeat(2, 1fr); }
     .project-hero-content { padding: var(--space-xl) var(--space-md); }
+    .project-text-block { padding: var(--space-md); }
+    .section-intro { font-size: 0.9rem; }
+  }
+
+  @media (hover: none) {
+    .highlight-card:hover { border-color: var(--color-border); }
+    .gallery-frame:hover .gallery-img-wrap img { transform: none; }
+    .feature-detail-card:hover { border-color: var(--color-border); }
   }
 </style>

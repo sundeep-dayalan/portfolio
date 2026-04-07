@@ -327,6 +327,42 @@ const additionalLD = [
       grid-template-columns: 1fr;
       gap: var(--space-lg);
     }
+    .media-visual {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .media-stack {
+      gap: var(--space-2xl);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .media-stack {
+      gap: var(--space-xl);
+    }
+    .media-card {
+      gap: var(--space-md);
+    }
+  }
+
+  @media (hover: none) {
+    .gallery-frame:hover img {
+      transform: none;
+      filter: saturate(0.8) contrast(1.05);
+    }
+    .gallery-frame:hover,
+    .video-frame:hover {
+      border-color: var(--color-border);
+      box-shadow: none;
+    }
+    .gallery-frame:hover .frame-corner,
+    .video-frame:hover .frame-corner {
+      border-color: var(--color-primary-dim);
+      top: 6px;
+      left: 6px;
+    }
   }
 
   /* ============================================

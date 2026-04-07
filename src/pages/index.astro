@@ -1929,6 +1929,30 @@ const additionalLD = [
     }
 
     .research-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .experience-content {
+      grid-template-columns: 1fr;
+    }
+
+    .about-content {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .hero-content {
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-md);
+    }
+
+    .research-grid {
       grid-template-columns: 1fr;
     }
   }
@@ -1939,13 +1963,17 @@ const additionalLD = [
     }
 
     .hero-profile-wrapper {
-      max-width: 300px;
+      max-width: 260px;
       margin: 0 auto;
     }
 
     .hero-terminal-bar {
       flex-wrap: wrap;
       gap: var(--space-sm);
+    }
+
+    .terminal-title {
+      font-size: 0.6rem;
     }
 
     .terminal-signal {
@@ -1958,6 +1986,11 @@ const additionalLD = [
 
     .hero-stats {
       flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .stat-divider {
+      display: none;
     }
 
     .about-content {
@@ -1990,6 +2023,35 @@ const additionalLD = [
       gap: var(--space-sm);
       text-align: center;
     }
+
+    .hero-meta {
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .edu-card {
+      gap: var(--space-sm);
+    }
+
+    .edu-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+
+    .hero-subtitle-line {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+
+    .hero-role-label {
+      font-size: 0.7rem;
+    }
+
+    .certs-grid {
+      gap: var(--space-sm);
+    }
   }
 
   @media (max-width: 480px) {
@@ -1999,17 +2061,106 @@ const additionalLD = [
 
     .hero-links {
       flex-direction: column;
+      align-items: stretch;
     }
 
     .hero-cta {
       text-align: center;
       justify-content: center;
+      width: 100%;
     }
 
     .hero-meta {
       flex-direction: column;
       gap: var(--space-sm);
+    }
 
+    .hero-profile-wrapper {
+      max-width: 220px;
+    }
+
+    .hero-bottom-strip {
+      padding: var(--space-md);
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+    }
+
+    .cert-card {
+      flex: 1 1 100%;
+    }
+
+    .contact-email-box {
+      word-break: break-all;
+      font-size: 0.85rem;
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .exp-card {
+      padding: var(--space-md);
+    }
+
+    .skill-card {
+      padding: var(--space-md);
+    }
+
+    .project-card {
+      padding: var(--space-md);
+    }
+
+    .research-item {
+      padding: var(--space-md);
+    }
+
+    .edu-content {
+      padding: var(--space-md);
+    }
+
+    .about-text-block {
+      padding: var(--space-md);
+    }
+
+    .exp-highlights {
+      padding: var(--space-md);
+    }
+
+    .section-header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .hero-name,
+    .hero-name-last {
+      font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .hero-tagline {
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Touch device: disable hover transforms that persist on tap */
+  @media (hover: none) {
+    .edu-card:hover {
+      transform: none;
+    }
+    .skill-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+    .cert-card:hover {
+      transform: none;
+    }
+    .exp-highlight-item:hover {
+      transform: none;
+    }
+    .footer-link:hover {
+      transform: none;
+      display: revert;
+    }
+    .project-card-link:hover {
+      box-shadow: none;
+    }
   }
 </style>
 

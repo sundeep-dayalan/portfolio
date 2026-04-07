@@ -893,5 +893,17 @@ const additionalLD = [
   @media (max-width: 480px) {
     .highlights-grid { grid-template-columns: repeat(2, 1fr); }
     .project-hero-content { padding: var(--space-xl) var(--space-md); }
+    .top-feature-card { min-width: auto; max-width: 100%; flex: 1 1 calc(50% - var(--space-sm)); }
+    .module-card { padding: var(--space-md); grid-template-columns: 1fr; }
+    .project-text-block { padding: var(--space-md); }
+    .video-pair { gap: var(--space-md); }
+    .section-intro { font-size: 0.9rem; }
+  }
+
+  @media (hover: none) {
+    .highlight-card:hover { border-color: var(--color-border); }
+    .top-feature-card:hover { transform: none; border-color: var(--color-border); }
+    .module-card:hover { border-color: var(--color-border); }
+    .gallery-frame:hover .gallery-img-wrap img { transform: none; }
   }
 </style>
