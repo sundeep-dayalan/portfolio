@@ -47,6 +47,12 @@ const ogPages: Record<string, { title: string; role: string; description: string
     description: 'City-scale traffic management across 50+ intersections — Springer publication & patent',
     tags: ['TensorFlow', 'C++', 'Node.js', 'IoT'],
   },
+  'mindkeep': {
+    title: 'MindKeep',
+    role: 'AI-Powered Second Brain',
+    description: '100% local AI Chrome extension — Gemini Nano, semantic search, encrypted notes',
+    tags: ['TypeScript', 'Gemini Nano', 'Chrome MV3', 'Transformers.js'],
+  },
   'smart-home': {
     title: 'Smart Home',
     role: 'IoT Automation System',
