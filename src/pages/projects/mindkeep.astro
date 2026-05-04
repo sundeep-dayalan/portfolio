@@ -1,0 +1,399 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const rawImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*', { eager: true });
+function assetImg(filename: string): ImageMetadata {
+  const clean = filename.startsWith('/') ? filename.slice(1) : filename;
+  const mod = rawImages[`/src/assets/images/${clean}`];
+  if (!mod) throw new Error(`Image not found: ${clean}`);
+  return mod.default;
+}
+
+const title = "MindKeep — AI-Powered Second Brain Chrome Extension | Sundeep Dayalan";
+const description = "100% local AI Chrome extension powered by Google Gemini Nano — semantic search, encrypted notes, and an in-page AI assistant. Built for the Google Chrome Built-in AI Challenge 2025.";
+
+const highlights = [
+  { label: "Challenge", value: "Google Chrome Built-in AI 2025" },
+  { label: "Period", value: "2025" },
+  { label: "Domain", value: "AI / Chrome Extension" },
+  { label: "Language", value: "TypeScript" },
+];
+
+const features = [
+  {
+    title: "100% Local AI",
+    desc: "Powered by Google Gemini Nano running entirely on-device via the Chrome AI API. Your notes, thoughts, and data never leave your browser — zero cloud dependency.",
+    icon: "🧠"
+  },
+  {
+    title: "Semantic Search",
+    desc: "Ask questions in natural language and find notes by conceptual meaning — not just keywords. Powered by local vector embeddings generated with Transformers.js.",
+    icon: "🔍"
+  },
+  {
+    title: "Encrypted Storage",
+    desc: "All note content is encrypted at rest using the Web Crypto API (AES-GCM) before being saved to IndexedDB. Your private data stays unreadable outside the extension.",
+    icon: "🔐"
+  },
+  {
+    title: "In-Page AI Assistant",
+    desc: "An AI assistant that surfaces on any input field across the web — helping you write emails, fill forms, or generate code using your personal notes as context.",
+    icon: "⚡"
+  },
+  {
+    title: "Rich Text Editor",
+    desc: "A full-featured TipTap editor supporting tables, images, code blocks, and lists — giving you a professional writing experience right in the browser.",
+    icon: "✍️"
+  },
+  {
+    title: "Custom AI Personas",
+    desc: "Create custom AI behaviours — 'Email Writer', 'Code Helper', 'Meeting Summariser' — each with its own system prompt and tone to tailor responses to specific tasks.",
+    icon: "🎭"
+  },
+];
+
+const contributions = [
+  "Architected the local-first AI pipeline integrating Google Gemini Nano with Transformers.js for fully on-device semantic search",
+  "Built the encrypted note storage system using the Web Crypto API (AES-GCM) with Dexie.js as the IndexedDB layer",
+  "Developed the in-page AI assistant using Chrome's content script APIs and the Prompt / Rewriter APIs",
+  "Implemented the Persona system using stateful LanguageModel sessions with token usage tracking and quota warnings",
+  "Engineered the full Chrome MV3 extension using Plasmo framework with React 18, TypeScript, and Tailwind CSS",
+  "Integrated the Summarizer API to auto-generate note titles from pasted content",
+];
+
+const challenges = [
+  "Running semantic vector search entirely in-browser without any server round-trip while keeping latency imperceptible",
+  "Managing Chrome AI API session lifecycles with token quota limits across multiple concurrent Gemini Nano instances",
+  "Synchronising encrypted IndexedDB storage with real-time vector embedding updates without blocking the UI thread",
+  "Building a content-script overlay that injects seamlessly into any website's DOM without style conflicts",
+];
+
+const techStack = ["TypeScript", "React 18", "Plasmo", "Gemini Nano", "Transformers.js", "Web Crypto API", "Dexie.js", "TipTap", "Tailwind CSS", "Chrome MV3"];
+
+const keywords = "MindKeep, Chrome extension, local AI, Gemini Nano, semantic search, second brain, encrypted notes, Transformers.js, Google Chrome AI Challenge, Sundeep Dayalan";
+
+const additionalLD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MindKeep — AI-Powered Second Brain",
+    "description": "100% local AI Chrome extension powered by Google Gemini Nano for semantic note search, encrypted storage, and an in-page AI assistant.",
+    "applicationCategory": "BrowserApplication",
+    "operatingSystem": "Google Chrome",
+    "url": "https://www.sundeepdayalan.in/projects/mindkeep",
+    "creator": {
+      "@type": "Person",
+      "name": "Sundeep Dayalan",
+      "url": "https://www.sundeepdayalan.in"
+    },
+    "dateCreated": "2025",
+    "keywords": "Chrome extension, local AI, Gemini Nano, semantic search, encrypted notes"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sundeepdayalan.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.sundeepdayalan.in/#projects" },
+      { "@type": "ListItem", "position": 3, "name": "MindKeep — AI-Powered Second Brain", "item": "https://www.sundeepdayalan.in/projects/mindkeep" }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/og/mindkeep.png"
+  keywords={keywords}
+  additionalLD={additionalLD}
+>
+  <Navbar />
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="project-hero-bg">
+      <Image src={assetImg('project-mindkeep.png')} alt="MindKeep — AI-powered second brain Chrome extension" width={1200} height={600} loading="eager" fetchpriority="high" />
+      <div class="project-hero-overlay"></div>
+    </div>
+    <div class="project-hero-content">
+      <a href="/#projects" class="back-link">← RETURN TO BASE</a>
+      <div class="project-hero-meta">
+        <span class="project-badge ai">CHROME EXTENSION</span>
+        <span class="project-badge challenge">GOOGLE AI CHALLENGE 2025</span>
+        <span class="project-date">2025</span>
+      </div>
+      <h1 class="project-hero-title">MINDKEEP</h1>
+      <p class="project-hero-subtitle">Your personal AI-powered second brain — 100% local, fully private. Semantic search, encrypted notes, and an in-page AI assistant powered entirely by Google Gemini Nano on-device.</p>
+      <div class="project-hero-tags">
+        {techStack.map(tag => <span class="hero-tag">{tag}</span>)}
+      </div>
+      <div class="project-hero-actions">
+        <a href="https://github.com/sundeep-dayalan/MindKeep" target="_blank" rel="noopener noreferrer" class="hero-cta">
+          <span class="cta-bracket">[</span> VIEW ON GITHUB <span class="cta-bracket">]</span>
+        </a>
+        <a href="https://youtu.be/FhwTGEgA8R8" target="_blank" rel="noopener noreferrer" class="hero-cta secondary">
+          <span class="cta-bracket">[</span> WATCH DEMO <span class="cta-bracket">]</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="section">
+    <div class="container">
+      <div class="highlights-grid">
+        {highlights.map(h => (
+          <div class="highlight-card">
+            <span class="highlight-label">{h.label}</span>
+            <span class="highlight-value">{h.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION BRIEFING</span>
+        <h2 class="section-title">About</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat mission_briefing.txt</span>
+          <span class="terminal-status">CLASSIFIED...</span>
+        </div>
+        <div class="project-text-block">
+          <p>Every day you're forced to make an impossible choice: use <span class="hl">smart cloud AI tools</span> that upload your private data to third-party servers, or use <span class="hl">dumb local tools</span> with zero intelligence. <span class="hl">MindKeep breaks this trade-off.</span></p>
+          <p>Built for the <span class="hl">Google Chrome Built-in AI Challenge 2025</span>, MindKeep is the first tool to bring the AI <em>to</em> your data rather than your data to the AI. It uses <span class="hl">Google's Gemini Nano</span> — running entirely on-device — to understand your notes semantically, generate answers, and assist you across the entire web without a single byte of your data leaving your browser.</p>
+          <p>The result: an intelligent second brain that is both <span class="hl">maximally smart</span> and <span class="hl">100% private</span>. No cloud. No subscriptions. No compromises.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM ARCHITECTURE</span>
+        <h2 class="section-title">How It Works</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="arch-grid animate-on-scroll">
+        <div class="arch-flow">
+          <div class="arch-step">
+            <span class="arch-num">01</span>
+            <div class="arch-content">
+              <h4>Save a Note</h4>
+              <p>You write or paste content into MindKeep's rich text editor.</p>
+            </div>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-step">
+            <span class="arch-num">02</span>
+            <div class="arch-content">
+              <h4>Generate Embedding</h4>
+              <p>Transformers.js creates a 384-dimensional vector embedding locally in the browser — no server involved.</p>
+            </div>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-step">
+            <span class="arch-num">03</span>
+            <div class="arch-content">
+              <h4>Encrypt and Store</h4>
+              <p>Note content is encrypted with AES-GCM (Web Crypto API) and stored in IndexedDB alongside its embedding.</p>
+            </div>
+          </div>
+        </div>
+        <div class="arch-flow">
+          <div class="arch-step">
+            <span class="arch-num">04</span>
+            <div class="arch-content">
+              <h4>Ask a Question</h4>
+              <p>You ask anything in natural language — "What was that AWS key for production?"</p>
+            </div>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-step">
+            <span class="arch-num">05</span>
+            <div class="arch-content">
+              <h4>Vector Similarity Search</h4>
+              <p>Your query is embedded and compared against stored note vectors. Semantically relevant notes are retrieved — not just keyword matches.</p>
+            </div>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-step">
+            <span class="arch-num">06</span>
+            <div class="arch-content">
+              <h4>Gemini Nano Responds</h4>
+              <p>Decrypted matching notes are passed as context to Gemini Nano, which generates a precise, grounded answer — all on-device.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM MODULES</span>
+        <h2 class="section-title">Capabilities</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="features-grid">
+        {features.map((feat, i) => (
+          <div class="feature-card animate-on-scroll" style={`--delay: ${i * 100}ms`}>
+            <span class="feature-icon">{feat.icon}</span>
+            <h3 class="feature-title">{feat.title}</h3>
+            <p class="feature-desc">{feat.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRIBUTIONS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">OPERATOR LOG</span>
+        <h2 class="section-title">My Contributions</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block animate-on-scroll">
+        {contributions.map(item => (
+          <div class="list-item"><span class="bullet-icon">▸</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">THREAT ANALYSIS</span>
+        <h2 class="section-title">Challenges Overcome</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block warn animate-on-scroll">
+        {challenges.map(item => (
+          <div class="list-item"><span class="bullet-icon warn">⚠</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALL -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">DEPLOYMENT PROTOCOL</span>
+        <h2 class="section-title">Installation</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat install.sh</span>
+          <span class="terminal-status">READY</span>
+        </div>
+        <div class="install-steps">
+          <div class="install-step"><span class="step-num">01</span><span>Enable Chrome flags: <code>#prompt-api-for-gemini-nano</code> and <code>#optimization-guide-on-device-model</code> → set to Enabled, then relaunch Chrome</span></div>
+          <div class="install-step"><span class="step-num">02</span><span>Download <code>mindkeep-v1.zip</code> from the <a href="https://github.com/sundeep-dayalan/MindKeep/releases/tag/v1" target="_blank" rel="noopener noreferrer">GitHub Releases</a> page and unzip it</span></div>
+          <div class="install-step"><span class="step-num">03</span><span>Open <code>chrome://extensions</code>, enable <strong>Developer mode</strong>, click <strong>Load unpacked</strong>, and select the unzipped folder</span></div>
+          <div class="install-step"><span class="step-num">04</span><span>Pin the MindKeep icon to your toolbar and start capturing your second brain</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="back-section">
+    <a href="/#projects" class="back-link-bottom">← RETURN TO PROJECTS</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .project-hero { position: relative; min-height: 70vh; display: flex; align-items: flex-end; overflow: hidden; }
+  .project-hero-bg { position: absolute; inset: 0; }
+  .project-hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) saturate(0.4); }
+  .project-hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,20,0.4) 0%, rgba(10,14,20,0.7) 50%, rgba(10,14,20,0.96) 100%); }
+  .project-hero-content { position: relative; z-index: 2; padding: var(--space-3xl) var(--space-2xl) var(--space-2xl); max-width: 1200px; margin: 0 auto; width: 100%; }
+  .back-link { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-primary-dim); text-decoration: none; letter-spacing: 0.1em; display: inline-block; transition: color var(--transition-fast); }
+  .back-link:hover { color: var(--color-primary); }
+  .project-hero-meta { display: flex; align-items: center; gap: var(--space-sm); margin: var(--space-lg) 0 var(--space-md); flex-wrap: wrap; }
+  .project-badge { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em; padding: 4px 12px; border: 1px solid; text-transform: uppercase; color: var(--color-warning); border-color: rgba(255,182,39,0.4); }
+  .project-badge.ai { color: #00e5ff; border-color: rgba(0,229,255,0.4); }
+  .project-badge.challenge { color: #a78bfa; border-color: rgba(167,139,250,0.4); }
+  .project-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-dim); letter-spacing: 0.05em; }
+  .project-hero-title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; color: var(--color-text-bright); line-height: 1.1; margin-bottom: var(--space-md); text-transform: uppercase; letter-spacing: 0.05em; }
+  .project-hero-subtitle { font-size: 1.05rem; color: var(--color-text-secondary); margin-bottom: var(--space-lg); max-width: 700px; line-height: 1.6; }
+  .project-hero-tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-bottom: var(--space-lg); }
+  .hero-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-primary-dim); padding: 3px 10px; border: 1px solid var(--color-border); letter-spacing: 0.05em; }
+  .project-hero-actions { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .hero-cta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-primary); text-decoration: none; letter-spacing: 0.15em; padding: var(--space-sm) var(--space-lg); border: 1px solid var(--color-primary-dim); transition: all var(--transition-normal); }
+  .hero-cta:hover { background: rgba(0,229,255,0.08); border-color: var(--color-primary); }
+  .hero-cta.secondary { color: #a78bfa; border-color: rgba(167,139,250,0.4); }
+  .hero-cta.secondary:hover { background: rgba(167,139,250,0.08); border-color: #a78bfa; }
+  .cta-bracket { color: var(--color-text-dim); }
+
+  .highlights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); padding: var(--space-xl) 0; }
+  .highlight-card { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-lg); text-align: center; display: flex; flex-direction: column; gap: var(--space-xs); transition: border-color var(--transition-normal); }
+  .highlight-card:hover { border-color: var(--color-border-bright); }
+  .highlight-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--color-primary-dim); letter-spacing: 0.15em; }
+  .highlight-value { font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; color: var(--color-text-bright); }
+
+  .project-terminal { background: var(--color-bg-card); border: 1px solid var(--color-border); overflow: hidden; }
+  .terminal-header-mini { display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm) var(--space-md); background: rgba(0,229,255,0.03); border-bottom: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.75rem; }
+  .terminal-prompt { color: var(--color-primary-dim); }
+  .terminal-status { color: var(--color-secondary-dim); font-size: 0.65rem; letter-spacing: 0.15em; }
+  .project-text-block { padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.8; }
+  .hl { color: var(--color-primary); font-weight: 500; }
+
+  .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+  .arch-flow { display: flex; flex-direction: column; gap: var(--space-sm); background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-xl); }
+  .arch-step { display: flex; gap: var(--space-md); align-items: flex-start; }
+  .arch-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--color-primary-dim); flex-shrink: 0; min-width: 36px; }
+  .arch-content h4 { font-family: var(--font-display); font-size: 0.85rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; margin-bottom: 4px; }
+  .arch-content p { font-size: 0.82rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .arch-arrow { font-family: var(--font-mono); color: var(--color-primary-dim); font-size: 1.2rem; text-align: center; padding: var(--space-xs) 0; }
+
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+  .feature-card { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-sm); transition: border-color var(--transition-normal), transform var(--transition-normal); }
+  .feature-card:hover { border-color: var(--color-border-bright); transform: translateY(-2px); }
+  .feature-icon { font-size: 2rem; margin-bottom: var(--space-xs); }
+  .feature-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; }
+  .feature-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; }
+
+  .list-block { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
+  .list-block.warn { border-color: rgba(255,182,39,0.2); }
+  .list-item { display: flex; align-items: flex-start; gap: var(--space-sm); font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .bullet-icon { color: var(--color-primary); flex-shrink: 0; margin-top: 2px; }
+  .bullet-icon.warn { color: var(--color-warning); }
+
+  .install-steps { padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
+  .install-step { display: flex; align-items: flex-start; gap: var(--space-md); font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .install-step a { color: var(--color-primary); }
+  .install-step code { font-family: var(--font-mono); color: var(--color-primary-dim); background: rgba(0,229,255,0.05); padding: 2px 8px; font-size: 0.8rem; }
+  .step-num { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--color-primary-dim); flex-shrink: 0; min-width: 32px; }
+
+  .back-section { max-width: 1200px; margin: 0 auto; padding: var(--space-2xl); }
+  .back-link-bottom { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-primary-dim); text-decoration: none; letter-spacing: 0.1em; padding: var(--space-md) var(--space-lg); border: 1px solid var(--color-border); display: inline-block; transition: all var(--transition-normal); }
+  .back-link-bottom:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+  .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } .arch-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) { .highlights-grid { grid-template-columns: repeat(2, 1fr); } .features-grid { grid-template-columns: 1fr; } .project-hero { min-height: 50vh; } }
+  @media (max-width: 480px) { .highlights-grid { grid-template-columns: 1fr; } .project-hero-content { padding: var(--space-xl) var(--space-md); } }
+  @media (hover: none) { .highlight-card:hover { border-color: var(--color-border); } .feature-card:hover { border-color: var(--color-border); transform: none; } }
+</style>
