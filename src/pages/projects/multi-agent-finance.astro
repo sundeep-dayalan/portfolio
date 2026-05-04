@@ -441,18 +441,7 @@ const additionalLD = [
           </div>
           <span class="repo-link">VIEW ON GITHUB →</span>
         </a>
-        <a href="https://github.com/sundeep-dayalan/MyFolio" target="_blank" rel="noopener noreferrer" class="repo-card">
-          <div class="repo-header">
-            <span class="repo-icon">🖥️</span>
-            <span class="repo-badge">DASHBOARD</span>
-          </div>
-          <h3 class="repo-name">MyFolio</h3>
-          <p class="repo-desc">Personal wealth portfolio dashboard — Plaid bank integration, real-time account summaries, spending analytics, Azure Functions backend.</p>
-          <div class="repo-tags">
-            <span>TypeScript</span><span>React</span><span>Plaid</span><span>Azure Functions</span>
-          </div>
-          <span class="repo-link">VIEW ON GITHUB →</span>
-        </a>
+
       </div>
     </div>
   </section>
@@ -881,7 +870,7 @@ const additionalLD = [
   .bullet-icon.warn { color: var(--color-warning); }
 
   /* ── REPOS ── */
-  .repo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+  .repo-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); max-width: 600px; }
   .repo-card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
