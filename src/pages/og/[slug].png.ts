@@ -47,6 +47,12 @@ const ogPages: Record<string, { title: string; role: string; description: string
     description: 'City-scale traffic management across 50+ intersections — Springer publication & patent',
     tags: ['TensorFlow', 'C++', 'Node.js', 'IoT'],
   },
+  'multi-agent-finance': {
+    title: 'Multi-Agent AI',
+    role: 'Agentic AI Financial Platform',
+    description: '5-agent LangGraph pipeline · 93% RAG accuracy · sub-100ms · 2.5% monthly ROI',
+    tags: ['LangChain', 'LangGraph', 'Azure', 'Plaid API'],
+  },
   'mindkeep': {
     title: 'MindKeep',
     role: 'AI-Powered Second Brain',
