@@ -1,0 +1,953 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+
+const title = "Multi-Agent Agentic AI Financial Platform | Sundeep Dayalan";
+const description = "Production-grade multi-agent AI system automating financial workflows — transaction enrichment, spend categorisation, and investment recommendations with 93% RAG accuracy and sub-100ms response times.";
+
+const highlights = [
+  { label: "Status", value: "Live · In Production" },
+  { label: "Period", value: "Sep 2025 — Present" },
+  { label: "Domain", value: "Agentic AI · Fintech" },
+  { label: "RAG Accuracy", value: "93%" },
+];
+
+const metrics = [
+  { value: "93%", label: "RAG Retrieval Accuracy", desc: "Azure Vector Search + Cosmos DB" },
+  { value: "<100ms", label: "Response Time", desc: "End-to-end agent pipeline" },
+  { value: "2.5%", label: "Monthly ROI", desc: "Alpaca automated trading" },
+  { value: "99.9%", label: "Reliability", desc: "With hallucination safeguards" },
+];
+
+const agents = [
+  {
+    id: "01",
+    name: "Data Ingestion Agent",
+    role: "INGEST",
+    desc: "Connects to Plaid API to fetch live bank transactions, account balances, and financial data. Normalises and routes data downstream to enrichment.",
+    tech: ["Plaid API", "Python", "LangChain"],
+    color: "cyan"
+  },
+  {
+    id: "02",
+    name: "Transaction Enrichment Agent",
+    role: "ENRICH",
+    desc: "Augments raw transaction records with merchant metadata, category inference, and semantic labels using an LLM chain — turning bank strings into structured intelligence.",
+    tech: ["LangChain", "LLM", "Azure OpenAI"],
+    color: "purple"
+  },
+  {
+    id: "03",
+    name: "Spend Categorisation Agent",
+    role: "CATEGORISE",
+    desc: "Classifies enriched transactions into granular spending categories. Detects anomalies, recurring charges, and subscription drift with zero manual tagging.",
+    tech: ["LangGraph", "RAG", "Vector Search"],
+    color: "green"
+  },
+  {
+    id: "04",
+    name: "Investment Recommendation Agent",
+    role: "ADVISE",
+    desc: "Analyses spending patterns and risk profile against market data to generate personalised, context-aware investment recommendations via a LangGraph multi-step reasoning loop.",
+    tech: ["LangGraph", "RAG", "Cosmos DB"],
+    color: "orange"
+  },
+  {
+    id: "05",
+    name: "Trading Execution Agent",
+    role: "EXECUTE",
+    desc: "Routes approved investment recommendations to Alpaca API for automated trade execution — with position sizing, risk guardrails, and real-time confirmation.",
+    tech: ["Alpaca API", "Python", "Risk Guards"],
+    color: "red"
+  },
+];
+
+const features = [
+  {
+    title: "Multi-Agent Orchestration",
+    desc: "Five specialised LangGraph agents collaborate in a directed acyclic workflow — each owning a distinct domain, with clean handoffs and shared state management.",
+    icon: "🤖"
+  },
+  {
+    title: "RAG Pipeline",
+    desc: "Retrieval-Augmented Generation with Azure Vector Search and Cosmos DB delivers 93% retrieval accuracy — ensuring recommendations are grounded in your actual financial history.",
+    icon: "🧠"
+  },
+  {
+    title: "Hallucination Safeguards",
+    desc: "Multi-layer validation at every agent boundary — confidence scoring, source citation requirements, and fallback chains prevent fabricated financial advice.",
+    icon: "🛡️"
+  },
+  {
+    title: "Plaid Bank Integration",
+    desc: "Connects to real bank accounts via Plaid Link — syncing live transactions, account balances, and institution data with automatic refresh cycles.",
+    icon: "🏦"
+  },
+  {
+    title: "Automated Trading",
+    desc: "Alpaca API integration with configurable position limits, stop-loss guardrails, and portfolio rebalancing logic — 2.5% monthly ROI with 99.9% execution reliability.",
+    icon: "📈"
+  },
+  {
+    title: "One-Click Azure Deploy",
+    desc: "ARM template provisions the entire stack — Azure Functions backend, Static Web App frontend, Cosmos DB, and Vector Search — with managed identity auth and zero secrets in repo.",
+    icon: "☁️"
+  },
+];
+
+const contributions = [
+  "Designed the five-agent LangGraph orchestration DAG — defining agent contracts, state schemas, and inter-agent handoff protocols",
+  "Built the RAG pipeline from scratch — Azure Vector Search index configuration, Cosmos DB document store, chunking strategy, and retrieval scoring (93% accuracy)",
+  "Implemented hallucination safeguards including confidence thresholds, source-citation enforcement, and LLM fallback chains across all agent outputs",
+  "Integrated Plaid API for live bank data ingestion — handling OAuth token lifecycle, webhook sync, and incremental transaction updates",
+  "Developed the Alpaca trading execution layer with position sizing logic, stop-loss guardrails, and real-time order status tracking",
+  "Architected the Azure deployment using ARM templates with managed identity — Functions backend, Static Web Apps, Cosmos DB, and Vector Search provisioned in a single deploy",
+  "Built the TypeScript/React dashboard with real-time account summaries, spending analytics, and recommendation review flows",
+];
+
+const challenges = [
+  "Coordinating five stateful agents without shared mutable state — required designing immutable message-passing contracts with LangGraph's checkpointing system",
+  "Achieving 93% RAG retrieval accuracy on sparse financial data — solved via domain-specific chunking strategies and hybrid keyword+vector search on Azure",
+  "Preventing hallucinated investment recommendations — required multi-layer validation including cross-agent confidence scoring and mandatory source citation",
+  "Sub-100ms latency across the full agent pipeline — achieved via parallel agent execution where dependencies allowed, and aggressive caching of embeddings",
+];
+
+const techStack = ["Python", "LangChain", "LangGraph", "Azure OpenAI", "Azure Vector Search", "Cosmos DB", "Plaid API", "Alpaca API", "TypeScript", "React", "Azure Functions", "Docker", "GitHub Actions"];
+
+const keywords = "multi-agent AI, agentic AI financial platform, LangChain, LangGraph, RAG pipeline, Azure AI, Plaid API, automated trading, Alpaca, fintech AI, Sundeep Dayalan";
+
+const additionalLD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Multi-Agent Agentic AI Financial Platform",
+    "description": "Production-grade multi-agent AI system using LangChain/LangGraph to automate financial workflows — transaction enrichment, spend categorisation, and investment recommendations.",
+    "applicationCategory": "FinanceApplication",
+    "url": "https://www.sundeepdayalan.in/projects/multi-agent-finance",
+    "creator": {
+      "@type": "Person",
+      "name": "Sundeep Dayalan",
+      "url": "https://www.sundeepdayalan.in"
+    },
+    "dateCreated": "2025",
+    "keywords": "multi-agent AI, LangChain, LangGraph, RAG, fintech, automated trading"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sundeepdayalan.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.sundeepdayalan.in/#projects" },
+      { "@type": "ListItem", "position": 3, "name": "Multi-Agent Agentic AI Financial Platform", "item": "https://www.sundeepdayalan.in/projects/multi-agent-finance" }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/og/multi-agent-finance.png"
+  keywords={keywords}
+  additionalLD={additionalLD}
+>
+  <Navbar />
+
+  <!-- HERO — CSS-only, no image required -->
+  <section class="project-hero">
+    <div class="hero-canvas">
+      <div class="grid-bg"></div>
+      <!-- Animated agent nodes -->
+      <div class="agent-node node-1"><span class="node-label">INGEST</span></div>
+      <div class="agent-node node-2"><span class="node-label">ENRICH</span></div>
+      <div class="agent-node node-3"><span class="node-label">CATEGORISE</span></div>
+      <div class="agent-node node-4"><span class="node-label">ADVISE</span></div>
+      <div class="agent-node node-5"><span class="node-label">EXECUTE</span></div>
+      <!-- Flow lines -->
+      <svg class="flow-lines" viewBox="0 0 1200 600" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#00e5ff;stop-opacity:0" />
+            <stop offset="50%" style="stop-color:#00e5ff;stop-opacity:0.6" />
+            <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+        <path d="M 100 300 Q 300 200 500 300 Q 700 400 900 300 Q 1050 220 1100 300" stroke="url(#lineGrad)" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <path d="M 100 320 Q 250 400 450 320 Q 650 240 850 320 Q 1000 400 1100 320" stroke="url(#lineGrad)" stroke-width="1" fill="none" opacity="0.3"/>
+        <circle cx="100" cy="300" r="4" fill="#00e5ff" opacity="0.8"/>
+        <circle cx="350" cy="240" r="3" fill="#a78bfa" opacity="0.7"/>
+        <circle cx="600" cy="320" r="4" fill="#00e5ff" opacity="0.8"/>
+        <circle cx="850" cy="260" r="3" fill="#00ff9d" opacity="0.7"/>
+        <circle cx="1100" cy="300" r="4" fill="#f59e0b" opacity="0.8"/>
+      </svg>
+      <div class="hero-fade"></div>
+    </div>
+
+    <div class="project-hero-content">
+      <a href="/#projects" class="back-link">← RETURN TO BASE</a>
+      <div class="project-hero-meta">
+        <span class="project-badge ai">AGENTIC AI</span>
+        <span class="project-badge fintech">FINTECH</span>
+        <span class="project-badge live">● LIVE</span>
+        <span class="project-date">Sep 2025 — Present</span>
+      </div>
+      <h1 class="project-hero-title">MULTI-AGENT<br/>AI FINANCIAL<br/>PLATFORM</h1>
+      <p class="project-hero-subtitle">Five specialised AI agents working in concert — autonomously ingesting, enriching, categorising, and acting on financial data with 93% RAG accuracy and sub-100ms latency.</p>
+      <div class="project-hero-tags">
+        {techStack.map(tag => <span class="hero-tag">{tag}</span>)}
+      </div>
+      <div class="project-hero-actions">
+        <a href="https://github.com/sundeep-dayalan/MONET" target="_blank" rel="noopener noreferrer" class="hero-cta">
+          <span class="cta-bracket">[</span> MONET — AI PLATFORM <span class="cta-bracket">]</span>
+        </a>
+        <a href="https://github.com/sundeep-dayalan/MyFolio" target="_blank" rel="noopener noreferrer" class="hero-cta secondary">
+          <span class="cta-bracket">[</span> MYFOLIO — DASHBOARD <span class="cta-bracket">]</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="section">
+    <div class="container">
+      <div class="highlights-grid">
+        {highlights.map(h => (
+          <div class="highlight-card">
+            <span class="highlight-label">{h.label}</span>
+            <span class="highlight-value">{h.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION STATS</span>
+        <h2 class="section-title">Performance Metrics</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="metrics-grid animate-on-scroll">
+        {metrics.map(m => (
+          <div class="metric-card">
+            <span class="metric-value">{m.value}</span>
+            <span class="metric-label">{m.label}</span>
+            <span class="metric-desc">{m.desc}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION BRIEFING</span>
+        <h2 class="section-title">About</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat mission_briefing.txt</span>
+          <span class="terminal-status">CLASSIFIED...</span>
+        </div>
+        <div class="project-text-block">
+          <p>Managing personal finances involves dozens of disconnected, manual tasks — downloading statements, tagging transactions, calculating spend, researching investments. <span class="hl">This platform automates all of it</span>, end to end, with a coordinated swarm of specialised AI agents.</p>
+          <p>Built on <span class="hl">LangChain and LangGraph</span>, five autonomous agents handle the full financial intelligence pipeline: ingesting live bank data via Plaid, enriching and categorising every transaction with LLM reasoning, generating personalised investment recommendations through a RAG pipeline, and executing approved trades via Alpaca — all with <span class="hl">hallucination safeguards</span> at every boundary.</p>
+          <p>The result is a platform that delivers <span class="hl">2.5% monthly ROI</span> with <span class="hl">99.9% reliability</span>, <span class="hl">93% retrieval accuracy</span>, and sub-100ms response times — turning raw bank data into actionable financial intelligence with zero manual intervention.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENT PIPELINE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">AGENT NETWORK</span>
+        <h2 class="section-title">The Five-Agent Pipeline</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="pipeline-container animate-on-scroll">
+        {agents.map((agent, i) => (
+          <div class={`pipeline-agent agent-${agent.color}`}>
+            <div class="pipeline-connector">{i < agents.length - 1 && <span class="connector-arrow">→</span>}</div>
+            <div class="agent-card">
+              <div class="agent-header">
+                <span class="agent-id">{agent.id}</span>
+                <span class={`agent-role role-${agent.color}`}>{agent.role}</span>
+              </div>
+              <h3 class="agent-name">{agent.name}</h3>
+              <p class="agent-desc">{agent.desc}</p>
+              <div class="agent-tech">
+                {agent.tech.map(t => <span class="tech-tag">{t}</span>)}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM ARCHITECTURE</span>
+        <h2 class="section-title">How It Works</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="arch-blocks animate-on-scroll">
+        <div class="arch-layer">
+          <div class="arch-layer-label">DATA SOURCES</div>
+          <div class="arch-layer-cards">
+            <div class="arch-block source">
+              <span class="arch-icon">🏦</span>
+              <span class="arch-name">Plaid API</span>
+              <span class="arch-sub">Live bank data</span>
+            </div>
+            <div class="arch-block source">
+              <span class="arch-icon">📊</span>
+              <span class="arch-name">Alpaca API</span>
+              <span class="arch-sub">Market + trading</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow-down">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">AGENT ORCHESTRATION</div>
+          <div class="arch-layer-cards">
+            <div class="arch-block ai">
+              <span class="arch-icon">🤖</span>
+              <span class="arch-name">LangGraph DAG</span>
+              <span class="arch-sub">5 specialised agents</span>
+            </div>
+            <div class="arch-block ai">
+              <span class="arch-icon">🧠</span>
+              <span class="arch-name">Azure OpenAI</span>
+              <span class="arch-sub">LLM reasoning</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow-down">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">KNOWLEDGE LAYER</div>
+          <div class="arch-layer-cards">
+            <div class="arch-block rag">
+              <span class="arch-icon">🔍</span>
+              <span class="arch-name">Vector Search</span>
+              <span class="arch-sub">Azure · 93% accuracy</span>
+            </div>
+            <div class="arch-block rag">
+              <span class="arch-icon">🗄️</span>
+              <span class="arch-name">Cosmos DB</span>
+              <span class="arch-sub">Financial document store</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow-down">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">DELIVERY</div>
+          <div class="arch-layer-cards">
+            <div class="arch-block frontend">
+              <span class="arch-icon">🖥️</span>
+              <span class="arch-name">React Dashboard</span>
+              <span class="arch-sub">TypeScript · Vite</span>
+            </div>
+            <div class="arch-block frontend">
+              <span class="arch-icon">⚡</span>
+              <span class="arch-name">Azure Functions</span>
+              <span class="arch-sub">Serverless API</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM MODULES</span>
+        <h2 class="section-title">Capabilities</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="features-grid">
+        {features.map((feat, i) => (
+          <div class="feature-card animate-on-scroll" style={`--delay: ${i * 100}ms`}>
+            <span class="feature-icon">{feat.icon}</span>
+            <h3 class="feature-title">{feat.title}</h3>
+            <p class="feature-desc">{feat.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRIBUTIONS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">OPERATOR LOG</span>
+        <h2 class="section-title">My Contributions</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block animate-on-scroll">
+        {contributions.map(item => (
+          <div class="list-item"><span class="bullet-icon">▸</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">THREAT ANALYSIS</span>
+        <h2 class="section-title">Challenges Overcome</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block warn animate-on-scroll">
+        {challenges.map(item => (
+          <div class="list-item"><span class="bullet-icon warn">⚠</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- REPOS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SOURCE CODE</span>
+        <h2 class="section-title">Repositories</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="repo-grid animate-on-scroll">
+        <a href="https://github.com/sundeep-dayalan/MONET" target="_blank" rel="noopener noreferrer" class="repo-card">
+          <div class="repo-header">
+            <span class="repo-icon">⚙️</span>
+            <span class="repo-badge">CORE PLATFORM</span>
+          </div>
+          <h3 class="repo-name">MONET</h3>
+          <p class="repo-desc">Multi-agent AI orchestration platform — LangGraph agents, RAG pipeline, Azure deployment, CI/CD, Docker, compliance docs.</p>
+          <div class="repo-tags">
+            <span>Python</span><span>LangChain</span><span>LangGraph</span><span>Azure</span>
+          </div>
+          <span class="repo-link">VIEW ON GITHUB →</span>
+        </a>
+        <a href="https://github.com/sundeep-dayalan/MyFolio" target="_blank" rel="noopener noreferrer" class="repo-card">
+          <div class="repo-header">
+            <span class="repo-icon">🖥️</span>
+            <span class="repo-badge">DASHBOARD</span>
+          </div>
+          <h3 class="repo-name">MyFolio</h3>
+          <p class="repo-desc">Personal wealth portfolio dashboard — Plaid bank integration, real-time account summaries, spending analytics, Azure Functions backend.</p>
+          <div class="repo-tags">
+            <span>TypeScript</span><span>React</span><span>Plaid</span><span>Azure Functions</span>
+          </div>
+          <span class="repo-link">VIEW ON GITHUB →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="back-section">
+    <a href="/#projects" class="back-link-bottom">← RETURN TO PROJECTS</a>
+  </div>
+</BaseLayout>
+
+<style>
+  /* ── HERO ── */
+  .project-hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: #0a0e14;
+  }
+
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+  }
+
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+
+  .agent-node {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(0,229,255,0.3);
+    background: rgba(0,229,255,0.04);
+    animation: nodePulse 3s ease-in-out infinite;
+  }
+
+  .node-label {
+    font-family: var(--font-mono);
+    font-size: 0.45rem;
+    color: rgba(0,229,255,0.6);
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  .node-1 { top: 28%; left: 8%; animation-delay: 0s; }
+  .node-2 { top: 18%; left: 26%; animation-delay: 0.6s; border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.04); }
+  .node-3 { top: 35%; left: 44%; animation-delay: 1.2s; border-color: rgba(0,255,157,0.3); background: rgba(0,255,157,0.04); }
+  .node-4 { top: 20%; left: 62%; animation-delay: 1.8s; border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.04); }
+  .node-5 { top: 32%; left: 80%; animation-delay: 2.4s; border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.04); }
+
+  @keyframes nodePulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  .flow-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+      rgba(10,14,20,0.1) 0%,
+      rgba(10,14,20,0.3) 40%,
+      rgba(10,14,20,0.92) 75%,
+      rgba(10,14,20,1) 100%
+    );
+  }
+
+  .project-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-3xl) var(--space-2xl) var(--space-2xl);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-primary-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    display: inline-block;
+    transition: color var(--transition-fast);
+  }
+  .back-link:hover { color: var(--color-primary); }
+
+  .project-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: var(--space-lg) 0 var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .project-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 4px 12px;
+    border: 1px solid;
+    text-transform: uppercase;
+    color: var(--color-warning);
+    border-color: rgba(255,182,39,0.4);
+  }
+  .project-badge.ai { color: #00e5ff; border-color: rgba(0,229,255,0.4); }
+  .project-badge.fintech { color: #a78bfa; border-color: rgba(167,139,250,0.4); }
+  .project-badge.live { color: #00ff9d; border-color: rgba(0,255,157,0.4); animation: livePulse 2s ease-in-out infinite; }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .project-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .project-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--color-text-bright);
+    line-height: 1.05;
+    margin-bottom: var(--space-md);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .project-hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    max-width: 680px;
+    line-height: 1.6;
+  }
+
+  .project-hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-primary-dim);
+    padding: 3px 10px;
+    border: 1px solid var(--color-border);
+    letter-spacing: 0.05em;
+  }
+
+  .project-hero-actions { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .hero-cta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    padding: var(--space-sm) var(--space-lg);
+    border: 1px solid var(--color-primary-dim);
+    transition: all var(--transition-normal);
+  }
+  .hero-cta:hover { background: rgba(0,229,255,0.08); border-color: var(--color-primary); }
+  .hero-cta.secondary { color: #a78bfa; border-color: rgba(167,139,250,0.4); }
+  .hero-cta.secondary:hover { background: rgba(167,139,250,0.08); border-color: #a78bfa; }
+  .cta-bracket { color: var(--color-text-dim); }
+
+  /* ── HIGHLIGHTS ── */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    padding: var(--space-xl) 0;
+  }
+  .highlight-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-lg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    transition: border-color var(--transition-normal);
+  }
+  .highlight-card:hover { border-color: var(--color-border-bright); }
+  .highlight-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--color-primary-dim); letter-spacing: 0.15em; }
+  .highlight-value { font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; color: var(--color-text-bright); }
+
+  /* ── METRICS ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+  .metric-card {
+    background: var(--color-bg-card);
+    border: 1px solid rgba(0,229,255,0.15);
+    padding: var(--space-xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+  .metric-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-3px); }
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+  .metric-label {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .metric-desc {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── TERMINAL ── */
+  .project-terminal { background: var(--color-bg-card); border: 1px solid var(--color-border); overflow: hidden; }
+  .terminal-header-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(0,229,255,0.03);
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+  .terminal-prompt { color: var(--color-primary-dim); }
+  .terminal-status { color: var(--color-secondary-dim); font-size: 0.65rem; letter-spacing: 0.15em; }
+  .project-text-block {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+  }
+  .hl { color: var(--color-primary); font-weight: 500; }
+
+  /* ── AGENT PIPELINE ── */
+  .pipeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .pipeline-agent {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+  }
+
+  .pipeline-connector {
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .connector-arrow {
+    font-size: 1.5rem;
+    color: var(--color-primary-dim);
+    opacity: 0;
+    display: none;
+  }
+
+  .agent-card {
+    flex: 1;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid;
+    padding: var(--space-xl);
+    margin-bottom: var(--space-md);
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .agent-card:hover { transform: translateX(4px); }
+
+  .agent-cyan .agent-card { border-left-color: #00e5ff; }
+  .agent-purple .agent-card { border-left-color: #a78bfa; }
+  .agent-green .agent-card { border-left-color: #00ff9d; }
+  .agent-orange .agent-card { border-left-color: #fb923c; }
+  .agent-red .agent-card { border-left-color: #f87171; }
+
+  .agent-header { display: flex; align-items: center; gap: var(--space-md); }
+  .agent-id { font-family: var(--font-display); font-size: 0.7rem; color: var(--color-text-dim); font-weight: 700; }
+  .agent-role {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 2px 10px;
+    border: 1px solid;
+  }
+  .role-cyan { color: #00e5ff; border-color: rgba(0,229,255,0.4); background: rgba(0,229,255,0.05); }
+  .role-purple { color: #a78bfa; border-color: rgba(167,139,250,0.4); background: rgba(167,139,250,0.05); }
+  .role-green { color: #00ff9d; border-color: rgba(0,255,157,0.4); background: rgba(0,255,157,0.05); }
+  .role-orange { color: #fb923c; border-color: rgba(251,146,60,0.4); background: rgba(251,146,60,0.05); }
+  .role-red { color: #f87171; border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.05); }
+
+  .agent-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; }
+  .agent-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .agent-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .tech-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-text-dim);
+    padding: 2px 8px;
+    border: 1px solid var(--color-border);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ARCHITECTURE ── */
+  .arch-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+  .arch-layer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+  .arch-layer-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-primary-dim);
+    letter-spacing: 0.2em;
+    text-align: center;
+  }
+  .arch-layer-cards {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    width: 100%;
+    max-width: 700px;
+  }
+  .arch-block {
+    flex: 1;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    transition: border-color var(--transition-normal);
+  }
+  .arch-block.source { border-color: rgba(0,229,255,0.2); }
+  .arch-block.source:hover { border-color: rgba(0,229,255,0.5); }
+  .arch-block.ai { border-color: rgba(167,139,250,0.2); }
+  .arch-block.ai:hover { border-color: rgba(167,139,250,0.5); }
+  .arch-block.rag { border-color: rgba(0,255,157,0.2); }
+  .arch-block.rag:hover { border-color: rgba(0,255,157,0.5); }
+  .arch-block.frontend { border-color: rgba(251,146,60,0.2); }
+  .arch-block.frontend:hover { border-color: rgba(251,146,60,0.5); }
+  .arch-icon { font-size: 1.5rem; }
+  .arch-name { font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; color: var(--color-text-bright); }
+  .arch-sub { font-family: var(--font-mono); font-size: 0.62rem; color: var(--color-text-dim); letter-spacing: 0.05em; }
+  .arch-arrow-down { font-size: 1.5rem; color: var(--color-primary-dim); text-align: center; padding: 4px 0; }
+
+  /* ── FEATURES ── */
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+  .feature-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+  .feature-card:hover { border-color: var(--color-border-bright); transform: translateY(-2px); }
+  .feature-icon { font-size: 2rem; margin-bottom: var(--space-xs); }
+  .feature-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; }
+  .feature-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; }
+
+  /* ── LISTS ── */
+  .list-block { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
+  .list-block.warn { border-color: rgba(255,182,39,0.2); }
+  .list-item { display: flex; align-items: flex-start; gap: var(--space-sm); font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .bullet-icon { color: var(--color-primary); flex-shrink: 0; margin-top: 2px; }
+  .bullet-icon.warn { color: var(--color-warning); }
+
+  /* ── REPOS ── */
+  .repo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+  .repo-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-decoration: none;
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+  .repo-card:hover { border-color: var(--color-primary-dim); transform: translateY(-3px); }
+  .repo-header { display: flex; align-items: center; justify-content: space-between; }
+  .repo-icon { font-size: 1.5rem; }
+  .repo-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 3px 10px;
+    border: 1px solid rgba(0,229,255,0.3);
+    color: var(--color-primary-dim);
+  }
+  .repo-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--color-text-bright); text-transform: uppercase; }
+  .repo-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; flex: 1; }
+  .repo-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .repo-tags span { font-family: var(--font-mono); font-size: 0.62rem; color: var(--color-text-dim); padding: 2px 8px; border: 1px solid var(--color-border); }
+  .repo-link { font-family: var(--font-mono); font-size: 0.72rem; color: var(--color-primary); letter-spacing: 0.1em; margin-top: auto; }
+
+  /* ── BACK ── */
+  .back-section { max-width: 1200px; margin: 0 auto; padding: var(--space-2xl); }
+  .back-link-bottom {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--color-border);
+    display: inline-block;
+    transition: all var(--transition-normal);
+  }
+  .back-link-bottom:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+  /* ── ANIMATION ── */
+  .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+    .repo-grid { grid-template-columns: 1fr; }
+    .project-hero { min-height: 60vh; }
+    .node-1, .node-2, .node-3, .node-4, .node-5 { display: none; }
+  }
+  @media (max-width: 480px) {
+    .highlights-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .project-hero-content { padding: var(--space-xl) var(--space-md); }
+    .arch-layer-cards { flex-direction: column; }
+  }
+  @media (hover: none) {
+    .highlight-card:hover { border-color: var(--color-border); }
+    .feature-card:hover { border-color: var(--color-border); transform: none; }
+    .repo-card:hover { border-color: var(--color-border); transform: none; }
+    .agent-card:hover { transform: none; }
+  }
+</style>
