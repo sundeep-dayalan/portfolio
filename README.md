@@ -1,98 +1,58 @@
-```
-╔══════════════════════════════════════════════════════════════════════════╗
-║   SUNDEEP DAYALAN — PORTFOLIO                   sundeepdayalan.in        ║
-║   Senior Software Engineer · Distributed Systems · LLM · Fintech        ║
-╚══════════════════════════════════════════════════════════════════════════╝
-```
+<div align="center">
 
-> Built with **Astro** · Retro Sci-Fi Terminal aesthetic · Zero JavaScript frameworks · Full SEO
+# Portfolio — sundeepdayalan.in
 
----
+**Personal portfolio website built with Astro**
 
-## STACK
+*Fast, modern, and SEO-optimised — showcasing projects, skills, and experience*
 
-| Layer | Tech |
-|---|---|
-| Framework | Astro 6 (static output) |
-| Styling | Vanilla CSS — custom retro terminal design system |
-| Fonts | Orbitron · Share Tech Mono · Rajdhani |
-| SEO | Structured JSON-LD · Open Graph · Sitemap · robots.txt |
-| Deployment | sundeepdayalan.in |
+[![Astro](https://img.shields.io/badge/Astro-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Live](https://img.shields.io/badge/Live-sundeepdayalan.in-0D47A1?style=for-the-badge&logo=google-chrome&logoColor=white)](https://sundeepdayalan.in)
+
+</div>
 
 ---
 
-## PROJECT STRUCTURE
+## Overview
 
-```
-/
-├── public/                  # Static assets (images, videos, PDFs, robots.txt)
-├── src/
-│   ├── components/
-│   │   ├── Navbar.astro     # Site-wide navigation
-│   │   └── SEO.astro        # Meta, OG, JSON-LD structured data
-│   ├── layouts/
-│   │   └── BaseLayout.astro # Root HTML shell + global styles
-│   ├── pages/
-│   │   ├── index.astro      # Homepage — hero, skills, experience, projects
-│   │   ├── media-hits.astro # Press & media coverage
-│   │   ├── 404.astro        # Custom not-found page
-│   │   └── projects/        # Case study pages (6 projects)
-│   └── styles/
-│       └── global.css       # Design tokens + full CSS design system
-├── astro.config.mjs         # Astro config — sitemap, site URL, HTML compression
-└── package.json
-```
+Personal portfolio website for **Sundeep Dayalan** — built with Astro for blazing-fast static delivery. Showcases projects, skills, experience, and contact information with a clean, responsive design.
+
+**Live:** [sundeepdayalan.in](https://sundeepdayalan.in)
 
 ---
 
-## COMMANDS
+## Tech Stack
 
-```sh
-npm install       # install dependencies
-npm run dev       # dev server → localhost:4321
-npm run build     # production build → ./dist/
-npm run preview   # preview production build locally
+![Astro](https://img.shields.io/badge/Astro-FF5D01?style=flat-square&logo=astro&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+
+---
+
+## Getting Started
+
+```bash
+git clone https://github.com/sundeep-dayalan/portfolio.git
+cd portfolio
+npm install
+npm run dev
+```
+
+Visit `http://localhost:4321`
+
+---
+
+## Build and Deploy
+
+```bash
+npm run build
+# Output in dist/ — deploy to any static host
 ```
 
 ---
 
-## DESIGN SYSTEM
+## Author
 
-Color palette from `global.css`:
-
-```
---color-primary:    #00e5ff   (terminal cyan)
---color-secondary:  #00ff9d   (terminal green)
---color-accent:     #ff6b35   (orange highlight)
---color-bg-deep:    #0a0e14   (near-black background)
-```
-
-Fonts:
-- **Orbitron** — display headings
-- **Share Tech Mono** — monospace / terminal text
-- **Rajdhani** — body copy
-
----
-
-## PAGES
-
-| Route | Description |
-|---|---|
-| `/` | Hero · Skills matrix · Work experience · Projects · Education · Contact |
-| `/media-hits` | Press coverage — 10+ national/regional media features |
-| `/projects/sky-bms` | SkyBMS AI — Battery Management System case study |
-| `/projects/web-hunter` | WEB HUNTER — Web reconnaissance tool |
-| `/projects/robotic-arm` | Study Table Organizing Robotic Arm |
-| `/projects/toolkit-for-whatsapp` | Toolkit for WhatsApp — 7-module Android app |
-| `/projects/smart-traffic-management` | ML Smart Traffic System — Springer publication + patent |
-| `/projects/smart-home` | Smart Home IoT Automation |
-
----
-
-## AUTHOR
-
-**Sundeep Dayalan** — Senior Software Engineer  
-5+ years · Distributed Systems · LLM Infrastructure · Real-Time Fintech  
-Python · Java · React · Kafka · AWS/GCP · LangChain
-
-[sundeepdayalan.in](https://www.sundeepdayalan.in) · [LinkedIn](https://linkedin.com/in/sundeep-dayalan) · [GitHub](https://github.com/sundeep-dayalan)
+**Sundeep Dayalan** · [sundeepdayalan.in](https://sundeepdayalan.in) · [LinkedIn](https://linkedin.com/in/sundeep-dayalan)
