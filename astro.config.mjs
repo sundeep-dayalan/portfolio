@@ -8,6 +8,12 @@ export default defineConfig({
   site: 'https://www.sundeepdayalan.in',
   compressHTML: true,
 
+  redirects: {
+    '/project-smart-traffic-management': '/projects/smart-traffic-management',
+    '/project-smart-meter': '/projects/smart-home',
+    '/sky-bms': '/projects/sky-bms'
+  },
+
   build: {
     inlineStylesheets: 'auto',
   },
