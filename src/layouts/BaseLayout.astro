@@ -96,6 +96,13 @@ const personSchema = {
     {additionalLD.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
+
+    <!-- apps.sundeepdayalan.in root → hub redirect (Netlify host-conditions unreliable) -->
+    <script is:inline>
+      if (location.hostname === 'apps.sundeepdayalan.in' && location.pathname === '/') {
+        location.replace('/apps');
+      }
+    </script>
   </head>
   <body>
     <!-- Minimal Retro Theme applied -->
