@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+
+const title = "Apps — Sundeep Dayalan";
+const description = "Deployed side projects and experiments by Sundeep Dayalan — live AI agents, fintech tools, and full-stack builds.";
+
+const apps = [
+  {
+    name: "Sentient Trader",
+    slug: "sentient-trader",
+    icon: "📈",
+    status: "live",
+    desc: "Autonomous AI trading agent. Reads live market news, reasons with LLaMA 3.1, and executes paper trades — zero human input.",
+    tags: ["LangGraph", "Groq", "Alpaca", "Redis Streams", "Next.js", "Fly.io"],
+    url: "https://apps.sundeepdayalan.in/sentient-trader",
+    github: "https://github.com/sundeep-dayalan/sentient-trader",
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <Navbar />
+
+  <main class="apps-main">
+    <div class="apps-container">
+
+      <header class="apps-header">
+        <div class="breadcrumb">
+          <a href="/">← portfolio</a>
+          <span>/</span>
+          <span class="current">apps</span>
+        </div>
+        <h1 class="apps-title">APPS <span class="title-accent">//</span> SHIPPED</h1>
+        <p class="apps-sub">Live projects. Production infra. Real data.</p>
+      </header>
+
+      <div class="apps-grid">
+        {apps.map((app) => (
+          <a class="app-card" href={app.url} target="_blank" rel="noopener">
+            <div class="card-top">
+              <span class="card-icon">{app.icon}</span>
+              <span class={`badge badge-${app.status}`}>
+                {app.status === "live" && <span class="dot" />}
+                {app.status.toUpperCase()}
+              </span>
+            </div>
+
+            <h2 class="card-name">{app.name}</h2>
+            <p class="card-desc">{app.desc}</p>
+
+            <div class="card-tags">
+              {app.tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+
+            <div class="card-footer">
+              <span class="card-link">Open app →</span>
+              <a
+                class="card-github"
+                href={app.github}
+                target="_blank"
+                rel="noopener"
+                onclick="event.stopPropagation()"
+              >
+                GitHub ↗
+              </a>
+            </div>
+          </a>
+        ))}
+
+        <!-- Coming soon placeholder -->
+        <div class="app-card card-soon">
+          <div class="card-top">
+            <span class="card-icon">⚡</span>
+            <span class="badge badge-soon">SOON</span>
+          </div>
+          <h2 class="card-name">Next Project</h2>
+          <p class="card-desc">Something new is in the works.</p>
+          <div class="card-footer">
+            <span class="card-link muted">Stay tuned</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .apps-main {
+    min-height: 100vh;
+    padding: 100px 24px 80px;
+    background: var(--color-bg-deep);
+  }
+
+  .apps-container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--color-text-dim);
+    margin-bottom: 32px;
+  }
+  .breadcrumb a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .breadcrumb a:hover { color: var(--color-primary-bright); }
+  .breadcrumb .current { color: var(--color-text-secondary); }
+
+  .apps-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(24px, 5vw, 40px);
+    font-weight: 700;
+    color: var(--color-text-bright);
+    letter-spacing: 0.1em;
+    margin: 0 0 8px;
+  }
+  .title-accent { color: var(--color-primary); }
+
+  .apps-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    color: var(--color-text-dim);
+    margin: 0 0 48px;
+    letter-spacing: 0.05em;
+  }
+
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .app-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .app-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px var(--color-primary-glow);
+  }
+  .card-soon {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-icon { font-size: 28px; line-height: 1; }
+
+  .badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .badge-live {
+    background: rgba(0, 255, 157, 0.1);
+    color: var(--color-secondary);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+  }
+  .badge-soon {
+    background: rgba(99,120,140,0.12);
+    color: var(--color-text-dim);
+    border: 1px solid rgba(99,120,140,0.2);
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    background: var(--color-secondary);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+
+  .card-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-text-bright);
+    letter-spacing: 0.05em;
+  }
+
+  .card-desc {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--color-text-dim);
+    background: rgba(0,229,255,0.05);
+    border: 1px solid var(--color-border);
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .card-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-link {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--color-primary);
+    transition: color 0.2s;
+  }
+  .card-link.muted { color: var(--color-text-dim); }
+  .app-card:hover .card-link { color: var(--color-primary-bright); }
+
+  .card-github {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--color-text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .card-github:hover { color: var(--color-text-secondary); }
+</style>

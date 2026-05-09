@@ -5,7 +5,24 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Proxy /sentient-trader/* to the app's Netlify deployment.
+# status=200 means rewrite (URL stays as apps.sundeepdayalan.in/sentient-trader/...).
+# This must come BEFORE the 404 catch-all below.
+[[redirects]]
+  from   = "/sentient-trader/*"
+  to     = "https://sentienttrader.netlify.app/sentient-trader/:splat"
+  status = 200
+  force  = true
+
+# Redirect apps subdomain root → /apps hub page
+[[redirects]]
+  from        = "/"
+  to          = "/apps"
+  status      = 302
+  conditions  = { Host = ["apps.sundeepdayalan.in"] }
+
+# Catch-all 404 (must stay last)
 [[redirects]]
   from = "/*"
-  to = "/404"
+  to   = "/404"
   status = 404
