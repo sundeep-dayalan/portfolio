@@ -5,20 +5,29 @@
 [build.environment]
   NODE_VERSION = "22"
 
-# Proxy /sentient-trader/* to the app's Netlify deployment.
-# status=200 means rewrite (URL stays as apps.sundeepdayalan.in/sentient-trader/...).
-# This must come BEFORE the 404 catch-all below.
+# Proxy /sentient-trader → sentienttrader.netlify.app (strips the prefix).
+# Next.js has no basePath, so it serves at root — we strip /sentient-trader here.
+# status=200 = transparent rewrite (URL stays apps.sundeepdayalan.in/sentient-trader/...).
+# Must come BEFORE the 404 catch-all.
 [[redirects]]
-  from   = "/sentient-trader/*"
-  to     = "https://sentienttrader.netlify.app/sentient-trader/:splat"
+  from   = "/sentient-trader"
+  to     = "https://sentienttrader.netlify.app/"
   status = 200
   force  = true
 
-# Redirect apps subdomain root → /apps hub page
+[[redirects]]
+  from   = "/sentient-trader/*"
+  to     = "https://sentienttrader.netlify.app/:splat"
+  status = 200
+  force  = true
+
+# Redirect apps subdomain root → /apps hub page.
+# force=true required so it overrides the static index.html on the same site.
 [[redirects]]
   from        = "/"
   to          = "/apps"
   status      = 302
+  force       = true
   conditions  = { Host = ["apps.sundeepdayalan.in"] }
 
 # Catch-all 404 (must stay last)
