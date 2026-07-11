@@ -1,10 +1,10 @@
 /* ============================================
-   RETRO SCI-FI TERMINAL DESIGN SYSTEM
+   TACTILE MINIMALISM — HIGH-CONTRAST DARK MODE
+   True black · 1px borders · single plasma accent
+   Space Grotesk (display) · JetBrains Mono (meta)
    ============================================ */
 
-/* === FONTS (self-hosted, latin subset) === */
-
-/* Orbitron — variable-style: one file serves all weights 400–900 */
+/* === LEGACY SELF-HOSTED FONT (kept for OG image generation) === */
 @font-face {
   font-family: 'Orbitron';
   font-style: normal;
@@ -14,100 +14,53 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Rajdhani */
-@font-face {
-  font-family: 'Rajdhani';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url('/fonts/rajdhani-300-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Rajdhani';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/rajdhani-400-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Rajdhani';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/rajdhani-500-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Rajdhani';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/fonts/rajdhani-600-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Rajdhani';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/rajdhani-700-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-/* Share Tech Mono */
-@font-face {
-  font-family: 'Share Tech Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/share-tech-mono-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 /* === CSS CUSTOM PROPERTIES === */
 :root {
-  /* Color Palette - Retro Sci-Fi Terminal */
-  --color-bg-deep: #0a0e14;
-  --color-bg-primary: #0d1117;
-  --color-bg-secondary: #111820;
-  --color-bg-panel: #131a22;
-  --color-bg-card: rgba(16, 24, 34, 0.85);
-  
-  /* Terminal Greens & Cyans */
-  --color-primary: #00e5ff;
-  --color-primary-dim: #007a8a;
-  --color-primary-glow: rgba(0, 229, 255, 0.15);
-  --color-primary-bright: #40efff;
-  
-  --color-secondary: #00ff9d;
-  --color-secondary-dim: #00804f;
-  --color-secondary-glow: rgba(0, 255, 157, 0.1);
-  
-  --color-accent: #ff6b35;
-  --color-accent-dim: #993f20;
-  --color-accent-glow: rgba(255, 107, 53, 0.15);
-  
-  --color-warning: #ffb627;
-  --color-warning-glow: rgba(255, 182, 39, 0.15);
-  
-  /* Text Colors */
-  --color-text-primary: #d1dbe5;
-  --color-text-secondary: #a0adbc;
-  --color-text-dim: #637a91;
-  --color-text-bright: #ffffff;
-  
-  /* Border & Line */
-  --color-border: rgba(0, 229, 255, 0.15);
-  --color-border-bright: rgba(0, 229, 255, 0.35);
-  --color-grid: rgba(0, 229, 255, 0.04);
-  
+  /* Surfaces — OLED true black stack */
+  --color-bg-deep: #000000;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-panel: #0a0a0a;
+  --color-bg-card: #0a0a0a;
+
+  /* Single accent — Plasma Blue */
+  --color-primary: #00f0ff;
+  --color-primary-dim: #0a9aa8;
+  --color-primary-glow: rgba(0, 240, 255, 0.12);
+  --color-primary-bright: #66f6ff;
+
+  /* Secondary folded into the single-accent system */
+  --color-secondary: #00f0ff;
+  --color-secondary-dim: #0a9aa8;
+  --color-secondary-glow: rgba(0, 240, 255, 0.08);
+
+  /* Accent slots remapped to neutral brights (dates, badges) */
+  --color-accent: #f0f0f0;
+  --color-accent-dim: #888888;
+  --color-accent-glow: rgba(240, 240, 240, 0.08);
+
+  --color-warning: #cfcfcf;
+  --color-warning-glow: rgba(240, 240, 240, 0.08);
+
+  /* Text */
+  --color-text-primary: #d6d6d6;
+  --color-text-secondary: #a0a0a0;
+  --color-text-dim: #888888;
+  --color-text-bright: #f0f0f0;
+
+  /* Borders & exposed grid */
+  --color-border: #222222;
+  --color-border-bright: #333333;
+  --color-grid: rgba(240, 240, 240, 0.035);
+
   /* Fonts */
-  --font-mono: 'Share Tech Mono', 'Courier New', monospace;
-  --font-display: 'Orbitron', sans-serif;
-  --font-body: 'Rajdhani', sans-serif;
-  
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'SFMono-Regular', monospace;
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
   /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -117,15 +70,15 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
   --space-4xl: 6rem;
-  
+
   /* Sizes */
   --container-max: 1200px;
-  --border-radius: 2px;
-  
+  --border-radius: 0;
+
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 300ms ease;
-  --transition-slow: 600ms ease;
+  --transition-fast: 150ms var(--ease-out-expo);
+  --transition-normal: 300ms var(--ease-out-expo);
+  --transition-slow: 600ms var(--ease-out-expo);
 }
 
 /* === RESET & BASE === */
@@ -156,33 +109,27 @@ body {
   position: relative;
 }
 
-/* Background grid overlay */
+/* Exposed structural grid — faint vertical quarter-lines down the page */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image:
-    linear-gradient(var(--color-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-image: linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 25% 100%;
   pointer-events: none;
   z-index: 0;
 }
 
-/* Scanline effect overlay */
+/* Film grain — tiny base64 SVG turbulence tile over everything */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
-  );
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAnIGhlaWdodD0nMTIwJz48ZmlsdGVyIGlkPSduJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC45JyBudW1PY3RhdmVzPScyJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PGZlQ29sb3JNYXRyaXggdHlwZT0nc2F0dXJhdGUnIHZhbHVlcz0nMCcvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMjAnIGhlaWdodD0nMTIwJyBmaWx0ZXI9J3VybCgjbiknLz48L3N2Zz4=");
+  background-size: 120px 120px;
+  opacity: 0.05;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 9998;
 }
 
 img {
@@ -190,7 +137,6 @@ img {
   height: auto;
   display: block;
 }
-
 
 a {
   color: var(--color-primary);
@@ -200,12 +146,11 @@ a {
 
 a:hover {
   color: var(--color-primary-bright);
-  text-shadow: 0 0 8px var(--color-primary-glow);
 }
 
 ::selection {
   background: var(--color-primary);
-  color: var(--color-bg-deep);
+  color: #000000;
 }
 
 /* === SCROLLBAR === */
@@ -214,11 +159,11 @@ a:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-deep);
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-primary-dim);
+  background: var(--color-border-bright);
   border-radius: 0;
 }
 
@@ -245,7 +190,38 @@ a:hover {
   border: 0;
 }
 
-/* === ANIMATIONS === */
+/* === CUSTOM CURSOR (element injected by BaseLayout) === */
+#x-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid #f0f0f0;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  z-index: 2147483001;
+  transform: translate(-100px, -100px);
+  transition: width 0.25s var(--ease-out-expo), height 0.25s var(--ease-out-expo),
+    background 0.25s var(--ease-out-expo);
+  display: none;
+}
+
+#x-cursor.is-active { display: block; }
+
+#x-cursor.is-hover {
+  width: 52px;
+  height: 52px;
+  background: rgba(240, 240, 240, 0.9);
+  border-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #x-cursor { display: none !important; }
+}
+
+/* === ANIMATIONS (shared keyframes) === */
 @keyframes flicker {
   0%, 100% { opacity: 1; }
   92% { opacity: 1; }
@@ -324,8 +300,6 @@ a:hover {
   100% { clip-path: inset(0 100% 0 0); }
 }
 
-
-
 /* === SECTION STYLING === */
 .section {
   position: relative;
@@ -339,56 +313,47 @@ a:hover {
 
 .section-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-primary);
+  font-size: 0.62rem;
+  color: var(--color-text-dim);
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
   display: flex;
   align-items: center;
   gap: var(--space-sm);
 }
 
 .section-label::before {
-  content: '>';
-  color: var(--color-secondary);
-  animation: blink-cursor 1s step-end infinite;
+  content: '/';
+  color: var(--color-primary);
 }
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
   font-weight: 700;
   color: var(--color-text-bright);
-  letter-spacing: 0.05em;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
   text-transform: uppercase;
 }
 
 .section-divider {
   width: 100%;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-border-bright),
-    var(--color-primary-dim),
-    var(--color-border-bright),
-    transparent
-  );
-  margin: var(--space-lg) 0;
+  background: var(--color-border);
+  margin: var(--space-lg) 0 0;
   position: relative;
 }
 
 .section-divider::after {
   content: '';
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 8px;
-  height: 8px;
+  left: 0;
+  top: 0;
+  width: 64px;
+  height: 1px;
   background: var(--color-primary);
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
 
 /* === RESPONSIVE === */
@@ -397,7 +362,7 @@ a:hover {
     --space-4xl: 3rem;
     --space-3xl: 2.5rem;
   }
-  
+
   .container {
     padding: 0 var(--space-md);
   }
@@ -415,7 +380,6 @@ a:hover {
    (Full enlargement handled by lightbox on click)
    ============================================ */
 
-/* zoom-in cursor on all lightbox-enabled images */
 .gallery-img-wrap img,
 .module-img-wrap img,
 .bay-img-wrap img,
@@ -431,21 +395,18 @@ a:hover {
   cursor: zoom-in;
 }
 
-/* Subtle lift + cyan glow on gallery cards */
 .gallery-frame {
   position: relative;
   z-index: 1;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  transition: transform 0.22s var(--ease-out-expo), border-color 0.22s var(--ease-out-expo);
 }
 
 .gallery-frame:hover {
   transform: translateY(-4px);
   z-index: 4;
-  border-color: rgba(0, 229, 255, 0.4) !important;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.65), 0 0 14px rgba(0, 229, 255, 0.07);
+  border-color: var(--color-border-bright) !important;
 }
 
-/* Full colour on hover for gallery images */
 .gallery-frame:hover .gallery-img-wrap img,
 .module-card:hover .module-img-wrap img,
 .diagram-frame:hover img {
@@ -459,7 +420,7 @@ a:hover {
   position: fixed;
   inset: 0;
   z-index: 9000;
-  background: rgba(6, 10, 16, 0.96);
+  background: rgba(0, 0, 0, 0.96);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: flex;
@@ -483,7 +444,7 @@ a:hover {
   max-width: 92vw;
   max-height: 92vh;
   transform: scale(0.94);
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.25s var(--ease-out-expo);
 }
 
 #lb-overlay.lb-open #lb-inner {
@@ -507,8 +468,8 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 7px 14px;
-  background: rgba(10, 14, 20, 0.98);
-  border: 1px solid rgba(0, 229, 255, 0.2);
+  background: #0a0a0a;
+  border: 1px solid var(--color-border);
   border-bottom: none;
   flex-shrink: 0;
 }
@@ -516,7 +477,7 @@ a:hover {
 .lb-label {
   font-family: var(--font-mono);
   font-size: 0.58rem;
-  color: var(--color-primary-dim);
+  color: var(--color-text-dim);
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -539,7 +500,7 @@ a:hover {
 }
 
 #lb-img-wrap {
-  border: 1px solid rgba(0, 229, 255, 0.2);
+  border: 1px solid var(--color-border);
   background: #000;
   display: flex;
   align-items: center;
@@ -564,8 +525,8 @@ a:hover {
   font-size: 0.62rem;
   color: var(--color-text-dim);
   line-height: 1.5;
-  background: rgba(10, 14, 20, 0.98);
-  border: 1px solid rgba(0, 229, 255, 0.2);
+  background: #0a0a0a;
+  border: 1px solid var(--color-border);
   border-top: none;
   letter-spacing: 0.04em;
   flex-shrink: 0;
@@ -629,7 +590,6 @@ a:hover {
   }
 }
 
-/* Landscape mobile: reclaim vertical space */
 @media (max-height: 500px) and (orientation: landscape) {
   #lb-img {
     max-height: 80vh;

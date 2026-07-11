@@ -30,15 +30,12 @@ const stats = [
   <!-- Kinetic accent orb -->
   <div class="ht-orb" id="ht-orb" aria-hidden="true"></div>
 
-  <!-- Film grain (fixed, whole page) -->
-  <div class="ht-noise" aria-hidden="true"></div>
-
   <div class="ht-container">
     <!-- Meta row -->
     <div class="ht-meta ht-fade" style="--d: 1.1s">
       <span class="ht-meta-item">SENIOR SOFTWARE ENGINEER</span>
       <span class="ht-meta-item ht-meta-mid">DISTRIBUTED SYSTEMS · AGENTIC AI · FINTECH</span>
-      <span class="ht-meta-item">39.9612°N — COLUMBUS, OH</span>
+      <span class="ht-meta-item">47.6101°N — BELLEVUE, WA</span>
     </div>
 
     <!-- Headline -->
@@ -90,9 +87,6 @@ const stats = [
     </div>
   </div>
 </section>
-
-<!-- Custom cursor (desktop, fine pointers only) -->
-<div class="ht-cursor" id="ht-cursor" aria-hidden="true"></div>
 
 <style>
   /* ─── Local design tokens ─── */
@@ -155,17 +149,6 @@ const stats = [
     0%   { transform: translate3d(0, 0, 0) scale(1); }
     50%  { transform: translate3d(-9%, 14%, 0) scale(1.12); }
     100% { transform: translate3d(4%, -6%, 0) scale(0.95); }
-  }
-
-  /* ─── Film grain: tiny base64 SVG turbulence tile, fixed over everything ─── */
-  .ht-noise {
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAnIGhlaWdodD0nMTIwJz48ZmlsdGVyIGlkPSduJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC45JyBudW1PY3RhdmVzPScyJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PGZlQ29sb3JNYXRyaXggdHlwZT0nc2F0dXJhdGUnIHZhbHVlcz0nMCcvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMjAnIGhlaWdodD0nMTIwJyBmaWx0ZXI9J3VybCgjbiknLz48L3N2Zz4=");
-    background-size: 120px 120px;
-    opacity: 0.05;
-    pointer-events: none;
-    z-index: 2147483000;
   }
 
   .ht-container {
@@ -394,34 +377,6 @@ const stats = [
     50% { transform: scaleY(1); opacity: 1; transform-origin: top; }
   }
 
-  /* ─── Custom cursor ─── */
-  .ht-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 14px;
-    height: 14px;
-    border: 1.5px solid #f0f0f0;
-    border-radius: 50%;
-    pointer-events: none;
-    mix-blend-mode: difference;
-    z-index: 2147483001;
-    transform: translate(-100px, -100px);
-    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-      height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-      background 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    display: none;
-  }
-
-  .ht-cursor.is-active { display: block; }
-
-  .ht-cursor.is-hover {
-    width: 52px;
-    height: 52px;
-    background: rgba(240, 240, 240, 0.9);
-    border-color: transparent;
-  }
-
   /* ─── Responsive ─── */
   @media (max-width: 900px) {
     .ht-lower { grid-template-columns: 1fr; align-items: start; }
@@ -444,7 +399,6 @@ const stats = [
     .ht-fade { opacity: 1; transform: none; animation: none; }
     .ht-orb { animation: none; }
     .ht-scroll-line { animation: none; }
-    .ht-cursor { display: none !important; }
   }
 </style>
 
@@ -454,78 +408,23 @@ const stats = [
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!finePointer || reducedMotion) return;
 
-    /* ── Custom cursor: lerp-trailed hollow ring, difference blend ── */
-    const cursor = document.getElementById('ht-cursor');
+    /* ── Kinetic orb: slow mouse-reactive drift (cursor + magnetics live in BaseLayout) ── */
     const orb = document.getElementById('ht-orb');
-    let mx = -100, my = -100;   // raw mouse
-    let cx = -100, cy = -100;   // cursor (trailing)
-    let ox = 0, oy = 0;         // orb parallax offset (trailing)
-    let tox = 0, toy = 0;       // orb target
-
-    document.documentElement.style.cursor = 'none';
-    document.body.style.cursor = 'none';
-    if (cursor) cursor.classList.add('is-active');
+    if (!orb) return;
+    let ox = 0, oy = 0;
+    let tox = 0, toy = 0;
 
     window.addEventListener('mousemove', (e) => {
-      mx = e.clientX;
-      my = e.clientY;
       tox = (e.clientX / window.innerWidth - 0.5) * 60;
       toy = (e.clientY / window.innerHeight - 0.5) * 40;
     }, { passive: true });
 
-    const HOVER_TARGETS = 'a, button, [data-cursor="hover"], .ht-title';
-    document.addEventListener('mouseover', (e) => {
-      const t = e.target;
-      if (cursor && t instanceof Element && t.closest(HOVER_TARGETS)) cursor.classList.add('is-hover');
-    });
-    document.addEventListener('mouseout', (e) => {
-      const t = e.target;
-      if (cursor && t instanceof Element && t.closest(HOVER_TARGETS)) cursor.classList.remove('is-hover');
-    });
-
-    /* ── Magnetic elements: pull toward cursor within proximity ── */
-    const magnets = Array.from(document.querySelectorAll('.ht-magnetic, [data-magnetic]'));
-    const magnetState = magnets.map((el) => ({ el, x: 0, y: 0, tx: 0, ty: 0 }));
-
-    window.addEventListener('mousemove', (e) => {
-      for (const m of magnetState) {
-        const r = m.el.getBoundingClientRect();
-        const centerX = r.left + r.width / 2;
-        const centerY = r.top + r.height / 2;
-        const dx = e.clientX - centerX;
-        const dy = e.clientY - centerY;
-        const dist = Math.hypot(dx, dy);
-        const radius = Math.max(r.width, r.height) * 1.4;
-        if (dist < radius) {
-          const pull = 1 - dist / radius;
-          m.tx = dx * 0.35 * pull;
-          m.ty = dy * 0.35 * pull;
-        } else {
-          m.tx = 0;
-          m.ty = 0;
-        }
-      }
-    }, { passive: true });
-
-    /* ── Single rAF loop: cursor trail + orb parallax + magnets ── */
     const lerp = (a: number, b: number, n: number) => a + (b - a) * n;
 
     function tick() {
-      cx = lerp(cx, mx, 0.22);
-      cy = lerp(cy, my, 0.22);
-      if (cursor) {
-        const half = cursor.offsetWidth / 2;
-        cursor.style.transform = `translate(${cx - half}px, ${cy - half}px)`;
-      }
       ox = lerp(ox, tox, 0.04);
       oy = lerp(oy, toy, 0.04);
-      if (orb) orb.style.setProperty('translate', `${ox}px ${oy}px`);
-
-      for (const m of magnetState) {
-        m.x = lerp(m.x, m.tx, 0.18);
-        m.y = lerp(m.y, m.ty, 0.18);
-        (m.el as HTMLElement).style.transform = `translate(${m.x.toFixed(2)}px, ${m.y.toFixed(2)}px)`;
-      }
+      orb!.style.setProperty('translate', `${ox}px ${oy}px`);
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);

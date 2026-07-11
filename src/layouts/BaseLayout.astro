@@ -1,4 +1,6 @@
 ---
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/jetbrains-mono';
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
 
@@ -36,7 +38,7 @@ const personSchema = {
   "description": "Senior Software Engineer with 5+ years architecting fault-tolerant distributed systems, LLM orchestration pipelines, and real-time fintech platforms.",
   "worksFor": {
     "@type": "Organization",
-    "name": "Radiantze Inc"
+    "name": "Amazon Web Services"
   },
   "alumniOf": [
     {
@@ -105,9 +107,12 @@ const personSchema = {
     </script>
   </head>
   <body>
-    <!-- Minimal Retro Theme applied -->
+    <!-- Tactile Minimalism theme -->
 
     <slot />
+
+    <!-- Custom cursor (fine pointers only; activated by script below) -->
+    <div id="x-cursor" aria-hidden="true"></div>
 
     <!-- ── LIGHTBOX ── -->
     <div id="lb-overlay" aria-modal="true" role="dialog" aria-label="Image viewer">
@@ -202,6 +207,76 @@ const personSchema = {
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeLightbox();
       });
+
+      // ── Custom cursor + magnetic elements (site-wide, fine pointers only) ──
+      (() => {
+        const finePointer = window.matchMedia('(pointer: fine)').matches;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!finePointer || reducedMotion) return;
+
+        const cursor = document.getElementById('x-cursor');
+        let mx = -100, my = -100;
+        let cx = -100, cy = -100;
+
+        document.documentElement.style.cursor = 'none';
+        document.body.style.cursor = 'none';
+        cursor?.classList.add('is-active');
+
+        window.addEventListener('mousemove', (e) => {
+          mx = e.clientX;
+          my = e.clientY;
+        }, { passive: true });
+
+        const HOVER_TARGETS = 'a, button, [data-cursor="hover"], h1, .section-title';
+        document.addEventListener('mouseover', (e) => {
+          const t = e.target;
+          if (cursor && t instanceof Element && t.closest(HOVER_TARGETS)) cursor.classList.add('is-hover');
+        });
+        document.addEventListener('mouseout', (e) => {
+          const t = e.target;
+          if (cursor && t instanceof Element && t.closest(HOVER_TARGETS)) cursor.classList.remove('is-hover');
+        });
+
+        // Magnetic pull for tagged elements
+        const magnets = Array.from(document.querySelectorAll('.ht-magnetic, [data-magnetic]'));
+        const magnetState = magnets.map((el) => ({ el: el as HTMLElement, x: 0, y: 0, tx: 0, ty: 0 }));
+
+        window.addEventListener('mousemove', (e) => {
+          for (const m of magnetState) {
+            const r = m.el.getBoundingClientRect();
+            const dx = e.clientX - (r.left + r.width / 2);
+            const dy = e.clientY - (r.top + r.height / 2);
+            const dist = Math.hypot(dx, dy);
+            const radius = Math.max(r.width, r.height) * 1.4;
+            if (dist < radius) {
+              const pull = 1 - dist / radius;
+              m.tx = dx * 0.35 * pull;
+              m.ty = dy * 0.35 * pull;
+            } else {
+              m.tx = 0;
+              m.ty = 0;
+            }
+          }
+        }, { passive: true });
+
+        const lerp = (a: number, b: number, n: number) => a + (b - a) * n;
+
+        function xTick() {
+          cx = lerp(cx, mx, 0.22);
+          cy = lerp(cy, my, 0.22);
+          if (cursor) {
+            const half = cursor.offsetWidth / 2;
+            cursor.style.transform = `translate(${cx - half}px, ${cy - half}px)`;
+          }
+          for (const m of magnetState) {
+            m.x = lerp(m.x, m.tx, 0.18);
+            m.y = lerp(m.y, m.ty, 0.18);
+            m.el.style.transform = `translate(${m.x.toFixed(2)}px, ${m.y.toFixed(2)}px)`;
+          }
+          requestAnimationFrame(xTick);
+        }
+        requestAnimationFrame(xTick);
+      })();
     </script>
   </body>
 </html>
