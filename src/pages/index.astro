@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
+import HeroTactile from '../components/HeroTactile.astro';
+import FeaturedProject from '../components/FeaturedProject.astro';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
@@ -232,135 +234,7 @@ const additionalLD = [
   <main id="main-content">
 
   <!-- ==================== HERO SECTION ==================== -->
-  <section class="hero" id="hero">
-    <div class="hero-container">
-      <!-- Terminal header bar -->
-      <div class="hero-terminal-bar">
-        <div class="terminal-dots">
-          <span class="dot dot-red"></span>
-          <span class="dot dot-yellow"></span>
-          <span class="dot dot-green"></span>
-        </div>
-        <span class="terminal-title">SUNDEEP_DAYALAN :: TERMINAL v4.2.1</span>
-        <span class="terminal-signal">
-          <div class="signal-bars">
-            <span class="signal-bar"></span>
-            <span class="signal-bar"></span>
-            <span class="signal-bar"></span>
-            <span class="signal-bar active"></span>
-          </div>
-          SIGNAL ACTIVE
-        </span>
-      </div>
-
-      <div class="hero-content">
-        <!-- Left: Profile image with CRT effect -->
-        <div class="hero-profile-wrapper" id="profile-wrapper">
-          <div class="profile-frame" id="profile-frame">
-            <div class="profile-corner tl"></div>
-            <div class="profile-corner tr"></div>
-            <div class="profile-corner bl"></div>
-            <div class="profile-corner br"></div>
-            <Image
-              src={assetImg('profile.png')}
-              alt="Sundeep Dayalan - Senior Software Engineer"
-              class="profile-image"
-              width={400}
-              height={400}
-              loading="eager"
-              fetchpriority="high"
-            />
-            <div class="profile-scanline"></div>
-            <div class="profile-overlay"></div>
-          </div>
-          <div class="profile-data-strip">
-            <span>ID: SD-2024</span>
-            <span>STATUS: ACTIVE</span>
-            <span>CLEARANCE: ████</span>
-          </div>
-        </div>
-
-        <!-- Right: Hero text content -->
-        <div class="hero-text">
-          <div class="hero-subtitle-line">
-            <span class="hero-role-label">SENIOR SOFTWARE ENGINEER</span>
-            <span class="hero-coordinates">Y 04-DEC.97</span>
-          </div>
-
-          <h1 class="hero-title">
-            <span class="hero-greeting">Hi, I'm</span>
-            <span class="hero-name">Sundeep</span>
-            <span class="hero-name-last">Dayalan</span>
-          </h1>
-
-          <p class="hero-tagline">
-            Architecting high-throughput distributed systems, agentic AI infrastructure, and real-time fintech & Healthcare platforms at scale.
-          </p>
-
-          <div class="hero-meta">
-            <span class="meta-item">
-              <span class="meta-dot"></span>
-              Columbus, Ohio
-            </span>
-            <span class="meta-item">
-              <span class="meta-dot"></span>
-              <a href="https://www.linkedin.com/in/sundeep-dayalan" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            </span>
-            <span class="meta-item">
-              <span class="meta-dot"></span>
-              <a href="https://github.com/sundeep-dayalan" target="_blank" rel="noopener noreferrer">GitHub</a>
-            </span>
-            <span class="meta-item">
-              <span class="meta-dot"></span>
-              MS Computer Science
-            </span>
-          </div>
-
-          <div class="hero-links">
-            <a href="mailto:sundeep.dayalan@gmail.com" class="hero-cta" id="hero-contact-btn">
-              <span class="cta-bracket">[</span>
-              INITIALIZE CONTACT
-              <span class="cta-bracket">]</span>
-            </a>
-            <a href="mailto:sundeep.dayalan@gmail.com" class="hero-email">sundeep.dayalan@gmail.com</a>
-          </div>
-
-          <div class="hero-stats">
-            <div class="stat">
-              <span class="stat-value" data-value="5+">5+</span>
-              <span class="stat-label">YRS EXP</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat">
-              <span class="stat-value" data-value="5M+">5M+</span>
-              <span class="stat-label">USERS SERVED</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat">
-              <span class="stat-value" data-value="99.99%">99.99%</span>
-              <span class="stat-label">UPTIME</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat">
-              <span class="stat-value" data-value={`${projects.length}+`}>{projects.length}+</span>
-              <span class="stat-label">PROJECTS</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom info strip -->
-      <div class="hero-bottom-strip">
-        <p class="strip-text">
-          Senior software engineer architecting 5M+ user distributed systems across fintech, healthcare tech, and agentic AI. A published Springer researcher and pending patent holder , I bridge high-throughput engineering with production-grade LLM infrastructure, delivering 99.99% uptime and sub-200ms latency. From mentoring squads to authoring ADRs, I build the scalable systems and high-ownership cultures that drive modern engineering.
-        </p>
-      </div>
-    </div>
-
-    <!-- Ambient glow effects -->
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-  </section>
+  <HeroTactile projectsCount={projects.length} />
 
   <!-- ==================== ABOUT SECTION ==================== -->
   <section class="section" id="about">
@@ -486,8 +360,21 @@ const additionalLD = [
         <div class="section-divider"></div>
       </div>
 
+      <FeaturedProject
+        index="01"
+        name="Sentient Trader"
+        tagline="Autonomous AI trading agent — ingests live market news, reasons across multiple signals, and executes paper trades with zero manual intervention."
+        bullets={[
+          "LangGraph orchestration with Groq-hosted LLaMA 3.1 and Alpaca trading APIs for end-to-end decisioning and execution.",
+          "Production live demo with real-time streaming architecture and monitoring-focused workflow for safe iteration.",
+        ]}
+        tech={["Python", "LangGraph", "Groq LLaMA 3.1", "Alpaca API", "Redis Streams", "Next.js"]}
+        period="2026"
+        link="/projects/sentient-trader"
+      />
+
       <div class="projects-grid">
-        {projects.map((proj, index) => (
+        {projects.slice(1).map((proj, index) => (
           proj.link ? (
             <a href={proj.link} class="project-card project-card-link animate-on-scroll" id={`proj-${index}`}>
               <div class="project-card-header">

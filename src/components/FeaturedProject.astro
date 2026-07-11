@@ -1,0 +1,490 @@
+---
+/**
+ * FeaturedProject — Tactile Minimalism featured project card.
+ * 1px-bordered surface on near-black · corner registration marks ·
+ * live SVG signal visual · line-mask title reveal · scroll scale/parallax.
+ */
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/jetbrains-mono';
+
+interface Props {
+  index?: string;
+  name: string;
+  tagline: string;
+  bullets: string[];
+  tech: string[];
+  period: string;
+  link: string;
+}
+
+const {
+  index = '01',
+  name,
+  tagline,
+  bullets,
+  tech,
+  period,
+  link,
+} = Astro.props;
+
+/* Deterministic pseudo-random sparkline path (build-time, zero runtime cost) */
+const W = 480;
+const H = 220;
+let seed = 42;
+const rand = () => {
+  seed = (seed * 9301 + 49297) % 233280;
+  return seed / 233280;
+};
+const points: [number, number][] = [];
+let y = H * 0.62;
+for (let x = 0; x <= W; x += 16) {
+  y += (rand() - 0.48) * 34;
+  y = Math.min(Math.max(y, H * 0.18), H * 0.85);
+  points.push([x, y]);
+}
+const linePath = points.map(([px, py], i) => `${i === 0 ? 'M' : 'L'}${px},${py.toFixed(1)}`).join(' ');
+const areaPath = `${linePath} L${W},${H} L0,${H} Z`;
+
+const ticker = ['AAPL +1.42%', 'NVDA +2.87%', 'TSLA −0.94%', 'MSFT +0.61%', 'AMZN +1.08%', 'META +1.95%', 'GOOG +0.37%', 'AMD +3.12%'];
+---
+
+<article class="fp-card" id="featured-project" data-cursor="hover">
+  <!-- Corner registration marks -->
+  <span class="fp-corner fp-tl" aria-hidden="true"></span>
+  <span class="fp-corner fp-tr" aria-hidden="true"></span>
+  <span class="fp-corner fp-bl" aria-hidden="true"></span>
+  <span class="fp-corner fp-br" aria-hidden="true"></span>
+
+  <header class="fp-header">
+    <span class="fp-label">FEATURED PROJECT — {index}</span>
+    <span class="fp-period">{period}</span>
+  </header>
+
+  <div class="fp-body">
+    <div class="fp-content">
+      <h3 class="fp-title">
+        <span class="fp-title-mask"><span class="fp-title-line">{name}</span></span>
+      </h3>
+
+      <p class="fp-tagline">{tagline}</p>
+
+      <ul class="fp-points">
+        {bullets.map((b) => (
+          <li class="fp-point">
+            <span class="fp-point-marker" aria-hidden="true">/</span>
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="fp-tech">
+        {tech.map((t) => (
+          <span class="fp-chip">{t}</span>
+        ))}
+      </div>
+
+      <a href={link} class="fp-cta ht-magnetic" data-cursor="hover">
+        <span>VIEW CASE STUDY</span>
+        <span class="fp-cta-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- Live signal visual -->
+    <div class="fp-visual" aria-hidden="true">
+      <div class="fp-visual-inner" data-parallax>
+        <div class="fp-visual-hud">
+          <span>LIVE SIGNAL</span>
+          <span class="fp-dot"></span>
+          <span>AGENT: ACTIVE</span>
+        </div>
+        <svg class="fp-chart" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="fp-area-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.22" />
+              <stop offset="100%" stop-color="#00f0ff" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          {[0.25, 0.5, 0.75].map((f) => (
+            <line x1="0" y1={H * f} x2={W} y2={H * f} class="fp-gridline" />
+          ))}
+          <path d={areaPath} fill="url(#fp-area-grad)" class="fp-area" />
+          <path d={linePath} class="fp-line" fill="none" />
+          <circle cx={points[points.length - 1][0]} cy={points[points.length - 1][1]} r="3.5" class="fp-tip" />
+        </svg>
+        <div class="fp-ticker">
+          <div class="fp-ticker-track">
+            {[...ticker, ...ticker].map((t) => (
+              <span class="fp-tick" data-dir={t.includes('−') ? 'down' : 'up'}>{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .fp-card {
+    --x-surface: #0a0a0a;
+    --x-panel: #111111;
+    --x-border: #222222;
+    --x-border-hi: #333333;
+    --x-text: #f0f0f0;
+    --x-muted: #888888;
+    --x-accent: #00f0ff;
+    --x-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
+    --x-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'SFMono-Regular', monospace;
+    --x-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    position: relative;
+    background: var(--x-surface);
+    border: 1px solid var(--x-border);
+    margin-bottom: 2.5rem;
+    transition: border-color 0.4s var(--x-ease);
+    will-change: transform;
+    /* pre-reveal state */
+    opacity: 0;
+    translate: 0 36px;
+  }
+
+  .fp-card.fp-in {
+    opacity: 1;
+    translate: 0 0;
+    transition: opacity 0.8s var(--x-ease), translate 0.8s var(--x-ease),
+      border-color 0.4s var(--x-ease);
+  }
+
+  .fp-card:hover { border-color: var(--x-border-hi); }
+
+  /* Corner registration marks */
+  .fp-corner {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    z-index: 2;
+    transition: border-color 0.4s var(--x-ease);
+  }
+  .fp-tl { top: -1px; left: -1px; border-top: 1px solid var(--x-muted); border-left: 1px solid var(--x-muted); }
+  .fp-tr { top: -1px; right: -1px; border-top: 1px solid var(--x-muted); border-right: 1px solid var(--x-muted); }
+  .fp-bl { bottom: -1px; left: -1px; border-bottom: 1px solid var(--x-muted); border-left: 1px solid var(--x-muted); }
+  .fp-br { bottom: -1px; right: -1px; border-bottom: 1px solid var(--x-muted); border-right: 1px solid var(--x-muted); }
+  .fp-card:hover .fp-corner { border-color: var(--x-accent); }
+
+  .fp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 2rem;
+    border-bottom: 1px solid var(--x-border);
+    font-family: var(--x-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+  }
+
+  .fp-label { color: var(--x-accent); }
+  .fp-period { color: var(--x-muted); }
+
+  .fp-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+
+  .fp-content {
+    padding: 2.25rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    border-right: 1px solid var(--x-border);
+  }
+
+  .fp-title {
+    font-family: var(--x-display);
+    font-size: clamp(1.7rem, 3.6vw, 2.9rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--x-text);
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .fp-title-mask { display: block; overflow: hidden; }
+
+  .fp-title-line {
+    display: block;
+    transform: translateY(110%);
+    transition: transform 0.9s var(--x-ease) 0.15s;
+  }
+
+  .fp-card.fp-in .fp-title-line { transform: translateY(0); }
+  .fp-card:hover .fp-title-line { color: var(--x-accent); transition: transform 0.9s var(--x-ease) 0.15s, color 0.35s var(--x-ease); }
+
+  .fp-tagline {
+    font-family: var(--x-mono);
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: var(--x-muted);
+    margin: 0;
+    max-width: 48ch;
+  }
+
+  .fp-points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .fp-point {
+    display: flex;
+    gap: 0.7rem;
+    font-family: var(--x-mono);
+    font-size: 0.74rem;
+    line-height: 1.7;
+    color: var(--x-muted);
+  }
+
+  .fp-point-marker { color: var(--x-accent); flex-shrink: 0; }
+
+  .fp-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+  .fp-chip {
+    padding: 0.32rem 0.7rem;
+    font-family: var(--x-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--x-muted);
+    border: 1px solid var(--x-border);
+    background: var(--x-panel);
+    transition: color 0.25s var(--x-ease), border-color 0.25s var(--x-ease);
+  }
+
+  .fp-card:hover .fp-chip { border-color: var(--x-border-hi); }
+  .fp-chip:hover { color: var(--x-accent); border-color: var(--x-accent); }
+
+  .fp-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    align-self: flex-start;
+    margin-top: 0.4rem;
+    padding: 0.9rem 1.5rem;
+    font-family: var(--x-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--x-text);
+    border: 1px solid var(--x-border-hi);
+    text-decoration: none;
+    transition: color 0.3s var(--x-ease), border-color 0.3s var(--x-ease),
+      box-shadow 0.3s var(--x-ease);
+    will-change: transform;
+  }
+
+  .fp-cta:hover {
+    color: var(--x-accent);
+    border-color: var(--x-accent);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.16);
+  }
+
+  .fp-cta-arrow { transition: transform 0.3s var(--x-ease); }
+  .fp-cta:hover .fp-cta-arrow { transform: translateX(5px); }
+
+  /* ─── Visual panel ─── */
+  .fp-visual {
+    position: relative;
+    background:
+      linear-gradient(rgba(240, 240, 240, 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240, 240, 240, 0.028) 1px, transparent 1px),
+      #050505;
+    background-size: 36px 36px, 36px 36px, auto;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .fp-visual-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.5rem 1.75rem 0;
+    will-change: transform;
+  }
+
+  .fp-visual-hud {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--x-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.24em;
+    color: var(--x-muted);
+    margin-bottom: 1rem;
+  }
+
+  .fp-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--x-accent);
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+    animation: fp-blink 1.6s ease-in-out infinite;
+  }
+
+  @keyframes fp-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  .fp-chart {
+    width: 100%;
+    height: clamp(140px, 22vw, 220px);
+    flex: 1;
+  }
+
+  .fp-gridline { stroke: rgba(240, 240, 240, 0.06); stroke-width: 1; }
+
+  .fp-line {
+    stroke: var(--x-accent);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.55));
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+  }
+
+  .fp-card.fp-in .fp-line {
+    animation: fp-draw 2.2s cubic-bezier(0.65, 0, 0.35, 1) 0.35s forwards;
+  }
+
+  @keyframes fp-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .fp-area {
+    opacity: 0;
+    transition: opacity 1.2s ease 1.4s;
+  }
+
+  .fp-card.fp-in .fp-area { opacity: 1; }
+
+  .fp-tip {
+    fill: var(--x-accent);
+    filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.9));
+    opacity: 0;
+    transition: opacity 0.4s ease 2.4s;
+  }
+
+  .fp-card.fp-in .fp-tip { opacity: 1; animation: fp-blink 1.6s ease-in-out 2.4s infinite; }
+
+  /* Ticker */
+  .fp-ticker {
+    overflow: hidden;
+    border-top: 1px solid var(--x-border);
+    margin: 1rem -1.75rem 0;
+    padding: 0.75rem 0;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .fp-ticker-track {
+    display: flex;
+    gap: 2.25rem;
+    width: max-content;
+    animation: fp-marquee 26s linear infinite;
+  }
+
+  .fp-tick {
+    font-family: var(--x-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    color: var(--x-muted);
+    white-space: nowrap;
+  }
+
+  .fp-tick[data-dir='up'] { color: rgba(0, 240, 255, 0.75); }
+
+  @keyframes fp-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 900px) {
+    .fp-body { grid-template-columns: 1fr; }
+    .fp-content { border-right: none; border-bottom: 1px solid var(--x-border); }
+    .fp-header, .fp-content { padding-left: 1.4rem; padding-right: 1.4rem; }
+    .fp-visual-inner { padding: 1.25rem 1.4rem 0; }
+    .fp-ticker { margin: 1rem -1.4rem 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fp-card { opacity: 1; translate: none; }
+    .fp-title-line { transform: none; transition: none; }
+    .fp-line { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+    .fp-area { opacity: 1; transition: none; }
+    .fp-tip { opacity: 1; animation: none; }
+    .fp-ticker-track { animation: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    const card = document.getElementById('featured-project');
+    if (!card) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* Reveal on entry */
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            card.classList.add('fp-in');
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(card);
+
+    if (reducedMotion) return;
+
+    /* Scroll physics: subtle scale-out + visual parallax, one rAF gate */
+    const inner = card.querySelector('[data-parallax]') as HTMLElement | null;
+    let ticking = false;
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const r = card!.getBoundingClientRect();
+        const vh = window.innerHeight;
+
+        /* Progress: 0 while fully in view → 1 as the card exits the top */
+        const exit = Math.min(Math.max(-r.top / (r.height * 0.9), 0), 1);
+        if (exit > 0.001) {
+          const scale = 1 - exit * 0.05;
+          card!.style.transform = `scale(${scale.toFixed(4)})`;
+          card!.style.opacity = String(1 - exit * 0.35);
+        } else {
+          card!.style.transform = '';
+          card!.style.opacity = '';
+        }
+
+        /* Parallax: visual drifts against scroll while card crosses viewport */
+        if (inner) {
+          const mid = r.top + r.height / 2 - vh / 2;
+          inner.style.transform = `translateY(${(mid * -0.045).toFixed(2)}px)`;
+        }
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
