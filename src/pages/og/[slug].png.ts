@@ -7,15 +7,21 @@ import { resolve } from 'path';
 const ogPages: Record<string, { title: string; role: string; description: string; tags: string[] }> = {
   home: {
     title: 'Sundeep Dayalan',
-    role: 'Senior Software Engineer',
-    description: 'Distributed Systems · LLM Infrastructure · Real-Time Fintech',
-    tags: ['Python', 'Java', 'React', 'Kafka', 'AWS / GCP', 'LangChain'],
+    role: 'Software Development Engineer II — AWS',
+    description: 'Distributed Systems · AI Infrastructure · Real-Time Cloud Platforms',
+    tags: ['Python', 'Java', 'React', 'Kafka', 'AWS', 'LangChain'],
   },
   'media-hits': {
     title: 'Media Coverage',
     role: 'Sundeep Dayalan',
     description: 'TV broadcasts, newspapers & digital features across national media',
     tags: ['TV', 'Print', 'Digital', 'National Media'],
+  },
+  'sentient-trader': {
+    title: 'Sentient Trader',
+    role: 'Autonomous AI Trading Agent',
+    description: 'LangGraph + Groq LLaMA 3.1 agent that reads live market news and trades on its own',
+    tags: ['Python', 'LangGraph', 'Groq', 'Alpaca API'],
   },
   'sky-bms': {
     title: 'SkyBMS AI',
@@ -70,21 +76,33 @@ const ogPages: Record<string, { title: string; role: string; description: string
 export const getStaticPaths: GetStaticPaths = () =>
   Object.keys(ogPages).map(slug => ({ params: { slug } }));
 
-// Load font from bundled npm package — reliable at build time
-let orbitronFont: ArrayBuffer | null = null;
+// Load fonts from bundled npm packages — reliable at build time
+let displayFont: ArrayBuffer | null = null;
+let monoFont: ArrayBuffer | null = null;
 
-function loadFont(): ArrayBuffer {
-  if (orbitronFont) return orbitronFont;
-  const fontPath = resolve('./node_modules/@fontsource/orbitron/files/orbitron-latin-700-normal.woff');
-  orbitronFont = readFileSync(fontPath).buffer as ArrayBuffer;
-  return orbitronFont;
+function loadFonts(): { display: ArrayBuffer; mono: ArrayBuffer } {
+  if (!displayFont) {
+    displayFont = readFileSync(
+      resolve('./node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff')
+    ).buffer as ArrayBuffer;
+  }
+  if (!monoFont) {
+    monoFont = readFileSync(
+      resolve('./node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff')
+    ).buffer as ArrayBuffer;
+  }
+  return { display: displayFont, mono: monoFont };
 }
+
+const ACCENT = '#00f0ff';
+const MUTED = '#888888';
+const BORDER = '#222222';
 
 export const GET: APIRoute = async ({ params }) => {
   const data = ogPages[params.slug as string];
   if (!data) return new Response('Not found', { status: 404 });
 
-  const font = loadFont();
+  const { display, mono } = loadFonts();
 
   const node = {
     type: 'div',
@@ -95,13 +113,42 @@ export const GET: APIRoute = async ({ params }) => {
         justifyContent: 'space-between',
         width: '1200px',
         height: '630px',
-        background: '#0a0e14',
+        background: '#000000',
         padding: '56px 64px',
-        fontFamily: 'Orbitron',
+        fontFamily: 'Space Grotesk',
         boxSizing: 'border-box' as const,
-        border: '1px solid rgba(0,229,255,0.18)',
+        border: `1px solid ${BORDER}`,
+        position: 'relative' as const,
       },
       children: [
+        // Faint vertical grid lines
+        ...[300, 600, 900].map((x) => ({
+          type: 'div',
+          props: {
+            style: {
+              position: 'absolute' as const,
+              left: `${x}px`,
+              top: '0px',
+              width: '1px',
+              height: '630px',
+              background: 'rgba(240,240,240,0.05)',
+            },
+          },
+        })),
+        // Accent line along the top edge
+        {
+          type: 'div',
+          props: {
+            style: {
+              position: 'absolute' as const,
+              left: '0px',
+              top: '0px',
+              width: '220px',
+              height: '3px',
+              background: ACCENT,
+            },
+          },
+        },
         // Top bar
         {
           type: 'div',
@@ -110,20 +157,24 @@ export const GET: APIRoute = async ({ params }) => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              fontFamily: 'JetBrains Mono',
             },
             children: [
               {
-                type: 'span',
+                type: 'div',
                 props: {
-                  style: { color: 'rgba(0,229,255,0.5)', fontSize: '13px', letterSpacing: '3px' },
-                  children: 'SUNDEEP_DAYALAN :: TERMINAL v4.2.1',
+                  style: { display: 'flex', alignItems: 'center' },
+                  children: [
+                    { type: 'span', props: { style: { color: '#f0f0f0', fontSize: '26px', fontFamily: 'Space Grotesk' }, children: 'SD' } },
+                    { type: 'span', props: { style: { color: ACCENT, fontSize: '26px', fontFamily: 'Space Grotesk' }, children: '.' } },
+                  ],
                 },
               },
               {
                 type: 'span',
                 props: {
-                  style: { color: 'rgba(0,229,255,0.4)', fontSize: '13px', letterSpacing: '2px' },
-                  children: 'sundeepdayalan.in',
+                  style: { color: MUTED, fontSize: '14px', letterSpacing: '4px' },
+                  children: 'SUNDEEPDAYALAN.IN',
                 },
               },
             ],
@@ -139,23 +190,27 @@ export const GET: APIRoute = async ({ params }) => {
                 type: 'div',
                 props: {
                   style: {
-                    color: '#00e5ff',
-                    fontSize: '15px',
-                    letterSpacing: '4px',
-                    marginBottom: '18px',
+                    display: 'flex',
+                    color: ACCENT,
+                    fontSize: '16px',
+                    letterSpacing: '5px',
+                    marginBottom: '20px',
+                    fontFamily: 'JetBrains Mono',
                   },
-                  children: `> ${data.role.toUpperCase()}`,
+                  children: `/ ${data.role.toUpperCase()}`,
                 },
               },
               {
                 type: 'div',
                 props: {
                   style: {
-                    color: '#ffffff',
-                    fontSize: data.title.length > 16 ? '58px' : '72px',
+                    color: '#f0f0f0',
+                    fontSize: data.title.length > 16 ? '64px' : '84px',
                     fontWeight: 700,
-                    lineHeight: '1.1',
-                    marginBottom: '20px',
+                    lineHeight: '1.02',
+                    letterSpacing: '-3px',
+                    marginBottom: '22px',
+                    textTransform: 'uppercase' as const,
                   },
                   children: data.title,
                 },
@@ -164,10 +219,11 @@ export const GET: APIRoute = async ({ params }) => {
                 type: 'div',
                 props: {
                   style: {
-                    color: '#a0adbc',
-                    fontSize: '22px',
-                    lineHeight: '1.4',
+                    color: MUTED,
+                    fontSize: '21px',
+                    lineHeight: '1.5',
                     maxWidth: '900px',
+                    fontFamily: 'JetBrains Mono',
                   },
                   children: data.description,
                 },
@@ -175,7 +231,7 @@ export const GET: APIRoute = async ({ params }) => {
             ],
           },
         },
-        // Tags row + signal indicator
+        // Tags row + status
         {
           type: 'div',
           props: {
@@ -185,7 +241,6 @@ export const GET: APIRoute = async ({ params }) => {
               justifyContent: 'space-between',
             },
             children: [
-              // Tags
               {
                 type: 'div',
                 props: {
@@ -194,29 +249,32 @@ export const GET: APIRoute = async ({ params }) => {
                     type: 'div',
                     props: {
                       style: {
-                        background: 'rgba(0,229,255,0.07)',
-                        border: '1px solid rgba(0,229,255,0.25)',
-                        color: '#00e5ff',
-                        padding: '8px 18px',
+                        background: '#0a0a0a',
+                        border: `1px solid ${BORDER}`,
+                        color: MUTED,
+                        padding: '9px 18px',
                         fontSize: '13px',
                         letterSpacing: '2px',
                         marginRight: i < data.tags.length - 1 ? '10px' : '0',
+                        fontFamily: 'JetBrains Mono',
                       },
-                      children: tag,
+                      children: tag.toUpperCase(),
                     },
                   })),
                 },
               },
-              // Status
               {
                 type: 'div',
                 props: {
                   style: {
-                    color: '#00ff9d',
-                    fontSize: '12px',
-                    letterSpacing: '3px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: ACCENT,
+                    fontSize: '13px',
+                    letterSpacing: '4px',
+                    fontFamily: 'JetBrains Mono',
                   },
-                  children: '■ SIGNAL ACTIVE',
+                  children: '/ BELLEVUE, WA',
                 },
               },
             ],
@@ -229,7 +287,10 @@ export const GET: APIRoute = async ({ params }) => {
   const svg = await satori(node as Parameters<typeof satori>[0], {
     width: 1200,
     height: 630,
-    fonts: [{ name: 'Orbitron', data: font, weight: 700, style: 'normal' }],
+    fonts: [
+      { name: 'Space Grotesk', data: display, weight: 700, style: 'normal' },
+      { name: 'JetBrains Mono', data: mono, weight: 400, style: 'normal' },
+    ],
   });
 
   const png = await sharp(Buffer.from(svg)).png().toBuffer();

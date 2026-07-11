@@ -221,6 +221,21 @@ a:hover {
   #x-cursor { display: none !important; }
 }
 
+/* === SCROLL PROGRESS LINE (element injected by BaseLayout) === */
+#x-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-primary);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.55);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 1002;
+  pointer-events: none;
+}
+
 /* === ANIMATIONS (shared keyframes) === */
 @keyframes flicker {
   0%, 100% { opacity: 1; }

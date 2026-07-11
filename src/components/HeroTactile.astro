@@ -33,7 +33,7 @@ const stats = [
   <div class="ht-container">
     <!-- Meta row -->
     <div class="ht-meta ht-fade" style="--d: 1.1s">
-      <span class="ht-meta-item">SENIOR SOFTWARE ENGINEER</span>
+      <span class="ht-meta-item">SDE II @ AMAZON WEB SERVICES</span>
       <span class="ht-meta-item ht-meta-mid">DISTRIBUTED SYSTEMS · AGENTIC AI · FINTECH</span>
       <span class="ht-meta-item">47.6101°N — BELLEVUE, WA</span>
     </div>
@@ -61,7 +61,7 @@ const stats = [
       </p>
 
       <div class="ht-actions ht-fade" style="--d: 1.4s">
-        <a href="mailto:sundeep.dayalan@gmail.com" class="ht-cta ht-magnetic" data-cursor="hover">
+        <a href="#contact" class="ht-cta ht-magnetic" data-cursor="hover">
           <span class="ht-cta-label">INITIALIZE CONTACT</span>
           <span class="ht-cta-arrow" aria-hidden="true">→</span>
         </a>
@@ -403,30 +403,73 @@ const stats = [
 </style>
 
 <script>
-  (() => {
+  /* Re-initialized on every client-side navigation (View Transitions) */
+  let heroAC: AbortController | undefined;
+  let heroRaf = 0;
+
+  function initHero() {
+    heroAC?.abort();
+    cancelAnimationFrame(heroRaf);
+    if (!document.querySelector('.ht-hero')) return;
+    heroAC = new AbortController();
+    const { signal } = heroAC;
+
     const finePointer = window.matchMedia('(pointer: fine)').matches;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!finePointer || reducedMotion) return;
 
     /* ── Kinetic orb: slow mouse-reactive drift (cursor + magnetics live in BaseLayout) ── */
     const orb = document.getElementById('ht-orb');
-    if (!orb) return;
+    const heroContainer = document.querySelector<HTMLElement>('.ht-container');
     let ox = 0, oy = 0;
     let tox = 0, toy = 0;
 
     window.addEventListener('mousemove', (e) => {
       tox = (e.clientX / window.innerWidth - 0.5) * 60;
       toy = (e.clientY / window.innerHeight - 0.5) * 40;
-    }, { passive: true });
+    }, { passive: true, signal });
 
     const lerp = (a: number, b: number, n: number) => a + (b - a) * n;
 
     function tick() {
       ox = lerp(ox, tox, 0.04);
       oy = lerp(oy, toy, 0.04);
-      orb!.style.setProperty('translate', `${ox}px ${oy}px`);
-      requestAnimationFrame(tick);
+      if (orb) orb.style.setProperty('translate', `${ox}px ${oy}px`);
+
+      /* Depth parallax: hero content sinks + fades as you scroll past */
+      if (heroContainer) {
+        const sy = window.scrollY;
+        const vh = window.innerHeight;
+        if (sy < vh * 1.2) {
+          heroContainer.style.transform = `translateY(${(sy * 0.28).toFixed(1)}px)`;
+          heroContainer.style.opacity = String(Math.max(0, 1 - sy / (vh * 0.85)));
+        }
+      }
+      heroRaf = requestAnimationFrame(tick);
     }
-    requestAnimationFrame(tick);
-  })();
+    heroRaf = requestAnimationFrame(tick);
+
+    /* ── Stat count-up: numbers roll in after the reveal ── */
+    const stats = document.querySelectorAll<HTMLElement>('.ht-stat-value');
+    stats.forEach((el) => {
+      const raw = el.textContent || '';
+      const match = raw.match(/^([\d.]+)(.*)$/);
+      if (!match) return;
+      const target = parseFloat(match[1]);
+      const suffix = match[2];
+      const decimals = (match[1].split('.')[1] || '').length;
+      const D = 1400;
+      const t0 = performance.now() + 700;
+      const step = (now: number) => {
+        const t = Math.min(Math.max((now - t0) / D, 0), 1);
+        const eased = 1 - Math.pow(1 - t, 4);
+        el.textContent = (target * eased).toFixed(decimals) + suffix;
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = raw;
+      };
+      requestAnimationFrame(step);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initHero);
 </script>

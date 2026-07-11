@@ -324,7 +324,7 @@ const additionalLD = [
 
 <script>
   // Video thumbnail click handler
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const thumbnail = document.getElementById('video-thumbnail');
     const player = document.getElementById('video-player');
     const iframe = document.getElementById('video-iframe');

@@ -432,9 +432,17 @@ const ticker = ['AAPL +1.42%', 'NVDA +2.87%', 'TSLA −0.94%', 'MSFT +0.61%', 'A
 </style>
 
 <script>
-  (() => {
+  /* Re-initialized on every client-side navigation (View Transitions) */
+  let fpAC: AbortController | undefined;
+  let fpIO: IntersectionObserver | undefined;
+
+  function initFp() {
+    fpAC?.abort();
+    fpIO?.disconnect();
     const card = document.getElementById('featured-project');
     if (!card) return;
+    fpAC = new AbortController();
+    const { signal } = fpAC;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* Reveal on entry */
@@ -450,6 +458,7 @@ const ticker = ['AAPL +1.42%', 'NVDA +2.87%', 'TSLA −0.94%', 'MSFT +0.61%', 'A
       { threshold: 0.25 }
     );
     io.observe(card);
+    fpIO = io;
 
     if (reducedMotion) return;
 
@@ -484,7 +493,9 @@ const ticker = ['AAPL +1.42%', 'NVDA +2.87%', 'TSLA −0.94%', 'MSFT +0.61%', 'A
       });
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true, signal });
     onScroll();
-  })();
+  }
+
+  document.addEventListener('astro:page-load', initFp);
 </script>

@@ -594,7 +594,7 @@ const additionalLD = [
 </BaseLayout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     // Scroll animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

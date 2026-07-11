@@ -287,6 +287,16 @@ const navItems = [
 </style>
 
 <script>
+  /* Re-initialized on every client-side navigation (View Transitions) */
+  let navAC: AbortController | undefined;
+  let navObserver: IntersectionObserver | undefined;
+
+  function initNav() {
+  navAC?.abort();
+  navAC = new AbortController();
+  const { signal } = navAC;
+  navObserver?.disconnect();
+
   // Scroll effect
   const header = document.getElementById('main-nav');
   window.addEventListener('scroll', () => {
@@ -295,7 +305,7 @@ const navItems = [
     } else {
       header?.classList.remove('scrolled');
     }
-  });
+  }, { passive: true, signal });
 
   // Mobile toggle
   const toggle = document.getElementById('nav-toggle');
@@ -387,6 +397,7 @@ const navItems = [
       sectionObserver.observe(section);
     }
   });
+  navObserver = sectionObserver;
 
   if (window.scrollY < 100) {
     setActiveLink('hero');
@@ -409,5 +420,8 @@ const navItems = [
         }
       }
     }
-  }, { passive: true });
+  }, { passive: true, signal });
+  }
+
+  document.addEventListener('astro:page-load', initNav);
 </script>
