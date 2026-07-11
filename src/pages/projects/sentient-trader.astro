@@ -1,0 +1,1137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+
+const title = "Sentient Trader — Autonomous AI Trading Agent | Sundeep Dayalan";
+const description = "Auditable multi-agent AI paper-trading system: four LLM agents debate market headlines in real time, pass risk gates, and publish replayable decision traces. LangGraph · FastAPI · React · Supabase · Redis Streams · Alpaca.";
+
+const highlights = [
+  { label: "Status", value: "Live · Autonomous" },
+  { label: "Period", value: "May 2026 — Present" },
+  { label: "Domain", value: "Agentic AI · Trading" },
+  { label: "Uptime", value: "Weeks Unattended" },
+];
+
+const metrics = [
+  { value: "4", label: "LLM Agent Committee", desc: "Sequential debate — not averaged noise" },
+  { value: "45%", label: "Signals Pre-Screened", desc: "Zero LLM calls on low-quality noise" },
+  { value: "158+", label: "Commits Shipped", desc: "Active development & iteration" },
+  { value: "15+", label: "Trading Features", desc: "All hot-reloadable via DB config" },
+];
+
+const agents = [
+  {
+    id: "01",
+    name: "Momentum Trader",
+    role: "TREND",
+    desc: "LLM call #1 — analyses price action, momentum indicators, and short-term directional bias. Sets the opening thesis that subsequent agents react to.",
+    tech: ["LangGraph", "Groq LLaMA 3.1", "RSI / SMA / EMA"],
+    color: "cyan"
+  },
+  {
+    id: "02",
+    name: "Value Investor",
+    role: "FUNDAMENTALS",
+    desc: "LLM call #2 — reads the momentum trader's actual take, then evaluates the headline through a fundamentals lens. Disagreement here is substantive, not coincidental.",
+    tech: ["LangGraph", "Pydantic", "Structured Output"],
+    color: "purple"
+  },
+  {
+    id: "03",
+    name: "Risk Manager",
+    role: "RISK",
+    desc: "LLM call #3 — stress-tests both sides. Identifies blockers, assigns risk levels, and flags concentration or circuit-breaker violations before synthesis.",
+    tech: ["LangGraph", "Risk Analysis", "Guardrails"],
+    color: "red"
+  },
+  {
+    id: "04",
+    name: "Portfolio Manager",
+    role: "SYNTHESIZE",
+    desc: "LLM call #4 — the synthesiser. Reads the full three-agent debate, issues BUY / SELL / HOLD, and writes the decision trace. The final pure-Python risk gate decides execution.",
+    tech: ["LangGraph", "Decision Trace", "Supabase"],
+    color: "orange"
+  },
+];
+
+const features = [
+  {
+    title: "Sequential Agent Debate",
+    desc: "Not parallel guesses — each agent reads the previous agent's actual reasoning. The value investor reacts to the momentum trader's thesis, producing genuine disagreement.",
+    icon: "🤖"
+  },
+  {
+    title: "Full Decision Transparency",
+    desc: "Every signal persists the complete four-agent debate, risk gate verdict, and final call as JSONB. Open any signal on the live dashboard to replay the reasoning.",
+    icon: "🔍"
+  },
+  {
+    title: "Deterministic Pre-Screening",
+    desc: "Pure-Python quality scorer evaluates every headline before spending LLM budget. ~45% of signals resolved with zero LLM calls — low-quality noise filtered for free.",
+    icon: "🧠"
+  },
+  {
+    title: "Risk-Gated Execution",
+    desc: "Five independent conditions must all pass in pure Python: sentiment threshold, confidence calibration, article quality, execution plan, and position risk — no LLM in the loop.",
+    icon: "🛡️"
+  },
+  {
+    title: "LLM Provider Cascade",
+    desc: "ModelRouter handles rate limits, quota exhaustion, and outages automatically — cascading across Groq and OpenRouter providers within the same signal processing.",
+    icon: "🔌"
+  },
+  {
+    title: "Pipeline Replay",
+    desc: "Every decision is replayable as an interactive pipeline — news → pre-screen → market context → 4-agent debate → risk gate → execution — reconstructed from stored traces.",
+    icon: "▶️"
+  },
+  {
+    title: "Technical Analysis Engine",
+    desc: "RSI, SMA, EMA, MACD technical indicators pipeline with volume ratio and momentum scoring feed directly into agent context for data-grounded LLM reasoning.",
+    icon: "📊"
+  },
+  {
+    title: "Hot-Reloadable Config",
+    desc: "15+ institutional-grade trading features — circuit breaker, bracket orders, trailing stops, concentration limits — all toggleable via database config, zero redeployments.",
+    icon: "⚙️"
+  },
+  {
+    title: "Store-First Architecture",
+    desc: "At-least-once delivery via Redis Streams + consumer groups. Nothing is lost if Redis goes down. 4-layer deduplication from ingestion through agent cache.",
+    icon: "💾"
+  },
+];
+
+const contributions = [
+  "Designed and built the four-agent LangGraph StateGraph orchestration — defining sequential debate flow, structured Pydantic output schemas, and inter-agent context passing",
+  "Implemented the quota-aware LLM provider cascade (ModelRouter) across Groq and OpenRouter — automatic rate-limit handling, cooldown management, and fallback within single signal processing",
+  "Built the deterministic pre-screening system that filters ~45% of signals with zero LLM calls — pure-Python quality scoring with source credibility, catalyst detection, and freshness gates",
+  "Engineered the risk-gated execution pipeline — five independent conditions in pure Python (sentiment, confidence calibration, article quality, execution plan, position risk)",
+  "Developed the React + Vite dashboard with real-time signal feed, PnL charting (Recharts), interactive pipeline replay (React Flow), and live system health monitoring",
+  "Architected the event-driven ingestion pipeline — Alpaca WebSocket + REST backfill, 4-layer deduplication, Redis Streams outbox, and consumer group processing",
+  "Built the signal outcome tracking system — 15min / 1hr / EOD return labeling to validate whether committee recommendations move in the expected direction",
+  "Deployed the full stack across Oracle Cloud (3 workers) + Netlify (frontend) + Supabase (Postgres) with Docker Compose and CI/CD via GitHub Actions",
+];
+
+const challenges = [
+  "Making four sequential LLM calls reliable at scale — solved with a quota-aware provider cascade that handles rate limits, quota exhaustion, and outages automatically across Groq and OpenRouter",
+  "Preventing the system from trading on noise — built a multi-layer gating system: deterministic pre-screen, calibrated confidence thresholds, article quality scoring, and price-move gates",
+  "Running autonomously for weeks without intervention — designed 4 independent services with distinct failure domains, store-first architecture, and Redis-backed health heartbeats",
+  "Balancing transparency with performance — stored complete decision traces as JSONB without impacting pipeline throughput, enabling full replay of any historical decision",
+];
+
+const techStack = ["Python", "LangGraph", "Groq LLaMA 3.1", "FastAPI", "React", "Vite", "Tailwind CSS", "Supabase", "Redis Streams", "Alpaca API", "Docker", "Oracle Cloud", "Netlify", "GitHub Actions", "Pydantic", "Recharts", "React Flow"];
+
+const keywords = "sentient trader, autonomous AI trading agent, multi-agent AI, LangGraph, paper trading, LLM committee, Groq LLaMA, Alpaca API, Redis Streams, Supabase, decision trace, Sundeep Dayalan";
+
+const additionalLD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Sentient Trader — Autonomous AI Trading Agent",
+    "description": "Auditable multi-agent AI paper-trading system: four LLM agents debate market headlines, pass risk gates, and publish replayable decision traces.",
+    "applicationCategory": "FinanceApplication",
+    "url": "https://www.sundeepdayalan.in/projects/sentient-trader",
+    "creator": {
+      "@type": "Person",
+      "name": "Sundeep Dayalan",
+      "url": "https://www.sundeepdayalan.in"
+    },
+    "dateCreated": "2026",
+    "keywords": "multi-agent AI, LangGraph, paper trading, autonomous trading, LLM committee, decision trace"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sundeepdayalan.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.sundeepdayalan.in/#projects" },
+      { "@type": "ListItem", "position": 3, "name": "Sentient Trader", "item": "https://www.sundeepdayalan.in/projects/sentient-trader" }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/og-image.png"
+  keywords={keywords}
+  additionalLD={additionalLD}
+>
+  <Navbar />
+
+  <!-- HERO — CSS-only animated trading terminal -->
+  <section class="project-hero">
+    <div class="hero-canvas">
+      <div class="grid-bg"></div>
+      <!-- Animated trading signal nodes -->
+      <div class="agent-node node-1"><span class="node-label">MOMENTUM</span></div>
+      <div class="agent-node node-2"><span class="node-label">VALUE</span></div>
+      <div class="agent-node node-3"><span class="node-label">RISK</span></div>
+      <div class="agent-node node-4"><span class="node-label">SYNTHESIZE</span></div>
+      <!-- Animated price ticker lines -->
+      <svg class="flow-lines" viewBox="0 0 1200 600" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#00e5ff;stop-opacity:0" />
+            <stop offset="30%" style="stop-color:#00e5ff;stop-opacity:0.6" />
+            <stop offset="50%" style="stop-color:#00ff9d;stop-opacity:0.5" />
+            <stop offset="70%" style="stop-color:#f59e0b;stop-opacity:0.6" />
+            <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0" />
+          </linearGradient>
+          <linearGradient id="lineGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:0" />
+            <stop offset="50%" style="stop-color:#a78bfa;stop-opacity:0.4" />
+            <stop offset="100%" style="stop-color:#00ff9d;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+        <!-- Candlestick-inspired price lines -->
+        <path d="M 50 350 L 150 280 L 250 320 L 350 240 L 450 290 L 550 210 L 650 260 L 750 180 L 850 230 L 950 160 L 1050 200 L 1150 140" stroke="url(#lineGrad)" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M 50 370 L 200 330 L 400 380 L 500 300 L 700 340 L 800 280 L 1000 320 L 1150 260" stroke="url(#lineGrad2)" stroke-width="1" fill="none" opacity="0.25"/>
+        <!-- Signal dots along the chart -->
+        <circle cx="350" cy="240" r="4" fill="#00ff9d" opacity="0.8"><animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/></circle>
+        <circle cx="550" cy="210" r="3" fill="#00e5ff" opacity="0.7"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="750" cy="180" r="4" fill="#f59e0b" opacity="0.8"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/></circle>
+        <circle cx="950" cy="160" r="3" fill="#ef4444" opacity="0.7"><animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.8s" repeatCount="indefinite"/></circle>
+        <circle cx="1150" cy="140" r="5" fill="#00ff9d" opacity="0.9"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/></circle>
+      </svg>
+      <div class="hero-fade"></div>
+    </div>
+
+    <div class="project-hero-content">
+      <a href="/#projects" class="back-link">← RETURN TO BASE</a>
+      <div class="project-hero-meta">
+        <span class="project-badge ai">AGENTIC AI</span>
+        <span class="project-badge trading">PAPER TRADING</span>
+        <span class="project-badge live">● LIVE</span>
+        <span class="project-date">May 2026 — Present</span>
+      </div>
+      <h1 class="project-hero-title">SENTIENT<br/>TRADER</h1>
+      <p class="project-hero-subtitle">An autonomous AI paper-trading system — a four-LLM committee debates every market headline in real time, then trades only when conviction, risk, and quality gates all clear. Running unattended for weeks with near-zero errors.</p>
+      <div class="project-hero-tags">
+        {techStack.map(tag => <span class="hero-tag">{tag}</span>)}
+      </div>
+      <div class="project-hero-actions">
+        <a href="https://apps.sundeepdayalan.in/sentient-trader" target="_blank" rel="noopener noreferrer" class="hero-cta live-demo">
+          <span class="cta-bracket">[</span> 🚀 LIVE DEMO <span class="cta-bracket">]</span>
+        </a>
+        <a href="https://github.com/sundeep-dayalan/sentient-trader" target="_blank" rel="noopener noreferrer" class="hero-cta secondary">
+          <span class="cta-bracket">[</span> VIEW SOURCE <span class="cta-bracket">]</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="section">
+    <div class="container">
+      <div class="highlights-grid">
+        {highlights.map(h => (
+          <div class="highlight-card">
+            <span class="highlight-label">{h.label}</span>
+            <span class="highlight-value">{h.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION STATS</span>
+        <h2 class="section-title">Production Metrics</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="metrics-grid animate-on-scroll">
+        {metrics.map(m => (
+          <div class="metric-card">
+            <span class="metric-value">{m.value}</span>
+            <span class="metric-label">{m.label}</span>
+            <span class="metric-desc">{m.desc}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">MISSION BRIEFING</span>
+        <h2 class="section-title">About</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-terminal animate-on-scroll">
+        <div class="terminal-header-mini">
+          <span class="terminal-prompt">> cat mission_briefing.txt</span>
+          <span class="terminal-status">CLASSIFIED...</span>
+        </div>
+        <div class="project-text-block">
+          <p>Most trading bots pattern-match headlines and fire orders. <span class="hl">Sentient Trader is fundamentally different</span> — it runs a sequential four-agent AI debate where each persona reads and reacts to what the previous agent actually said, producing genuine disagreement rather than averaged noise.</p>
+          <p>Built on <span class="hl">LangGraph and Groq-hosted LLaMA 3.1</span>, the system ingests live market news via Alpaca WebSocket, routes signals through Redis Streams, and processes every headline through a full committee debate. The momentum trader sets a thesis, the value investor challenges it with fundamentals, the risk manager stress-tests both sides, and the portfolio manager synthesises the final call — all with <span class="hl">complete decision traces</span> stored for replay.</p>
+          <p>A pure-Python risk gate then evaluates five independent conditions before any trade executes. The system has been <span class="hl">running autonomously since May 2026</span> — processing thousands of signals, executing risk-gated paper trades via Alpaca, and persisting every decision trace for full auditability. Safety boundary: <span class="hl">paper trading only</span>, educational use only, not financial advice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE DEMO -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">LIVE DEPLOYMENT</span>
+        <h2 class="section-title">See It In Action</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="demo-showcase animate-on-scroll">
+        <div class="demo-card">
+          <div class="demo-header">
+            <span class="demo-icon">🖥️</span>
+            <span class="demo-badge pulse">LIVE</span>
+          </div>
+          <h3 class="demo-title">Live Dashboard</h3>
+          <p class="demo-desc">Real-time signal feed, PnL equity curve, system health, and full agent decision traces — no login required for read access.</p>
+          <a href="https://apps.sundeepdayalan.in/sentient-trader" target="_blank" rel="noopener noreferrer" class="demo-link">OPEN DASHBOARD →</a>
+        </div>
+        <div class="demo-card">
+          <div class="demo-header">
+            <span class="demo-icon">▶️</span>
+            <span class="demo-badge replay">REPLAY</span>
+          </div>
+          <h3 class="demo-title">Pipeline Replay</h3>
+          <p class="demo-desc">Every decision is replayable as an interactive pipeline — news → pre-screen → market context → 4-agent debate → risk gate → execution.</p>
+          <a href="https://apps.sundeepdayalan.in/sentient-trader/pipeline/be963ddb-285a-42f8-832a-f40303be8b3d" target="_blank" rel="noopener noreferrer" class="demo-link">REPLAY GOOG SIGNAL →</a>
+        </div>
+        <div class="demo-card">
+          <div class="demo-header">
+            <span class="demo-icon">💉</span>
+            <span class="demo-badge inject">INJECT</span>
+          </div>
+          <h3 class="demo-title">Signal Injector</h3>
+          <p class="demo-desc">Submit your own ticker and headline to watch the full committee debate unfold in real time. Simulated signals are safely blocked from order execution.</p>
+          <a href="https://apps.sundeepdayalan.in/sentient-trader" target="_blank" rel="noopener noreferrer" class="demo-link">TRY SIGNAL INJECTOR →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENT PIPELINE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">AI COMMITTEE</span>
+        <h2 class="section-title">The Four-Agent Debate</h2>
+        <div class="section-divider"></div>
+      </div>
+      <p class="pipeline-intro animate-on-scroll">Sequential, not parallel. Each agent reads and reacts to the previous agent's actual reasoning — producing a real argument, not independent guesses in a vacuum.</p>
+      <div class="pipeline-container animate-on-scroll">
+        {agents.map((agent, i) => (
+          <div class={`pipeline-agent agent-${agent.color}`}>
+            <div class="pipeline-connector">{i < agents.length - 1 && <span class="connector-arrow">→</span>}</div>
+            <div class="agent-card">
+              <div class="agent-header">
+                <span class="agent-id">{agent.id}</span>
+                <span class={`agent-role role-${agent.color}`}>{agent.role}</span>
+              </div>
+              <h3 class="agent-name">{agent.name}</h3>
+              <p class="agent-desc">{agent.desc}</p>
+              <div class="agent-tech">
+                {agent.tech.map(t => <span class="tech-tag">{t}</span>)}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM ARCHITECTURE</span>
+        <h2 class="section-title">How It Works</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="arch-blocks animate-on-scroll">
+        <div class="arch-layer">
+          <div class="arch-layer-label">DATA SOURCES</div>
+          <div class="arch-layer-cards">
+            <div class="arch-block source">
+              <span class="arch-icon">📰</span>
+              <span class="arch-name">Alpaca News API</span>
+              <span class="arch-sub">WebSocket + REST backfill</span>
+            </div>
+            <div class="arch-block source">
+              <span class="arch-icon">📈</span>
+              <span class="arch-name">Alpaca Market Data</span>
+              <span class="arch-sub">Live price + day change</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow-down">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">INGESTION & STREAMING</div>
+          <div class="arch-layer-cards">
+            <div class="arch-block stream">
+              <span class="arch-icon">📡</span>
+              <span class="arch-name">Ingestion Worker</span>
+              <span class="arch-sub">Dedupe · Store · Outbox</span>
+            </div>
+            <div class="arch-block stream">
+              <span class="arch-icon">🔴</span>
+              <span class="arch-name">Redis Streams</span>
+              <span class="arch-sub">Consumer groups · At-least-once</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow-down">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">AI COMMITTEE</div>
+          <div class="arch-layer-cards">
+            <div class="arch-block ai">
+              <span class="arch-icon">🤖</span>
+              <span class="arch-name">LangGraph Agent</span>
+              <span class="arch-sub">4-LLM sequential debate</span>
+            </div>
+            <div class="arch-block ai">
+              <span class="arch-icon">🛡️</span>
+              <span class="arch-name">Risk Gate</span>
+              <span class="arch-sub">Pure Python · 5 conditions</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow-down">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">EXECUTION & DELIVERY</div>
+          <div class="arch-layer-cards">
+            <div class="arch-block execution">
+              <span class="arch-icon">💰</span>
+              <span class="arch-name">Alpaca Paper Orders</span>
+              <span class="arch-sub">Brackets · Stop-loss · Fill verify</span>
+            </div>
+            <div class="arch-block frontend">
+              <span class="arch-icon">🖥️</span>
+              <span class="arch-name">React Dashboard</span>
+              <span class="arch-sub">Vite · Tailwind · Netlify</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow-down">↓</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">PERSISTENCE</div>
+          <div class="arch-layer-cards">
+            <div class="arch-block persist">
+              <span class="arch-icon">🟢</span>
+              <span class="arch-name">Supabase Postgres</span>
+              <span class="arch-sub">Trades · Config · Decision traces</span>
+            </div>
+            <div class="arch-block persist">
+              <span class="arch-icon">⚡</span>
+              <span class="arch-name">FastAPI Gateway</span>
+              <span class="arch-sub">REST · Auth · Rate limits</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PIPELINE AT A GLANCE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">DATA FLOW</span>
+        <h2 class="section-title">The Pipeline at a Glance</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="pipeline-flow animate-on-scroll">
+        <div class="flow-step"><span class="flow-emoji">📰</span><span class="flow-label">Alpaca News</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="flow-emoji">📡</span><span class="flow-label">Ingestion</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step stream-step"><span class="flow-emoji">🔴</span><span class="flow-label">Redis Stream</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="flow-emoji">🤖</span><span class="flow-label">LangGraph</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="flow-emoji">🧠</span><span class="flow-label">4-LLM Debate</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="flow-emoji">📈</span><span class="flow-label">Alpaca Orders</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step persist-step"><span class="flow-emoji">🟢</span><span class="flow-label">Supabase</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="flow-emoji">🖥️</span><span class="flow-label">Dashboard</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SYSTEM MODULES</span>
+        <h2 class="section-title">Capabilities</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="features-grid">
+        {features.map((feat, i) => (
+          <div class="feature-card animate-on-scroll" style={`--delay: ${i * 100}ms`}>
+            <span class="feature-icon">{feat.icon}</span>
+            <h3 class="feature-title">{feat.title}</h3>
+            <p class="feature-desc">{feat.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRIBUTIONS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">OPERATOR LOG</span>
+        <h2 class="section-title">My Contributions</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block animate-on-scroll">
+        {contributions.map(item => (
+          <div class="list-item"><span class="bullet-icon">▸</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">THREAT ANALYSIS</span>
+        <h2 class="section-title">Challenges Overcome</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="list-block warn animate-on-scroll">
+        {challenges.map(item => (
+          <div class="list-item"><span class="bullet-icon warn">⚠</span><span>{item}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- REPOS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">SOURCE CODE</span>
+        <h2 class="section-title">Repository</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="repo-grid animate-on-scroll">
+        <a href="https://github.com/sundeep-dayalan/sentient-trader" target="_blank" rel="noopener noreferrer" class="repo-card">
+          <div class="repo-header">
+            <span class="repo-icon">⚙️</span>
+            <span class="repo-badge">FULL STACK</span>
+          </div>
+          <h3 class="repo-name">SENTIENT-TRADER</h3>
+          <p class="repo-desc">Multi-agent AI paper-trading pipeline — LangGraph agents, FastAPI gateway, React dashboard, Redis Streams, Supabase persistence, Docker deployment, CI/CD, and comprehensive test suite.</p>
+          <div class="repo-tags">
+            <span>Python</span><span>LangGraph</span><span>FastAPI</span><span>React</span><span>Redis</span><span>Supabase</span><span>Docker</span>
+          </div>
+          <span class="repo-link">VIEW ON GITHUB →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="back-section">
+    <a href="/#projects" class="back-link-bottom">← RETURN TO PROJECTS</a>
+  </div>
+</BaseLayout>
+
+<style>
+  /* ── HERO ── */
+  .project-hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: #0a0e14;
+  }
+
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+  }
+
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+
+  .agent-node {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(0,229,255,0.3);
+    background: rgba(0,229,255,0.04);
+    animation: nodePulse 3s ease-in-out infinite;
+  }
+
+  .node-label {
+    font-family: var(--font-mono);
+    font-size: 0.42rem;
+    color: rgba(0,229,255,0.6);
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  .node-1 { top: 20%; left: 10%; animation-delay: 0s; border-color: rgba(0,229,255,0.3); }
+  .node-2 { top: 15%; left: 32%; animation-delay: 0.7s; border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.04); }
+  .node-2 .node-label { color: rgba(167,139,250,0.6); }
+  .node-3 { top: 28%; left: 54%; animation-delay: 1.4s; border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.04); }
+  .node-3 .node-label { color: rgba(248,113,113,0.6); }
+  .node-4 { top: 18%; left: 76%; animation-delay: 2.1s; border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.04); }
+  .node-4 .node-label { color: rgba(251,146,60,0.6); }
+
+  @keyframes nodePulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  .flow-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+      rgba(10,14,20,0.1) 0%,
+      rgba(10,14,20,0.3) 40%,
+      rgba(10,14,20,0.92) 75%,
+      rgba(10,14,20,1) 100%
+    );
+  }
+
+  .project-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-3xl) var(--space-2xl) var(--space-2xl);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-primary-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    display: inline-block;
+    transition: color var(--transition-fast);
+  }
+  .back-link:hover { color: var(--color-primary); }
+
+  .project-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: var(--space-lg) 0 var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .project-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 4px 12px;
+    border: 1px solid;
+    text-transform: uppercase;
+    color: var(--color-warning);
+    border-color: rgba(255,182,39,0.4);
+  }
+  .project-badge.ai { color: #00e5ff; border-color: rgba(0,229,255,0.4); }
+  .project-badge.trading { color: #a78bfa; border-color: rgba(167,139,250,0.4); }
+  .project-badge.live { color: #00ff9d; border-color: rgba(0,255,157,0.4); animation: livePulse 2s ease-in-out infinite; }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .project-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .project-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--color-text-bright);
+    line-height: 1.05;
+    margin-bottom: var(--space-md);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .project-hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    max-width: 720px;
+    line-height: 1.6;
+  }
+
+  .project-hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-primary-dim);
+    padding: 3px 10px;
+    border: 1px solid var(--color-border);
+    letter-spacing: 0.05em;
+  }
+
+  .project-hero-actions { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .hero-cta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    padding: var(--space-sm) var(--space-lg);
+    border: 1px solid var(--color-primary-dim);
+    transition: all var(--transition-normal);
+  }
+  .hero-cta:hover { background: rgba(0,229,255,0.08); border-color: var(--color-primary); }
+  .hero-cta.live-demo { color: #00ff9d; border-color: rgba(0,255,157,0.4); }
+  .hero-cta.live-demo:hover { background: rgba(0,255,157,0.08); border-color: #00ff9d; }
+  .hero-cta.secondary { color: #a78bfa; border-color: rgba(167,139,250,0.4); }
+  .hero-cta.secondary:hover { background: rgba(167,139,250,0.08); border-color: #a78bfa; }
+  .cta-bracket { color: var(--color-text-dim); }
+
+  /* ── HIGHLIGHTS ── */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    padding: var(--space-xl) 0;
+  }
+  .highlight-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-lg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    transition: border-color var(--transition-normal);
+  }
+  .highlight-card:hover { border-color: var(--color-border-bright); }
+  .highlight-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--color-primary-dim); letter-spacing: 0.15em; }
+  .highlight-value { font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; color: var(--color-text-bright); }
+
+  /* ── METRICS ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+  .metric-card {
+    background: var(--color-bg-card);
+    border: 1px solid rgba(0,229,255,0.15);
+    padding: var(--space-xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+  .metric-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-3px); }
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+  .metric-label {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .metric-desc {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── TERMINAL ── */
+  .project-terminal { background: var(--color-bg-card); border: 1px solid var(--color-border); overflow: hidden; }
+  .terminal-header-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(0,229,255,0.03);
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+  .terminal-prompt { color: var(--color-primary-dim); }
+  .terminal-status { color: var(--color-secondary-dim); font-size: 0.65rem; letter-spacing: 0.15em; }
+  .project-text-block {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+  }
+  .hl { color: var(--color-primary); font-weight: 500; }
+
+  /* ── DEMO SHOWCASE ── */
+  .demo-showcase {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .demo-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+  .demo-card:hover { border-color: rgba(0,255,157,0.4); transform: translateY(-3px); }
+  .demo-header { display: flex; align-items: center; justify-content: space-between; }
+  .demo-icon { font-size: 1.8rem; }
+  .demo-badge {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    padding: 3px 10px;
+    border: 1px solid;
+  }
+  .demo-badge.pulse { color: #00ff9d; border-color: rgba(0,255,157,0.4); animation: livePulse 2s ease-in-out infinite; }
+  .demo-badge.replay { color: #00e5ff; border-color: rgba(0,229,255,0.4); }
+  .demo-badge.inject { color: #f59e0b; border-color: rgba(245,158,11,0.4); }
+  .demo-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; }
+  .demo-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; flex: 1; }
+  .demo-link {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-primary);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    margin-top: auto;
+    transition: color var(--transition-fast);
+  }
+  .demo-link:hover { color: var(--color-primary-bright); }
+
+  /* ── PIPELINE INTRO ── */
+  .pipeline-intro {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    max-width: 700px;
+    line-height: 1.7;
+  }
+
+  /* ── AGENT PIPELINE ── */
+  .pipeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .pipeline-agent {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+  }
+
+  .pipeline-connector {
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .connector-arrow {
+    font-size: 1.5rem;
+    color: var(--color-primary-dim);
+    opacity: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .agent-card {
+    flex: 1;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid;
+    padding: var(--space-xl);
+    margin-bottom: var(--space-md);
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .agent-card:hover { transform: translateX(4px); }
+
+  .agent-cyan .agent-card { border-left-color: #00e5ff; }
+  .agent-purple .agent-card { border-left-color: #a78bfa; }
+  .agent-red .agent-card { border-left-color: #f87171; }
+  .agent-orange .agent-card { border-left-color: #fb923c; }
+
+  .agent-header { display: flex; align-items: center; gap: var(--space-md); }
+  .agent-id { font-family: var(--font-display); font-size: 0.7rem; color: var(--color-text-dim); font-weight: 700; }
+  .agent-role {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 2px 10px;
+    border: 1px solid;
+  }
+  .role-cyan { color: #00e5ff; border-color: rgba(0,229,255,0.4); background: rgba(0,229,255,0.05); }
+  .role-purple { color: #a78bfa; border-color: rgba(167,139,250,0.4); background: rgba(167,139,250,0.05); }
+  .role-red { color: #f87171; border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.05); }
+  .role-orange { color: #fb923c; border-color: rgba(251,146,60,0.4); background: rgba(251,146,60,0.05); }
+
+  .agent-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; }
+  .agent-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .agent-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .tech-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-text-dim);
+    padding: 2px 8px;
+    border: 1px solid var(--color-border);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ARCHITECTURE ── */
+  .arch-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+  .arch-layer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+  .arch-layer-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-primary-dim);
+    letter-spacing: 0.2em;
+    text-align: center;
+  }
+  .arch-layer-cards {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    width: 100%;
+    max-width: 700px;
+  }
+  .arch-block {
+    flex: 1;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    transition: border-color var(--transition-normal);
+  }
+  .arch-block.source { border-color: rgba(0,229,255,0.2); }
+  .arch-block.source:hover { border-color: rgba(0,229,255,0.5); }
+  .arch-block.stream { border-color: rgba(248,113,113,0.2); }
+  .arch-block.stream:hover { border-color: rgba(248,113,113,0.5); }
+  .arch-block.ai { border-color: rgba(167,139,250,0.2); }
+  .arch-block.ai:hover { border-color: rgba(167,139,250,0.5); }
+  .arch-block.execution { border-color: rgba(0,255,157,0.2); }
+  .arch-block.execution:hover { border-color: rgba(0,255,157,0.5); }
+  .arch-block.frontend { border-color: rgba(251,146,60,0.2); }
+  .arch-block.frontend:hover { border-color: rgba(251,146,60,0.5); }
+  .arch-block.persist { border-color: rgba(0,255,157,0.2); }
+  .arch-block.persist:hover { border-color: rgba(0,255,157,0.5); }
+  .arch-icon { font-size: 1.5rem; }
+  .arch-name { font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; color: var(--color-text-bright); }
+  .arch-sub { font-family: var(--font-mono); font-size: 0.62rem; color: var(--color-text-dim); letter-spacing: 0.05em; }
+  .arch-arrow-down { font-size: 1.5rem; color: var(--color-primary-dim); text-align: center; padding: 4px 0; }
+
+  /* ── PIPELINE FLOW ── */
+  .pipeline-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    padding: var(--space-xl);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+  }
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--color-border);
+    background: rgba(0,229,255,0.03);
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+  .flow-step:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-2px); }
+  .flow-step.stream-step { border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.03); }
+  .flow-step.persist-step { border-color: rgba(0,255,157,0.3); background: rgba(0,255,157,0.03); }
+  .flow-emoji { font-size: 1.3rem; }
+  .flow-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--color-text-dim); letter-spacing: 0.05em; }
+  .flow-arrow { font-family: var(--font-mono); font-size: 1rem; color: var(--color-primary-dim); }
+
+  /* ── FEATURES ── */
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+  .feature-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+  .feature-card:hover { border-color: var(--color-border-bright); transform: translateY(-2px); }
+  .feature-icon { font-size: 2rem; margin-bottom: var(--space-xs); }
+  .feature-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; color: var(--color-text-bright); text-transform: uppercase; }
+  .feature-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; }
+
+  /* ── LISTS ── */
+  .list-block { background: var(--color-bg-card); border: 1px solid var(--color-border); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
+  .list-block.warn { border-color: rgba(255,182,39,0.2); }
+  .list-item { display: flex; align-items: flex-start; gap: var(--space-sm); font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; }
+  .bullet-icon { color: var(--color-primary); flex-shrink: 0; margin-top: 2px; }
+  .bullet-icon.warn { color: var(--color-warning); }
+
+  /* ── REPOS ── */
+  .repo-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); max-width: 600px; }
+  .repo-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-decoration: none;
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+  .repo-card:hover { border-color: var(--color-primary-dim); transform: translateY(-3px); }
+  .repo-header { display: flex; align-items: center; justify-content: space-between; }
+  .repo-icon { font-size: 1.5rem; }
+  .repo-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 3px 10px;
+    border: 1px solid rgba(0,229,255,0.3);
+    color: var(--color-primary-dim);
+  }
+  .repo-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--color-text-bright); text-transform: uppercase; }
+  .repo-desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; flex: 1; }
+  .repo-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .repo-tags span { font-family: var(--font-mono); font-size: 0.62rem; color: var(--color-text-dim); padding: 2px 8px; border: 1px solid var(--color-border); }
+  .repo-link { font-family: var(--font-mono); font-size: 0.72rem; color: var(--color-primary); letter-spacing: 0.1em; margin-top: auto; }
+
+  /* ── BACK ── */
+  .back-section { max-width: 1200px; margin: 0 auto; padding: var(--space-2xl); }
+  .back-link-bottom {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--color-border);
+    display: inline-block;
+    transition: all var(--transition-normal);
+  }
+  .back-link-bottom:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+  /* ── ANIMATION ── */
+  .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .demo-showcase { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+    .repo-grid { grid-template-columns: 1fr; }
+    .project-hero { min-height: 60vh; }
+    .node-1, .node-2, .node-3, .node-4 { display: none; }
+    .demo-showcase { grid-template-columns: 1fr; }
+    .pipeline-flow { gap: 6px; padding: var(--space-md); }
+    .flow-step { padding: var(--space-xs) var(--space-sm); }
+    .flow-emoji { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    .highlights-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .project-hero-content { padding: var(--space-xl) var(--space-md); }
+    .arch-layer-cards { flex-direction: column; }
+    .flow-arrow { display: none; }
+    .pipeline-flow { flex-direction: column; }
+  }
+  @media (hover: none) {
+    .highlight-card:hover { border-color: var(--color-border); }
+    .feature-card:hover { border-color: var(--color-border); transform: none; }
+    .repo-card:hover { border-color: var(--color-border); transform: none; }
+    .agent-card:hover { transform: none; }
+    .demo-card:hover { border-color: var(--color-border); transform: none; }
+    .metric-card:hover { border-color: rgba(0,229,255,0.15); transform: none; }
+  }
+</style>
