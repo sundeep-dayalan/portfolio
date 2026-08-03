@@ -12,11 +12,13 @@ interface Props {
   reverse?: boolean;
 }
 const { items, speed = 0.6, reverse = false } = Astro.props;
+/* Duplicate items 4 times to ensure seamless infinite looping on all screen sizes */
+const quadItems = [...items, ...items, ...items, ...items];
 ---
 
 <div class="mq" data-marquee data-speed={speed} data-reverse={reverse ? '1' : '0'} aria-hidden="true">
   <div class="mq-track">
-    {[...items, ...items].map((item) => (
+    {quadItems.map((item) => (
       <span class="mq-item">
         {item}
         <span class="mq-sep">/</span>
@@ -76,7 +78,7 @@ const { items, speed = 0.6, reverse = false } = Astro.props;
 </style>
 
 <script>
-  /* Re-initialized on every client-side navigation (View Transitions) */
+  /* Re-initialized on every client-side navigation (View Transitions) & cold page loads */
   let mqAC: AbortController | undefined;
   let mqRaf = 0;
 
@@ -96,16 +98,23 @@ const { items, speed = 0.6, reverse = false } = Astro.props;
         el,
         track,
         x: 0,
-        half: 0,
+        oneSetWidth: 0,
         base: parseFloat(el.dataset.speed || '0.6') * (el.dataset.reverse === '1' ? -1 : 1),
       };
     });
 
     const measure = () => {
-      for (const m of state) m.half = m.track.scrollWidth / 2;
+      for (const m of state) {
+        if (m.track) {
+          m.oneSetWidth = m.track.scrollWidth / 4;
+        }
+      }
     };
     measure();
     window.addEventListener('resize', measure, { passive: true, signal });
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(measure);
+    }
 
     let lastY = window.scrollY;
     let velocity = 0;
@@ -120,16 +129,27 @@ const { items, speed = 0.6, reverse = false } = Astro.props;
       const skew = Math.max(-5, Math.min(5, velocity * 0.06));
 
       for (const m of state) {
-        if (!m.half) continue;
-        m.x -= m.base + boost * (m.base < 0 ? -1 : 1);
-        /* wrap seamlessly in both directions */
-        m.x = ((m.x % m.half) + m.half) % m.half;
-        m.track.style.transform = `translate3d(${-m.x}px, 0, 0) skewX(${-skew}deg)`;
+        if (!m.oneSetWidth || m.oneSetWidth < 10) {
+          m.oneSetWidth = m.track.scrollWidth / 4;
+        }
+        if (!m.oneSetWidth) continue;
+
+        m.x += m.base + (m.base >= 0 ? boost : -boost);
+        /* wrap seamlessly in both directions within one set width */
+        m.x = ((m.x % m.oneSetWidth) + m.oneSetWidth) % m.oneSetWidth;
+        m.track.style.transform = `translate3d(${-m.x.toFixed(2)}px, 0, 0) skewX(${-skew.toFixed(2)}deg)`;
       }
       mqRaf = requestAnimationFrame(tick);
     }
     mqRaf = requestAnimationFrame(tick);
   }
 
+  // Ensure init runs onView Transitions, DOMContentLoaded, or if already ready
   document.addEventListener('astro:page-load', initMq);
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initMq();
+  } else {
+    document.addEventListener('DOMContentLoaded', initMq);
+  }
 </script>
+
