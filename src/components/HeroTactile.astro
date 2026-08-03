@@ -472,4 +472,9 @@ const stats = [
   }
 
   document.addEventListener('astro:page-load', initHero);
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initHero();
+  } else {
+    document.addEventListener('DOMContentLoaded', initHero);
+  }
 </script>

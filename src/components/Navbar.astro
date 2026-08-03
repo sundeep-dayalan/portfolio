@@ -424,4 +424,9 @@ const navItems = [
   }
 
   document.addEventListener('astro:page-load', initNav);
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initNav();
+  } else {
+    document.addEventListener('DOMContentLoaded', initNav);
+  }
 </script>

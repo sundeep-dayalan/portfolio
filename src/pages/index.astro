@@ -1855,6 +1855,11 @@ const additionalLD = [
   }
 
   document.addEventListener("astro:page-load", initContactForm);
+  if (document.readyState === "interactive" || document.readyState === "complete") {
+    initContactForm();
+  } else {
+    document.addEventListener("DOMContentLoaded", initContactForm);
+  }
 </script>
 
 <script>
@@ -2011,4 +2016,9 @@ const additionalLD = [
   }
 
   document.addEventListener("astro:page-load", initHome);
+  if (document.readyState === "interactive" || document.readyState === "complete") {
+    initHome();
+  } else {
+    document.addEventListener("DOMContentLoaded", initHome);
+  }
 </script>

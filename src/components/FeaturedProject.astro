@@ -498,4 +498,9 @@ const ticker = ['AAPL +1.42%', 'NVDA +2.87%', 'TSLA −0.94%', 'MSFT +0.61%', 'A
   }
 
   document.addEventListener('astro:page-load', initFp);
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initFp();
+  } else {
+    document.addEventListener('DOMContentLoaded', initFp);
+  }
 </script>

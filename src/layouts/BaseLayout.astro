@@ -320,6 +320,11 @@ const personSchema = {
       }
 
       document.addEventListener('astro:page-load', initBase);
+      if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        initBase();
+      } else {
+        document.addEventListener('DOMContentLoaded', initBase);
+      }
     </script>
   </body>
 </html>
