@@ -1,15 +1,18 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Navbar from '../components/Navbar.astro';
-import HeroTactile from '../components/HeroTactile.astro';
-import FeaturedProject from '../components/FeaturedProject.astro';
-import Marquee from '../components/Marquee.astro';
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import HeroTactile from "../components/HeroTactile.astro";
+import FeaturedProject from "../components/FeaturedProject.astro";
+import Marquee from "../components/Marquee.astro";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
-const rawImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*', { eager: true });
+const rawImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/**/*",
+  { eager: true },
+);
 function assetImg(filename: string): ImageMetadata {
-  const clean = filename.startsWith('/') ? filename.slice(1) : filename;
+  const clean = filename.startsWith("/") ? filename.slice(1) : filename;
   const mod = rawImages[`/src/assets/images/${clean}`];
   if (!mod) throw new Error(`Image not found: ${clean}`);
   return mod.default;
@@ -17,28 +20,62 @@ function assetImg(filename: string): ImageMetadata {
 
 /* Cursor-following preview images for the project index (empty = themed fallback tile) */
 const projectPreviews: Record<string, string> = {
-  '/projects/multi-agent-finance': '',
-  '/projects/mindkeep': 'project-mindkeep.jpg',
-  '/projects/sky-bms': 'project-skybms.png',
-  '/projects/web-hunter': 'project-web-hunter.png',
-  '/projects/robotic-arm': 'project-robotic-arm.png',
-  '/projects/toolkit-for-whatsapp': 'project-whatsapp.png',
-  '/projects/smart-traffic-management': 'project-traffic.png',
-  '/projects/smart-home': 'project-smart-home.png',
+  "/projects/multi-agent-finance": "",
+  "/projects/mindkeep": "project-mindkeep.jpg",
+  "/projects/sky-bms": "project-skybms.png",
+  "/projects/web-hunter": "project-web-hunter.png",
+  "/projects/robotic-arm": "project-robotic-arm.png",
+  "/projects/toolkit-for-whatsapp": "project-whatsapp.png",
+  "/projects/smart-traffic-management": "project-traffic.png",
+  "/projects/smart-home": "project-smart-home.png",
 };
 
-const title = "Sundeep Dayalan | Software Development Engineer II @ AWS — Distributed Systems · AI Infrastructure";
-const description = "Portfolio of Sundeep Dayalan — Software Development Engineer II at Amazon Web Services, architecting fault-tolerant distributed systems, LLM orchestration, and real-time cloud platforms at massive scale. Python, Java/Spring Boot, React/TypeScript. Published researcher & patent holder. Bellevue, WA.";
+const title =
+  "Sundeep Dayalan | Software Development Engineer II @ AWS — Distributed Systems · AI Infrastructure";
+const description =
+  "Portfolio of Sundeep Dayalan — Software Development Engineer II at Amazon Web Services, architecting fault-tolerant distributed systems, LLM orchestration, and real-time cloud platforms at massive scale. Python, Java/Spring Boot, React/TypeScript. Published researcher & patent holder. Bellevue, WA.";
 
 const skills = [
-  { name: "Backend", desc: "Python, Django, DRF, Java, Spring Boot, Node.js, C++, FastAPI, GraphQL, REST APIs, gRPC", tags: ["Python", "Django", "Java", "Spring Boot", "FastAPI", "gRPC"] },
-  { name: "Frontend", desc: "React, TypeScript, JavaScript, MUI, Component Libraries, Dynamic Data Visualizations, Responsive UI", tags: ["React", "TypeScript", "MUI", "JavaScript"] },
-  { name: "Data Engineering", desc: "PySpark, Databricks, Delta Lake, Apache Kafka, Spark, Airflow, GCP Dataflow, ETL/ELT, 1B+ event pipelines", tags: ["Kafka", "PySpark", "Databricks", "Airflow"] },
-  { name: "AI/ML & LLM", desc: "LLM Orchestration, LangChain, LangGraph, Multi-Agent Systems, RAG, Agentic Workflows, Vector Search, TensorFlow", tags: ["LangChain", "RAG", "LangGraph", "TensorFlow"] },
-  { name: "Cloud & Infra", desc: "AWS (CDK, S3, Lambda), GCP (BigQuery, Dataflow), Azure, Terraform, Kubernetes, Docker, Jenkins, CI/CD, GitOps", tags: ["AWS", "GCP", "Azure", "Terraform", "K8s"] },
-  { name: "Databases", desc: "PostgreSQL, BigQuery, T-SQL, Redis (sharding, replication), Azure Cosmos DB, SQL Query Optimization", tags: ["PostgreSQL", "Redis", "BigQuery", "Cosmos DB"] },
-  { name: "Observability & SRE", desc: "OpenTelemetry, Distributed Tracing, Prometheus, Grafana, SLO/SLA Design, Dynatrace, Splunk, p99 Tuning", tags: ["OpenTelemetry", "Prometheus", "Grafana", "Splunk"] },
-  { name: "Security & Compliance", desc: "RBAC, PII Handling, Zero-Trust, SOC2/GDPR, Azure AD, OAuth 2.0, JWT, ACH/NACHA, WCAG 2.1 Accessibility", tags: ["RBAC", "OAuth 2.0", "Zero-Trust", "WCAG"] },
+  {
+    name: "Backend",
+    desc: "Python, Django, DRF, Java, Spring Boot, Node.js, C++, FastAPI, GraphQL, REST APIs, gRPC",
+    tags: ["Python", "Django", "Java", "Spring Boot", "FastAPI", "gRPC"],
+  },
+  {
+    name: "Frontend",
+    desc: "React, TypeScript, JavaScript, MUI, Component Libraries, Dynamic Data Visualizations, Responsive UI",
+    tags: ["React", "TypeScript", "MUI", "JavaScript"],
+  },
+  {
+    name: "Data Engineering",
+    desc: "PySpark, Databricks, Delta Lake, Apache Kafka, Spark, Airflow, GCP Dataflow, ETL/ELT, 1B+ event pipelines",
+    tags: ["Kafka", "PySpark", "Databricks", "Airflow"],
+  },
+  {
+    name: "AI/ML & LLM",
+    desc: "LLM Orchestration, LangChain, LangGraph, Multi-Agent Systems, RAG, Agentic Workflows, Vector Search, TensorFlow",
+    tags: ["LangChain", "RAG", "LangGraph", "TensorFlow"],
+  },
+  {
+    name: "Cloud & Infra",
+    desc: "AWS (CDK, S3, Lambda), GCP (BigQuery, Dataflow), Azure, Terraform, Kubernetes, Docker, Jenkins, CI/CD, GitOps",
+    tags: ["AWS", "GCP", "Azure", "Terraform", "K8s"],
+  },
+  {
+    name: "Databases",
+    desc: "PostgreSQL, BigQuery, T-SQL, Redis (sharding, replication), Azure Cosmos DB, SQL Query Optimization",
+    tags: ["PostgreSQL", "Redis", "BigQuery", "Cosmos DB"],
+  },
+  {
+    name: "Observability & SRE",
+    desc: "OpenTelemetry, Distributed Tracing, Prometheus, Grafana, SLO/SLA Design, Dynatrace, Splunk, p99 Tuning",
+    tags: ["OpenTelemetry", "Prometheus", "Grafana", "Splunk"],
+  },
+  {
+    name: "Security & Compliance",
+    desc: "RBAC, PII Handling, Zero-Trust, SOC2/GDPR, Azure AD, OAuth 2.0, JWT, ACH/NACHA, WCAG 2.1 Accessibility",
+    tags: ["RBAC", "OAuth 2.0", "Zero-Trust", "WCAG"],
+  },
 ];
 
 const experience = [
@@ -47,7 +84,8 @@ const experience = [
     role: "SDE II",
     period: "Aug 2026 — Present",
     location: "Redmond, WA, USA",
-    summary: "Building the telemetry infrastructure behind Amazon Aurora and RDS — systems that collect, ingest, and route database telemetry across millions of instances, feeding a fleet-wide data lake and AI-driven engines that detect performance anomalies, diagnose root causes, and deliver tuning recommendations to customers at massive scale."
+    summary:
+      "Building the telemetry infrastructure behind Amazon Aurora and RDS — systems that collect, ingest, and route database telemetry across millions of instances, feeding a fleet-wide data lake and AI-driven engines that detect performance anomalies, diagnose root causes, and deliver tuning recommendations to customers at massive scale.",
   },
   {
     company: "Accenture",
@@ -55,15 +93,17 @@ const experience = [
     role: "Full Stack Engineer",
     period: "May 2024 — Jul 2026",
     location: "USA",
-    summary: "Architected a production-grade banking platform end to end — Python/Java Spring Boot APIs, React/TypeScript frontend, and Kafka streaming pipelines serving 5M+ users at sub-200ms p99. Delivered 99.99% uptime with sharded Redis clusters, OpenTelemetry tracing across 15+ microservices, and Terraform/Jenkins GitOps automation, while driving zero-trust RBAC and org-wide ADRs across 4 squads."
+    summary:
+      "Architected a production-grade banking platform end to end — Python/Java Spring Boot APIs, React/TypeScript frontend, and Kafka streaming pipelines serving 5M+ users at sub-200ms p99. Delivered 99.99% uptime with sharded Redis clusters, OpenTelemetry tracing across 15+ microservices, and Terraform/Jenkins GitOps automation, while driving zero-trust RBAC and org-wide ADRs across 4 squads.",
   },
   {
     company: "Accenture",
     role: "Software Engineer",
     period: "Jun 2019 — Aug 2022",
     location: "Chennai, India",
-    summary: "Designed fault-tolerant REST & GraphQL APIs sustaining 5M+ TPS at sub-100ms SLAs and built PySpark ETL/ELT pipelines on Databricks with Delta Lake — cutting large-scale processing time 45% through Python and BigQuery optimization while mentoring junior engineers on SRE practices."
-  }
+    summary:
+      "Designed fault-tolerant REST & GraphQL APIs sustaining 5M+ TPS at sub-100ms SLAs and built PySpark ETL/ELT pipelines on Databricks with Delta Lake — cutting large-scale processing time 45% through Python and BigQuery optimization while mentoring junior engineers on SRE practices.",
+  },
 ];
 
 const projects = [
@@ -76,7 +116,7 @@ const projects = [
       "Built an autonomous AI trading agent that ingests live market news, reasons across multiple signals, and executes paper trades with no manual intervention.",
       "Integrated LangGraph orchestration with Groq-hosted LLaMA 3.1 and Alpaca trading APIs for end-to-end decisioning and execution.",
       "Shipped production live demo with real-time streaming architecture and monitoring-focused workflow for safe iteration.",
-    ]
+    ],
   },
   {
     name: "Multi-Agent Agentic AI Financial Platform",
@@ -87,7 +127,7 @@ const projects = [
       "Engineered multi-agent agentic AI with LangChain/LangGraph — automating transaction enrichment, spend categorization, and investment recommendations.",
       "Built RAG pipeline with Azure Vector Search & Cosmos DB — 93% retrieval accuracy, sub-100ms response times with hallucination guardrails.",
       "Integrated Plaid API + Alpaca for automated trade execution delivering 2.5% monthly ROI with 99.9% reliability.",
-    ]
+    ],
   },
   {
     name: "MindKeep — AI-Powered Second Brain",
@@ -97,7 +137,7 @@ const projects = [
     bullets: [
       "Built 100% local AI Chrome extension using Google Gemini Nano — semantic search, encrypted notes (AES-GCM), and in-page AI assistant with zero data leaving the browser.",
       "Winner entry for the Google Chrome Built-in AI Challenge 2025 — integrating Prompt, Summarizer, and Rewriter APIs with Transformers.js vector embeddings.",
-    ]
+    ],
   },
   {
     name: "SkyBMS AI — Battery Management System",
@@ -106,7 +146,7 @@ const projects = [
     link: "/projects/sky-bms",
     bullets: [
       "AI-powered BMS with real-time cloud analytics, dynamic dashboards, and chatbot integration for lithium-ion battery safety and lifespan optimization.",
-    ]
+    ],
   },
   {
     name: "WEB HUNTER — Web Reconnaissance",
@@ -115,7 +155,7 @@ const projects = [
     link: "/projects/web-hunter",
     bullets: [
       "Python-based web recon tool with GUI for DNS enumeration and SSL certificate analysis — streamlined security assessment in a standalone executable.",
-    ]
+    ],
   },
   {
     name: "Study Table Organizing Robotic Arm",
@@ -124,7 +164,7 @@ const projects = [
     link: "/projects/robotic-arm",
     bullets: [
       "Computer vision-powered robotic arm that autonomously detects, picks up, and organizes pens and pencils using TensorFlow object detection and precision servo control.",
-    ]
+    ],
   },
   {
     name: "Toolkit for WhatsApp",
@@ -133,7 +173,7 @@ const projects = [
     link: "/projects/toolkit-for-whatsapp",
     bullets: [
       "All-in-one WhatsApp toolkit with 7+ powerful modules — Broadcaster, Sticker Maker, Photo Editor, Video Trimmer, Insta Downloader, DP Editor, and Memory Manager.",
-    ]
+    ],
   },
   {
     name: "ML-Based Smart Traffic Management System",
@@ -142,7 +182,7 @@ const projects = [
     link: "/projects/smart-traffic-management",
     bullets: [
       "Engineered city-scale computer vision platform across 50+ intersections — sub-second latency; co-authored Springer publication and filed patent.",
-    ]
+    ],
   },
   {
     name: "Smart Home — IoT Automation",
@@ -151,8 +191,8 @@ const projects = [
     link: "/projects/smart-home",
     bullets: [
       "Affordable IoT home automation with energy monitoring, voice control, multi-utility controllers, and Android companion app for real-time energy analytics and bill prediction.",
-    ]
-  }
+    ],
+  },
 ];
 
 const education = [
@@ -164,7 +204,7 @@ const education = [
     location: "Denver, CO",
     gpa: "GPA: 3.62/4.00",
     thesis: "",
-    link: "/ms-diploma-sundeep-dayalan.pdf"
+    link: "/ms-diploma-sundeep-dayalan.pdf",
   },
   {
     degree: "Bachelor of Engineering",
@@ -174,43 +214,51 @@ const education = [
     location: "Chennai, India",
     gpa: "GPA: 7.62/10.00",
     thesis: "",
-  }
+  },
 ];
 
 const certifications = [
-  { name: "Microsoft Azure AI Engineer Associate (AI-102)", link: "https://learn.microsoft.com/en-us/users/sundeep-dayalan/credentials/FB97E950C7EC33E0?ref=https%3a%2f%2fwww.linkedin.com%2f" },
-  { name: "Microsoft Azure Fundamentals (AZ-900)", link: "https://www.credly.com/badges/c893145b-cb64-4eb5-b9a9-8d37f633596f?source=linked_in_profile" },
+  {
+    name: "Microsoft Azure AI Engineer Associate (AI-102)",
+    link: "https://learn.microsoft.com/en-us/users/sundeep-dayalan/credentials/FB97E950C7EC33E0?ref=https%3a%2f%2fwww.linkedin.com%2f",
+  },
+  {
+    name: "Microsoft Azure Fundamentals (AZ-900)",
+    link: "https://www.credly.com/badges/c893145b-cb64-4eb5-b9a9-8d37f633596f?source=linked_in_profile",
+  },
 ];
-const keywords = "Sundeep Dayalan, Software Development Engineer, SDE II, Amazon Web Services, AWS, RDS, Aurora, Distributed Systems, LLM Infrastructure, Telemetry, Python, Java, Spring Boot, React, TypeScript, Apache Kafka, Cloud Architecture, Agentic AI, Bellevue Washington";
+const keywords =
+  "Sundeep Dayalan, Software Development Engineer, SDE II, Amazon Web Services, AWS, RDS, Aurora, Distributed Systems, LLM Infrastructure, Telemetry, Python, Java, Spring Boot, React, TypeScript, Apache Kafka, Cloud Architecture, Agentic AI, Bellevue Washington";
 
 const additionalLD = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Sundeep Dayalan",
-    "url": "https://www.sundeepdayalan.in",
-    "description": "Portfolio of Sundeep Dayalan — Software Development Engineer II at AWS, specializing in distributed systems, AI infrastructure, and real-time cloud platforms.",
-    "author": {
+    name: "Sundeep Dayalan",
+    url: "https://www.sundeepdayalan.in",
+    description:
+      "Portfolio of Sundeep Dayalan — Software Development Engineer II at AWS, specializing in distributed systems, AI infrastructure, and real-time cloud platforms.",
+    author: {
       "@type": "Person",
-      "name": "Sundeep Dayalan"
-    }
+      name: "Sundeep Dayalan",
+    },
   },
   {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    "name": "Sundeep Dayalan — Software Development Engineer Portfolio",
-    "url": "https://www.sundeepdayalan.in",
-    "mainEntity": {
+    name: "Sundeep Dayalan — Software Development Engineer Portfolio",
+    url: "https://www.sundeepdayalan.in",
+    mainEntity: {
       "@type": "Person",
-      "name": "Sundeep Dayalan",
-      "jobTitle": "Software Development Engineer II",
-      "url": "https://www.sundeepdayalan.in",
-      "sameAs": [
+      name: "Sundeep Dayalan",
+      jobTitle: "Software Development Engineer II",
+      url: "https://www.sundeepdayalan.in",
+      sameAs: [
         "https://www.linkedin.com/in/sundeep-dayalan",
-        "https://github.com/sundeep-dayalan"
-      ]
-    }
-  }
+        "https://github.com/sundeep-dayalan",
+      ],
+    },
+  },
 ];
 ---
 
@@ -223,293 +271,415 @@ const additionalLD = [
 >
   <Navbar />
   <main id="main-content">
+    <!-- ==================== HERO ==================== -->
+    <HeroTactile projectsCount={projects.length} />
 
-  <!-- ==================== HERO ==================== -->
-  <HeroTactile projectsCount={projects.length} />
+    <!-- Kinetic band -->
+    <Marquee
+      items={[
+        "DISTRIBUTED SYSTEMS",
+        "AGENTIC AI",
+        "REAL-TIME FINTECH",
+        "5M+ USERS",
+        "99.99% UPTIME",
+      ]}
+    />
 
-  <!-- Kinetic band -->
-  <Marquee items={["DISTRIBUTED SYSTEMS", "AGENTIC AI", "REAL-TIME FINTECH", "5M+ USERS", "99.99% UPTIME"]} />
-
-  <!-- ==================== ABOUT ==================== -->
-  <section class="section" id="about">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <span class="section-label">PROFILE</span>
-        <h2 class="section-title"><span class="section-title-inner">About</span></h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="about-grid">
-        <div class="about-photo animate-on-scroll">
-          <div data-plx="-0.06">
-          <div class="about-frame about-img-wrap">
-            <span class="x-corner x-tl" aria-hidden="true"></span>
-            <span class="x-corner x-tr" aria-hidden="true"></span>
-            <span class="x-corner x-bl" aria-hidden="true"></span>
-            <span class="x-corner x-br" aria-hidden="true"></span>
-            <Image
-              src={assetImg('profile.png')}
-              alt="Sundeep Dayalan — Senior Software Engineer"
-              width={640}
-              height={640}
-              loading="lazy"
-            />
-          </div>
-          <div class="about-photo-strip">
-            <span>SUNDEEP DAYALAN</span>
-            <span>EST. 2019 — PRESENT</span>
-          </div>
-          </div>
+    <!-- ==================== ABOUT ==================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="section-label">PROFILE</span>
+          <h2 class="section-title">
+            <span class="section-title-inner">About</span>
+          </h2>
+          <div class="section-divider"></div>
         </div>
 
-        <div class="about-copy animate-on-scroll" style="--delay: 120ms">
-          <p class="about-lead">
-            I build the systems that <span class="x-accent">5 million people</span> rely on
-            without ever noticing — which is exactly the point.
-          </p>
-          <p class="about-para">
-            Software Development Engineer II at Amazon Web Services with 5+ years architecting
-            fault-tolerant, high-throughput distributed systems across cloud infrastructure,
-            fintech, and agentic AI. Expert in Python,
-            Java, and React/TypeScript — delivering production-grade LLM infrastructure and Kafka
-            streaming pipelines at sub-200ms p99 latency with 99.99% uptime.
-          </p>
-          <p class="about-para">
-            Published Springer researcher and pending patent holder in smart traffic systems.
-            Proven force multiplier: I mentor engineering squads, author Architectural Decision
-            Records, and build the high-ownership cultures that make good systems inevitable.
-          </p>
-          <p class="about-para about-para-dim">
-            Off the clock — chasing new countries, communities, and cuisines. Always planning
-            the next trip.
-          </p>
-
-          <div class="about-facts">
-            <span class="about-fact">SPRINGER PUBLISHED</span>
-            <span class="about-fact">PATENT PENDING</span>
-            <span class="about-fact">MS COMPUTER SCIENCE</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== SKILLS ==================== -->
-  <section class="section" id="skills">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <span class="section-label">CAPABILITIES</span>
-        <h2 class="section-title"><span class="section-title-inner">Stack</span></h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="skills-grid">
-        {skills.map((skill, index) => (
-          <article class="skill-cell animate-on-scroll" style={`--delay: ${index * 60}ms`}>
-            <div class="skill-top">
-              <span class="skill-index">{String(index + 1).padStart(2, '0')}</span>
-              <span class="skill-rule" aria-hidden="true"></span>
-            </div>
-            <h3 class="skill-name">{skill.name}</h3>
-            <p class="skill-desc">{skill.desc}</p>
-            <div class="skill-tags">
-              {skill.tags.map(tag => (
-                <span class="skill-tag">{tag}</span>
-              ))}
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== EXPERIENCE ==================== -->
-  <section class="section" id="experience">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <span class="section-label">TRACK RECORD</span>
-        <h2 class="section-title"><span class="section-title-inner">Experience</span></h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="exp-list">
-        {experience.map((exp, index) => (
-          <div class="exp-row animate-on-scroll" style={`--delay: ${index * 80}ms`}>
-            <div class="exp-side">
-              <span class="exp-period">{exp.period}</span>
-              <span class="exp-company">{exp.company}</span>
-              {exp.note && <span class="exp-location">{exp.note}</span>}
-              <span class="exp-location">{exp.location}</span>
-            </div>
-            <div class="exp-main">
-              <h3 class="exp-role">{exp.role}</h3>
-              <p class="exp-summary">{exp.summary}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== PROJECTS ==================== -->
-  <section class="section" id="projects">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <span class="section-label">SELECTED WORK</span>
-        <h2 class="section-title"><span class="section-title-inner">Projects</span></h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <FeaturedProject
-        index="01"
-        name="Sentient Trader"
-        tagline="Autonomous AI trading agent — ingests live market news, reasons across multiple signals, and executes paper trades with zero manual intervention."
-        bullets={[
-          "LangGraph orchestration with Groq-hosted LLaMA 3.1 and Alpaca trading APIs for end-to-end decisioning and execution.",
-          "Production live demo with real-time streaming architecture and monitoring-focused workflow for safe iteration.",
-        ]}
-        tech={["Python", "LangGraph", "Groq LLaMA 3.1", "Alpaca API", "Redis Streams", "Next.js"]}
-        period="2026"
-        link="/projects/sentient-trader"
-      />
-
-      <div class="proj-index animate-on-scroll" id="proj-index">
-        {projects.slice(1).map((proj, index) => (
-          <a href={proj.link} class="proj-row" data-cursor="hover" data-preview-key={proj.link}>
-            <span class="proj-num">{String(index + 2).padStart(2, '0')}</span>
-            <span class="proj-name">{proj.name}</span>
-            <span class="proj-tech">{proj.tech}</span>
-            <span class="proj-year">{proj.period}</span>
-            <span class="proj-arrow" aria-hidden="true">→</span>
-          </a>
-        ))}
-      </div>
-
-      <!-- Floating cursor-following preview -->
-      <div class="proj-preview" id="proj-preview" aria-hidden="true">
-        {projects.slice(1).map((proj) => (
-          projectPreviews[proj.link] ? (
-            <div class="proj-preview-item" data-preview={proj.link}>
-              <Image src={assetImg(projectPreviews[proj.link])} alt="" width={520} loading="lazy" />
-            </div>
-          ) : (
-            <div class="proj-preview-item proj-preview-fallback" data-preview={proj.link}>
-              <span class="proj-preview-num" aria-hidden="true">/</span>
-              <span class="proj-preview-name">{proj.name.split('—')[0].trim()}</span>
-              <span class="proj-preview-sub">CASE STUDY</span>
-            </div>
-          )
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== EDUCATION ==================== -->
-  <section class="section" id="education">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <span class="section-label">EDUCATION</span>
-        <h2 class="section-title"><span class="section-title-inner">Education</span></h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="edu-grid">
-        {education.map((edu, index) => (
-          edu.link ? (
-            <a href={edu.link} target="_blank" rel="noopener noreferrer" class="edu-cell edu-cell-link animate-on-scroll" style={`--delay: ${index * 100}ms`} data-cursor="hover">
-              <div class="edu-top">
-                <span class="edu-degree">{edu.degree}</span>
-                <span class="edu-year">{edu.year}</span>
+        <div class="about-grid">
+          <div class="about-photo animate-on-scroll">
+            <div data-plx="-0.06">
+              <div class="about-frame about-img-wrap">
+                <span class="x-corner x-tl" aria-hidden="true"></span>
+                <span class="x-corner x-tr" aria-hidden="true"></span>
+                <span class="x-corner x-bl" aria-hidden="true"></span>
+                <span class="x-corner x-br" aria-hidden="true"></span>
+                <Image
+                  src={assetImg("profile.png")}
+                  alt="Sundeep Dayalan — Senior Software Engineer"
+                  width={640}
+                  height={640}
+                  loading="lazy"
+                />
               </div>
-              <h3 class="edu-field">{edu.field}</h3>
-              <p class="edu-school">{edu.school}</p>
-              <div class="edu-meta">
-                <span>{edu.location}</span>
-                <span>{edu.gpa}</span>
-              </div>
-              <span class="edu-cta">VIEW DIPLOMA ↗</span>
-            </a>
-          ) : (
-            <div class="edu-cell animate-on-scroll" style={`--delay: ${index * 100}ms`}>
-              <div class="edu-top">
-                <span class="edu-degree">{edu.degree}</span>
-                <span class="edu-year">{edu.year}</span>
-              </div>
-              <h3 class="edu-field">{edu.field}</h3>
-              <p class="edu-school">{edu.school}</p>
-              <div class="edu-meta">
-                <span>{edu.location}</span>
-                <span>{edu.gpa}</span>
+              <div class="about-photo-strip">
+                <span>SUNDEEP DAYALAN</span>
+                <span>EST. 2019 — PRESENT</span>
               </div>
             </div>
-          )
-        ))}
-      </div>
-    </div>
-  </section>
+          </div>
 
-  <!-- ==================== RESEARCH & PUBLICATIONS ==================== -->
-  <section class="section" id="research">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <span class="section-label">PUBLISHED WORK</span>
-        <h2 class="section-title"><span class="section-title-inner">Research</span></h2>
-        <div class="section-divider"></div>
-      </div>
+          <div class="about-copy animate-on-scroll" style="--delay: 120ms">
+            <p class="about-lead">
+              I build the systems that <span class="x-accent"
+                >5 million people</span
+              > rely on without ever noticing — which is exactly the point.
+            </p>
+            <p class="about-para">
+              Software Development Engineer II at Amazon Web Services with 5+
+              years architecting fault-tolerant, high-throughput distributed
+              systems across cloud infrastructure, fintech, and agentic AI.
+              Expert in Python, Java, and React/TypeScript — delivering
+              production-grade LLM infrastructure and Kafka streaming pipelines
+              at sub-200ms p99 latency with 99.99% uptime.
+            </p>
+            <p class="about-para">
+              Published Springer researcher and pending patent holder in smart
+              traffic systems. Proven force multiplier: I mentor engineering
+              squads, author Architectural Decision Records, and build the
+              high-ownership cultures that make good systems inevitable.
+            </p>
+            <p class="about-para about-para-dim">
+              Off the clock — chasing new countries, communities, and cuisines.
+              Always planning the next trip.
+            </p>
 
-      <div class="research-grid">
-        <div class="research-cell animate-on-scroll">
-          <span class="research-badge">PUBLICATION</span>
-          <h3 class="research-title">Intelligent Traffic Management using ML and IoT</h3>
-          <p class="research-desc">Peer-reviewed research on production ML systems at city scale — Springer Journal.</p>
-          <a href="https://link.springer.com/chapter/10.1007/978-3-030-77637-4_2" target="_blank" rel="noopener noreferrer" class="research-link" data-cursor="hover">DOI: 10.1007/978-3-030-77637-4_2 ↗</a>
-        </div>
-        <div class="research-cell animate-on-scroll" style="--delay: 100ms">
-          <span class="research-badge">PATENT PENDING</span>
-          <h3 class="research-title">Live Digital Traffic Management System</h3>
-          <p class="research-desc">Bay Detection & Dynamic Queuing Algorithms for real-time traffic optimization.</p>
-        </div>
-        <div class="research-cell animate-on-scroll" style="--delay: 200ms">
-          <span class="research-badge">RESEARCH</span>
-          <h3 class="research-title">Cybersecurity Challenges in EV Charging Infrastructure</h3>
-          <p class="research-desc">Analysis of security vulnerabilities and mitigation strategies in EV charging networks.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== CERTIFICATIONS ==================== -->
-  <section class="section" id="certifications">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <span class="section-label">CREDENTIALS</span>
-        <h2 class="section-title"><span class="section-title-inner">Certifications</span></h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="certs-list animate-on-scroll">
-        {certifications.map((cert) => (
-          cert.link ? (
-            <a href={cert.link} target="_blank" rel="noopener noreferrer" class="cert-row" data-cursor="hover">
-              <span class="x-marker" aria-hidden="true">/</span>
-              <span class="cert-name">{cert.name}</span>
-              <span class="cert-arrow" aria-hidden="true">↗</span>
-            </a>
-          ) : (
-            <div class="cert-row cert-row-static">
-              <span class="x-marker" aria-hidden="true">/</span>
-              <span class="cert-name">{cert.name}</span>
-              <span class="cert-tag">IN PROGRESS</span>
+            <div class="about-facts">
+              <span class="about-fact">SPRINGER PUBLISHED</span>
+              <span class="about-fact">PATENT PENDING</span>
+              <span class="about-fact">MS COMPUTER SCIENCE</span>
             </div>
-          )
-        ))}
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Kinetic band -->
-  <Marquee items={["OPEN TO OPPORTUNITIES", "BELLEVUE WA", "SUNDEEP DAYALAN"]} reverse={true} speed={0.5} />
+    <!-- ==================== SKILLS ==================== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="section-label">CAPABILITIES</span>
+          <h2 class="section-title">
+            <span class="section-title-inner">Stack</span>
+          </h2>
+          <div class="section-divider"></div>
+        </div>
 
+        <div class="skills-grid">
+          {
+            skills.map((skill, index) => (
+              <article
+                class="skill-cell animate-on-scroll"
+                style={`--delay: ${index * 60}ms`}
+              >
+                <div class="skill-top">
+                  <span class="skill-index">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span class="skill-rule" aria-hidden="true" />
+                </div>
+                <h3 class="skill-name">{skill.name}</h3>
+                <p class="skill-desc">{skill.desc}</p>
+                <div class="skill-tags">
+                  {skill.tags.map((tag) => (
+                    <span class="skill-tag">{tag}</span>
+                  ))}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EXPERIENCE ==================== -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="section-label">TRACK RECORD</span>
+          <h2 class="section-title">
+            <span class="section-title-inner">Experience</span>
+          </h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="exp-list">
+          {
+            experience.map((exp, index) => (
+              <div
+                class="exp-row animate-on-scroll"
+                style={`--delay: ${index * 80}ms`}
+              >
+                <div class="exp-side">
+                  <span class="exp-period">{exp.period}</span>
+                  <span class="exp-company">{exp.company}</span>
+                  {exp.note && <span class="exp-location">{exp.note}</span>}
+                  <span class="exp-location">{exp.location}</span>
+                </div>
+                <div class="exp-main">
+                  <h3 class="exp-role">{exp.role}</h3>
+                  <p class="exp-summary">{exp.summary}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PROJECTS ==================== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="section-label">SELECTED WORK</span>
+          <h2 class="section-title">
+            <span class="section-title-inner">Projects</span>
+          </h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <FeaturedProject
+          index="01"
+          name="Sentient Trader"
+          tagline="Autonomous AI trading agent — ingests live market news, reasons across multiple signals, and executes paper trades with zero manual intervention."
+          bullets={[
+            "LangGraph orchestration with Groq-hosted LLaMA 3.1 and Alpaca trading APIs for end-to-end decisioning and execution.",
+            "Production live demo with real-time streaming architecture and monitoring-focused workflow for safe iteration.",
+          ]}
+          tech={[
+            "Python",
+            "LangGraph",
+            "Groq LLaMA 3.1",
+            "Alpaca API",
+            "Redis Streams",
+            "Next.js",
+          ]}
+          period="2026"
+          link="/projects/sentient-trader"
+        />
+
+        <div class="proj-index animate-on-scroll" id="proj-index">
+          {
+            projects.slice(1).map((proj, index) => (
+              <a
+                href={proj.link}
+                class="proj-row"
+                data-cursor="hover"
+                data-preview-key={proj.link}
+              >
+                <span class="proj-num">
+                  {String(index + 2).padStart(2, "0")}
+                </span>
+                <span class="proj-name">{proj.name}</span>
+                <span class="proj-tech">{proj.tech}</span>
+                <span class="proj-year">{proj.period}</span>
+                <span class="proj-arrow" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            ))
+          }
+        </div>
+
+        <!-- Floating cursor-following preview -->
+        <div class="proj-preview" id="proj-preview" aria-hidden="true">
+          {
+            projects.slice(1).map((proj) =>
+              projectPreviews[proj.link] ? (
+                <div class="proj-preview-item" data-preview={proj.link}>
+                  <Image
+                    src={assetImg(projectPreviews[proj.link])}
+                    alt=""
+                    width={520}
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div
+                  class="proj-preview-item proj-preview-fallback"
+                  data-preview={proj.link}
+                >
+                  <span class="proj-preview-num" aria-hidden="true">
+                    /
+                  </span>
+                  <span class="proj-preview-name">
+                    {proj.name.split("—")[0].trim()}
+                  </span>
+                  <span class="proj-preview-sub">CASE STUDY</span>
+                </div>
+              ),
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EDUCATION ==================== -->
+    <section class="section" id="education">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="section-label">EDUCATION</span>
+          <h2 class="section-title">
+            <span class="section-title-inner">Education</span>
+          </h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="edu-grid">
+          {
+            education.map((edu, index) =>
+              edu.link ? (
+                <a
+                  href={edu.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="edu-cell edu-cell-link animate-on-scroll"
+                  style={`--delay: ${index * 100}ms`}
+                  data-cursor="hover"
+                >
+                  <div class="edu-top">
+                    <span class="edu-degree">{edu.degree}</span>
+                    <span class="edu-year">{edu.year}</span>
+                  </div>
+                  <h3 class="edu-field">{edu.field}</h3>
+                  <p class="edu-school">{edu.school}</p>
+                  <div class="edu-meta">
+                    <span>{edu.location}</span>
+                    <span>{edu.gpa}</span>
+                  </div>
+                  <span class="edu-cta">VIEW DIPLOMA ↗</span>
+                </a>
+              ) : (
+                <div
+                  class="edu-cell animate-on-scroll"
+                  style={`--delay: ${index * 100}ms`}
+                >
+                  <div class="edu-top">
+                    <span class="edu-degree">{edu.degree}</span>
+                    <span class="edu-year">{edu.year}</span>
+                  </div>
+                  <h3 class="edu-field">{edu.field}</h3>
+                  <p class="edu-school">{edu.school}</p>
+                  <div class="edu-meta">
+                    <span>{edu.location}</span>
+                    <span>{edu.gpa}</span>
+                  </div>
+                </div>
+              ),
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== RESEARCH & PUBLICATIONS ==================== -->
+    <section class="section" id="research">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="section-label">PUBLISHED WORK</span>
+          <h2 class="section-title">
+            <span class="section-title-inner">Research</span>
+          </h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="research-grid">
+          <div class="research-cell animate-on-scroll">
+            <span class="research-badge">PUBLICATION</span>
+            <h3 class="research-title">
+              Intelligent Traffic Management using ML and IoT
+            </h3>
+            <p class="research-desc">
+              Peer-reviewed research on production ML systems at city scale —
+              Springer Journal.
+            </p>
+            <a
+              href="https://link.springer.com/chapter/10.1007/978-3-030-77637-4_2"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="research-link"
+              data-cursor="hover">DOI: 10.1007/978-3-030-77637-4_2 ↗</a
+            >
+          </div>
+          <div class="research-cell animate-on-scroll" style="--delay: 100ms">
+            <span class="research-badge">PATENT PENDING</span>
+            <h3 class="research-title">
+              Live Digital Traffic Management System
+            </h3>
+            <p class="research-desc">
+              Bay Detection & Dynamic Queuing Algorithms for real-time traffic
+              optimization.
+            </p>
+          </div>
+          <div class="research-cell animate-on-scroll" style="--delay: 200ms">
+            <span class="research-badge">RESEARCH</span>
+            <h3 class="research-title">
+              Cybersecurity Challenges in EV Charging Infrastructure
+            </h3>
+            <p class="research-desc">
+              Analysis of security vulnerabilities and mitigation strategies in
+              EV charging networks.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CERTIFICATIONS ==================== -->
+    <section class="section" id="certifications">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="section-label">CREDENTIALS</span>
+          <h2 class="section-title">
+            <span class="section-title-inner">Certifications</span>
+          </h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="certs-list animate-on-scroll">
+          {
+            certifications.map((cert) =>
+              cert.link ? (
+                <a
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="cert-row"
+                  data-cursor="hover"
+                >
+                  <span class="x-marker" aria-hidden="true">
+                    /
+                  </span>
+                  <span class="cert-name">{cert.name}</span>
+                  <span class="cert-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </a>
+              ) : (
+                <div class="cert-row cert-row-static">
+                  <span class="x-marker" aria-hidden="true">
+                    /
+                  </span>
+                  <span class="cert-name">{cert.name}</span>
+                  <span class="cert-tag">IN PROGRESS</span>
+                </div>
+              ),
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Kinetic band -->
+    <Marquee
+      items={[
+        "OPEN TO COLLABORATE ON NOVEL IDEAS",
+        "BELLEVUE WA",
+        "SUNDEEP DAYALAN",
+      ]}
+      reverse={true}
+      speed={0.5}
+    />
   </main>
 
   <!-- ==================== CONTACT / FOOTER ==================== -->
@@ -519,7 +689,9 @@ const additionalLD = [
         <span class="section-label">OPEN TO OPPORTUNITIES</span>
         <h2 class="footer-title" data-cursor="hover" data-plx="0.05">
           <span class="footer-title-line">LET'S BUILD</span>
-          <span class="footer-title-line footer-title-outline">SOMETHING<span class="x-accent">.</span></span>
+          <span class="footer-title-line footer-title-outline"
+            >SOMETHING<span class="x-accent">.</span></span
+          >
         </h2>
       </div>
 
@@ -539,19 +711,46 @@ const additionalLD = [
           <div class="cf-row">
             <div class="cf-field">
               <label class="cf-label" for="cf-name">/ NAME</label>
-              <input class="cf-input" id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Jane Doe" />
+              <input
+                class="cf-input"
+                id="cf-name"
+                name="name"
+                type="text"
+                required
+                autocomplete="name"
+                placeholder="Jane Doe"
+              />
             </div>
             <div class="cf-field">
               <label class="cf-label" for="cf-email">/ EMAIL</label>
-              <input class="cf-input" id="cf-email" name="email" type="email" required autocomplete="email" placeholder="jane@company.com" />
+              <input
+                class="cf-input"
+                id="cf-email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="jane@company.com"
+              />
             </div>
           </div>
           <div class="cf-field">
             <label class="cf-label" for="cf-message">/ MESSAGE</label>
-            <textarea class="cf-input cf-textarea" id="cf-message" name="message" rows="5" required placeholder="What are we building?"></textarea>
+            <textarea
+              class="cf-input cf-textarea"
+              id="cf-message"
+              name="message"
+              rows="5"
+              required
+              placeholder="What are we building?"></textarea>
           </div>
           <div class="cf-actions">
-            <button type="submit" class="cf-submit ht-magnetic" data-cursor="hover" id="cf-submit">
+            <button
+              type="submit"
+              class="cf-submit ht-magnetic"
+              data-cursor="hover"
+              id="cf-submit"
+            >
               <span>TRANSMIT MESSAGE</span>
               <span class="cf-submit-arrow" aria-hidden="true">→</span>
             </button>
@@ -562,15 +761,29 @@ const additionalLD = [
         <div class="footer-links">
           <div class="footer-col">
             <span class="footer-col-label">LINKEDIN</span>
-            <a href="https://www.linkedin.com/in/sundeep-dayalan" target="_blank" rel="noopener noreferrer" class="footer-link" data-cursor="hover">/in/sundeep-dayalan</a>
+            <a
+              href="https://www.linkedin.com/in/sundeep-dayalan"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-link"
+              data-cursor="hover">/in/sundeep-dayalan</a
+            >
           </div>
           <div class="footer-col">
             <span class="footer-col-label">GITHUB</span>
-            <a href="https://github.com/sundeep-dayalan" target="_blank" rel="noopener noreferrer" class="footer-link" data-cursor="hover">/sundeep-dayalan</a>
+            <a
+              href="https://github.com/sundeep-dayalan"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-link"
+              data-cursor="hover">/sundeep-dayalan</a
+            >
           </div>
           <div class="footer-col">
             <span class="footer-col-label">LOCATION</span>
-            <span class="footer-link footer-link-static">Bellevue, WA — 47.6101°N</span>
+            <span class="footer-link footer-link-static"
+              >Bellevue, WA — 47.6101°N</span
+            >
           </div>
         </div>
       </div>
@@ -591,7 +804,8 @@ const additionalLD = [
   .animate-on-scroll {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 0.9s var(--ease-out-expo) var(--delay, 0ms),
+    transition:
+      opacity 0.9s var(--ease-out-expo) var(--delay, 0ms),
       transform 0.9s var(--ease-out-expo) var(--delay, 0ms);
     will-change: opacity, transform;
   }
@@ -609,10 +823,14 @@ const additionalLD = [
     }
   }
 
-  .x-accent { color: var(--color-primary); }
+  .x-accent {
+    color: var(--color-primary);
+  }
 
   /* Section titles: line-mask reveal */
-  .section-title { overflow: hidden; }
+  .section-title {
+    overflow: hidden;
+  }
 
   .section-title-inner {
     display: block;
@@ -625,7 +843,10 @@ const additionalLD = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .section-title-inner { transform: none; transition: none; }
+    .section-title-inner {
+      transform: none;
+      transition: none;
+    }
   }
 
   .x-marker {
@@ -641,10 +862,30 @@ const additionalLD = [
     z-index: 2;
     transition: border-color 0.35s var(--ease-out-expo);
   }
-  .x-tl { top: -1px; left: -1px; border-top: 1px solid var(--color-text-dim); border-left: 1px solid var(--color-text-dim); }
-  .x-tr { top: -1px; right: -1px; border-top: 1px solid var(--color-text-dim); border-right: 1px solid var(--color-text-dim); }
-  .x-bl { bottom: -1px; left: -1px; border-bottom: 1px solid var(--color-text-dim); border-left: 1px solid var(--color-text-dim); }
-  .x-br { bottom: -1px; right: -1px; border-bottom: 1px solid var(--color-text-dim); border-right: 1px solid var(--color-text-dim); }
+  .x-tl {
+    top: -1px;
+    left: -1px;
+    border-top: 1px solid var(--color-text-dim);
+    border-left: 1px solid var(--color-text-dim);
+  }
+  .x-tr {
+    top: -1px;
+    right: -1px;
+    border-top: 1px solid var(--color-text-dim);
+    border-right: 1px solid var(--color-text-dim);
+  }
+  .x-bl {
+    bottom: -1px;
+    left: -1px;
+    border-bottom: 1px solid var(--color-text-dim);
+    border-left: 1px solid var(--color-text-dim);
+  }
+  .x-br {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 1px solid var(--color-text-dim);
+    border-right: 1px solid var(--color-text-dim);
+  }
 
   /* ============================================
      ABOUT
@@ -674,7 +915,9 @@ const additionalLD = [
     transform: scale(1.025);
   }
 
-  .about-frame:hover .x-corner { border-color: var(--color-primary); }
+  .about-frame:hover .x-corner {
+    border-color: var(--color-primary);
+  }
 
   .about-photo-strip {
     display: flex;
@@ -712,7 +955,9 @@ const additionalLD = [
     max-width: 62ch;
   }
 
-  .about-para-dim { color: var(--color-text-dim); }
+  .about-para-dim {
+    color: var(--color-text-dim);
+  }
 
   .about-facts {
     display: flex;
@@ -729,7 +974,9 @@ const additionalLD = [
     font-size: 0.58rem;
     letter-spacing: 0.18em;
     color: var(--color-text-dim);
-    transition: color 0.25s var(--ease-out-expo), border-color 0.25s var(--ease-out-expo);
+    transition:
+      color 0.25s var(--ease-out-expo),
+      border-color 0.25s var(--ease-out-expo);
   }
 
   .about-fact:hover {
@@ -759,7 +1006,7 @@ const additionalLD = [
 
   /* accent line traces across the top on hover */
   .skill-cell::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -771,8 +1018,12 @@ const additionalLD = [
     transition: transform 0.5s var(--ease-out-expo);
   }
 
-  .skill-cell:hover { background: var(--color-bg-card); }
-  .skill-cell:hover::before { transform: scaleX(1); }
+  .skill-cell:hover {
+    background: var(--color-bg-card);
+  }
+  .skill-cell:hover::before {
+    transform: scaleX(1);
+  }
 
   .skill-top {
     display: flex;
@@ -825,7 +1076,9 @@ const additionalLD = [
     letter-spacing: 0.08em;
     color: var(--color-text-dim);
     border: 1px solid var(--color-border);
-    transition: color 0.25s var(--ease-out-expo), border-color 0.25s var(--ease-out-expo);
+    transition:
+      color 0.25s var(--ease-out-expo),
+      border-color 0.25s var(--ease-out-expo);
   }
 
   .skill-cell:hover .skill-tag {
@@ -911,7 +1164,9 @@ const additionalLD = [
     border-bottom: 1px solid var(--color-border);
     text-decoration: none;
     position: relative;
-    transition: background 0.35s var(--ease-out-expo), padding-left 0.35s var(--ease-out-expo);
+    transition:
+      background 0.35s var(--ease-out-expo),
+      padding-left 0.35s var(--ease-out-expo);
   }
 
   .proj-row:hover {
@@ -927,7 +1182,9 @@ const additionalLD = [
     transition: color 0.3s var(--ease-out-expo);
   }
 
-  .proj-row:hover .proj-num { color: var(--color-primary); }
+  .proj-row:hover .proj-num {
+    color: var(--color-primary);
+  }
 
   .proj-name {
     font-family: var(--font-display);
@@ -939,7 +1196,9 @@ const additionalLD = [
     line-height: 1.25;
   }
 
-  .proj-row:hover .proj-name { color: var(--color-primary); }
+  .proj-row:hover .proj-name {
+    color: var(--color-primary);
+  }
 
   .proj-tech {
     font-family: var(--font-mono);
@@ -965,7 +1224,9 @@ const additionalLD = [
   .proj-arrow {
     font-family: var(--font-mono);
     color: var(--color-text-dim);
-    transition: transform 0.35s var(--ease-out-expo), color 0.35s var(--ease-out-expo);
+    transition:
+      transform 0.35s var(--ease-out-expo),
+      color 0.35s var(--ease-out-expo);
   }
 
   .proj-row:hover .proj-arrow {
@@ -987,7 +1248,9 @@ const additionalLD = [
     will-change: transform;
   }
 
-  .proj-preview.is-on { opacity: 1; }
+  .proj-preview.is-on {
+    opacity: 1;
+  }
 
   .proj-preview-item {
     display: none;
@@ -996,7 +1259,9 @@ const additionalLD = [
     overflow: hidden;
   }
 
-  .proj-preview-item.is-active { display: block; }
+  .proj-preview-item.is-active {
+    display: block;
+  }
 
   .proj-preview-item :global(img) {
     width: 100%;
@@ -1010,7 +1275,9 @@ const additionalLD = [
     padding: 2.4rem 1.8rem;
   }
 
-  .proj-preview-fallback.is-active { display: flex; }
+  .proj-preview-fallback.is-active {
+    display: flex;
+  }
 
   .proj-preview-num {
     font-family: var(--font-mono);
@@ -1036,7 +1303,9 @@ const additionalLD = [
   }
 
   @media (pointer: coarse), (prefers-reduced-motion: reduce) {
-    .proj-preview { display: none; }
+    .proj-preview {
+      display: none;
+    }
   }
 
   /* ============================================
@@ -1060,7 +1329,9 @@ const additionalLD = [
     transition: border-color 0.35s var(--ease-out-expo);
   }
 
-  .edu-cell:hover { border-color: var(--color-border-bright); }
+  .edu-cell:hover {
+    border-color: var(--color-border-bright);
+  }
 
   .edu-top {
     display: flex;
@@ -1118,7 +1389,9 @@ const additionalLD = [
     transition: color 0.3s var(--ease-out-expo);
   }
 
-  .edu-cell-link:hover .edu-cta { color: var(--color-primary); }
+  .edu-cell-link:hover .edu-cta {
+    color: var(--color-primary);
+  }
 
   /* ============================================
      RESEARCH
@@ -1139,7 +1412,9 @@ const additionalLD = [
     transition: border-color 0.35s var(--ease-out-expo);
   }
 
-  .research-cell:hover { border-color: var(--color-border-bright); }
+  .research-cell:hover {
+    border-color: var(--color-border-bright);
+  }
 
   .research-badge {
     align-self: flex-start;
@@ -1178,7 +1453,9 @@ const additionalLD = [
     word-break: break-all;
   }
 
-  .research-link:hover { color: var(--color-primary); }
+  .research-link:hover {
+    color: var(--color-primary);
+  }
 
   /* ============================================
      CERTIFICATIONS
@@ -1194,7 +1471,9 @@ const additionalLD = [
     padding: 1.15rem 0.5rem;
     border-bottom: 1px solid var(--color-border);
     text-decoration: none;
-    transition: background 0.3s var(--ease-out-expo), padding-left 0.3s var(--ease-out-expo);
+    transition:
+      background 0.3s var(--ease-out-expo),
+      padding-left 0.3s var(--ease-out-expo);
   }
 
   a.cert-row:hover {
@@ -1211,12 +1490,16 @@ const additionalLD = [
     flex: 1;
   }
 
-  a.cert-row:hover .cert-name { color: var(--color-text-bright); }
+  a.cert-row:hover .cert-name {
+    color: var(--color-text-bright);
+  }
 
   .cert-arrow {
     font-family: var(--font-mono);
     color: var(--color-text-dim);
-    transition: color 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo);
+    transition:
+      color 0.3s var(--ease-out-expo),
+      transform 0.3s var(--ease-out-expo);
   }
 
   a.cert-row:hover .cert-arrow {
@@ -1244,7 +1527,9 @@ const additionalLD = [
     z-index: 1;
   }
 
-  .footer-head { margin-bottom: 3rem; }
+  .footer-head {
+    margin-bottom: 3rem;
+  }
 
   .footer-title {
     font-family: var(--font-display);
@@ -1262,7 +1547,9 @@ const additionalLD = [
   .footer-title-outline {
     color: transparent;
     -webkit-text-stroke: 1.5px var(--color-text-bright);
-    transition: color 0.4s var(--ease-out-expo), -webkit-text-stroke-color 0.4s var(--ease-out-expo);
+    transition:
+      color 0.4s var(--ease-out-expo),
+      -webkit-text-stroke-color 0.4s var(--ease-out-expo);
   }
 
   .footer-title:hover .footer-title-outline {
@@ -1293,7 +1580,9 @@ const additionalLD = [
     background: var(--color-bg-card);
   }
 
-  .cf-hidden { display: none; }
+  .cf-hidden {
+    display: none;
+  }
 
   .cf-row {
     display: grid;
@@ -1325,19 +1614,26 @@ const additionalLD = [
     color: var(--color-text-bright);
     letter-spacing: 0.03em;
     outline: none;
-    transition: border-color 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo);
+    transition:
+      border-color 0.25s var(--ease-out-expo),
+      box-shadow 0.25s var(--ease-out-expo);
     -webkit-appearance: none;
     appearance: none;
   }
 
-  .cf-input::placeholder { color: #555; }
+  .cf-input::placeholder {
+    color: #555;
+  }
 
   .cf-input:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 16px rgba(0, 240, 255, 0.12);
   }
 
-  .cf-textarea { resize: vertical; min-height: 110px; }
+  .cf-textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
 
   .cf-actions {
     display: flex;
@@ -1358,7 +1654,9 @@ const additionalLD = [
     letter-spacing: 0.2em;
     color: var(--color-text-bright);
     cursor: pointer;
-    transition: color 0.3s var(--ease-out-expo), border-color 0.3s var(--ease-out-expo),
+    transition:
+      color 0.3s var(--ease-out-expo),
+      border-color 0.3s var(--ease-out-expo),
       box-shadow 0.3s var(--ease-out-expo);
     will-change: transform;
   }
@@ -1369,10 +1667,17 @@ const additionalLD = [
     box-shadow: 0 0 24px rgba(0, 240, 255, 0.16);
   }
 
-  .cf-submit:disabled { opacity: 0.55; cursor: wait; }
+  .cf-submit:disabled {
+    opacity: 0.55;
+    cursor: wait;
+  }
 
-  .cf-submit-arrow { transition: transform 0.3s var(--ease-out-expo); }
-  .cf-submit:hover:not(:disabled) .cf-submit-arrow { transform: translateX(5px); }
+  .cf-submit-arrow {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+  .cf-submit:hover:not(:disabled) .cf-submit-arrow {
+    transform: translateX(5px);
+  }
 
   .cf-status {
     font-family: var(--font-mono);
@@ -1382,8 +1687,12 @@ const additionalLD = [
     margin: 0;
   }
 
-  .cf-status.ok { color: var(--color-primary); }
-  .cf-status.err { color: #ff5f56; }
+  .cf-status.ok {
+    color: var(--color-primary);
+  }
+  .cf-status.err {
+    color: #ff5f56;
+  }
 
   .footer-links {
     display: flex;
@@ -1415,8 +1724,12 @@ const additionalLD = [
     width: fit-content;
   }
 
-  .footer-link:hover { color: var(--color-primary); }
-  .footer-link-static:hover { color: var(--color-text-secondary); }
+  .footer-link:hover {
+    color: var(--color-primary);
+  }
+  .footer-link-static:hover {
+    color: var(--color-text-secondary);
+  }
 
   .footer-bar {
     display: flex;
@@ -1435,70 +1748,113 @@ const additionalLD = [
      RESPONSIVE
      ============================================ */
   @media (max-width: 1000px) {
-    .skills-grid { grid-template-columns: repeat(2, 1fr); }
-    .research-grid { grid-template-columns: 1fr; }
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .research-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 860px) {
-    .about-grid { grid-template-columns: 1fr; }
-    .about-photo { max-width: 420px; }
-    .exp-row { grid-template-columns: 1fr; gap: 1rem; padding: 2rem 0; }
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-photo {
+      max-width: 420px;
+    }
+    .exp-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 2rem 0;
+    }
     .proj-row {
       grid-template-columns: 2.2rem minmax(0, 1fr) 2rem;
       row-gap: 0.35rem;
     }
-    .proj-tech { grid-column: 2; }
-    .proj-year { display: none; }
-    .proj-arrow { grid-row: 1; grid-column: 3; }
-    .edu-grid { grid-template-columns: 1fr; }
-    .footer-body { grid-template-columns: 1fr; gap: 2rem; }
+    .proj-tech {
+      grid-column: 2;
+    }
+    .proj-year {
+      display: none;
+    }
+    .proj-arrow {
+      grid-row: 1;
+      grid-column: 3;
+    }
+    .edu-grid {
+      grid-template-columns: 1fr;
+    }
+    .footer-body {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
   }
 
   @media (max-width: 560px) {
-    .skills-grid { grid-template-columns: 1fr; }
-    .footer-bar { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
-    .footer-bar-mid { order: 3; }
-    .cf-row { grid-template-columns: 1fr; }
-    .contact-form { padding: 1.4rem; }
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+    .footer-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .footer-bar-mid {
+      order: 3;
+    }
+    .cf-row {
+      grid-template-columns: 1fr;
+    }
+    .contact-form {
+      padding: 1.4rem;
+    }
   }
 </style>
 
 <script>
   /* ── Netlify contact form: AJAX submit with inline status ── */
   function initContactForm() {
-    const form = document.getElementById('contact-form') as HTMLFormElement | null;
-    const status = document.getElementById('cf-status');
-    const submit = document.getElementById('cf-submit') as HTMLButtonElement | null;
+    const form = document.getElementById(
+      "contact-form",
+    ) as HTMLFormElement | null;
+    const status = document.getElementById("cf-status");
+    const submit = document.getElementById(
+      "cf-submit",
+    ) as HTMLButtonElement | null;
     if (!form || !status || !submit) return;
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       submit.disabled = true;
-      status.textContent = 'TRANSMITTING…';
-      status.className = 'cf-status';
+      status.textContent = "TRANSMITTING…";
+      status.className = "cf-status";
 
       try {
         const data = new FormData(form);
-        const body = new URLSearchParams(data as unknown as Record<string, string>).toString();
-        const res = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        const body = new URLSearchParams(
+          data as unknown as Record<string, string>,
+        ).toString();
+        const res = await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body,
         });
         if (!res.ok) throw new Error(String(res.status));
-        status.textContent = '✓ MESSAGE RECEIVED — I WILL GET BACK TO YOU SOON.';
-        status.classList.add('ok');
+        status.textContent =
+          "✓ MESSAGE RECEIVED — I WILL GET BACK TO YOU SOON.";
+        status.classList.add("ok");
         form.reset();
       } catch {
-        status.textContent = '✕ TRANSMISSION FAILED — PLEASE TRY AGAIN.';
-        status.classList.add('err');
+        status.textContent = "✕ TRANSMISSION FAILED — PLEASE TRY AGAIN.";
+        status.classList.add("err");
       } finally {
         submit.disabled = false;
       }
     });
   }
 
-  document.addEventListener('astro:page-load', initContactForm);
+  document.addEventListener("astro:page-load", initContactForm);
 </script>
 
 <script>
@@ -1511,18 +1867,24 @@ const additionalLD = [
     homeAC?.abort();
     cancelAnimationFrame(homeRaf);
     homeLabelIO?.disconnect();
-    if (!document.getElementById('proj-index') && !document.querySelector('.section-label')) return;
+    if (
+      !document.getElementById("proj-index") &&
+      !document.querySelector(".section-label")
+    )
+      return;
     homeAC = new AbortController();
     const { signal } = homeAC;
 
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (reducedMotion) return;
 
     /* ── Section labels: text decode / scramble on reveal ── */
-    const GLYPHS = '█▓▒░<>/[]{}—+*';
-    const labels = document.querySelectorAll<HTMLElement>('.section-label');
+    const GLYPHS = "█▓▒░<>/[]{}—+*";
+    const labels = document.querySelectorAll<HTMLElement>(".section-label");
     const decode = (el: HTMLElement) => {
-      const original = el.textContent || '';
+      const original = el.textContent || "";
       const D = 620;
       const t0 = performance.now();
       const step = (now: number) => {
@@ -1530,7 +1892,10 @@ const additionalLD = [
         const settled = Math.floor(original.length * t);
         let out = original.slice(0, settled);
         for (let i = settled; i < original.length; i++) {
-          out += original[i] === ' ' ? ' ' : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+          out +=
+            original[i] === " "
+              ? " "
+              : GLYPHS[(Math.random() * GLYPHS.length) | 0];
         }
         el.textContent = out;
         if (t < 1) requestAnimationFrame(step);
@@ -1539,21 +1904,26 @@ const additionalLD = [
       requestAnimationFrame(step);
     };
 
-    const labelIO = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          decode(e.target as HTMLElement);
-          labelIO.unobserve(e.target);
+    const labelIO = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            decode(e.target as HTMLElement);
+            labelIO.unobserve(e.target);
+          }
         }
-      }
-    }, { threshold: 0.6 });
+      },
+      { threshold: 0.6 },
+    );
     labels.forEach((l) => labelIO.observe(l));
     homeLabelIO = labelIO;
 
     /* ── Scroll parallax layers: [data-plx="speed"] ── */
-    const plxEls = Array.from(document.querySelectorAll<HTMLElement>('[data-plx]')).map((el) => ({
+    const plxEls = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-plx]"),
+    ).map((el) => ({
       el,
-      speed: parseFloat(el.dataset.plx || '0'),
+      speed: parseFloat(el.dataset.plx || "0"),
     }));
 
     let plxTicking = false;
@@ -1567,47 +1937,62 @@ const additionalLD = [
       }
       plxTicking = false;
     };
-    window.addEventListener('scroll', () => {
-      if (!plxTicking) {
-        plxTicking = true;
-        requestAnimationFrame(plxUpdate);
-      }
-    }, { passive: true, signal });
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!plxTicking) {
+          plxTicking = true;
+          requestAnimationFrame(plxUpdate);
+        }
+      },
+      { passive: true, signal },
+    );
     plxUpdate();
 
     /* ── Project index: cursor-following preview ── */
-    const finePointer = window.matchMedia('(pointer: fine)').matches;
-    const preview = document.getElementById('proj-preview');
-    const indexEl = document.getElementById('proj-index');
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    const preview = document.getElementById("proj-preview");
+    const indexEl = document.getElementById("proj-index");
     if (!finePointer || !preview || !indexEl) return;
 
-    const items = Array.from(preview.querySelectorAll<HTMLElement>('[data-preview]'));
-    let px = -200, py = -200;   // lerped position
-    let tx = -200, ty = -200;   // target position
+    const items = Array.from(
+      preview.querySelectorAll<HTMLElement>("[data-preview]"),
+    );
+    let px = -200,
+      py = -200; // lerped position
+    let tx = -200,
+      ty = -200; // target position
     let rot = 0;
     let visible = false;
 
-    indexEl.addEventListener('mousemove', (e) => {
-      tx = e.clientX;
-      ty = e.clientY;
-    }, { passive: true, signal });
+    indexEl.addEventListener(
+      "mousemove",
+      (e) => {
+        tx = e.clientX;
+        ty = e.clientY;
+      },
+      { passive: true, signal },
+    );
 
-    indexEl.querySelectorAll<HTMLElement>('.proj-row').forEach((row) => {
-      row.addEventListener('mouseenter', () => {
+    indexEl.querySelectorAll<HTMLElement>(".proj-row").forEach((row) => {
+      row.addEventListener("mouseenter", () => {
         const key = row.dataset.previewKey;
-        items.forEach((it) => it.classList.toggle('is-active', it.dataset.preview === key));
+        items.forEach((it) =>
+          it.classList.toggle("is-active", it.dataset.preview === key),
+        );
         if (!visible) {
           /* snap into place so it doesn't fly across the screen */
-          px = tx; py = ty;
+          px = tx;
+          py = ty;
           visible = true;
-          preview.classList.add('is-on');
+          preview.classList.add("is-on");
         }
       });
     });
 
-    indexEl.addEventListener('mouseleave', () => {
+    indexEl.addEventListener("mouseleave", () => {
       visible = false;
-      preview.classList.remove('is-on');
+      preview.classList.remove("is-on");
     });
 
     const lerp = (a: number, b: number, n: number) => a + (b - a) * n;
@@ -1625,5 +2010,5 @@ const additionalLD = [
     homeRaf = requestAnimationFrame(previewTick);
   }
 
-  document.addEventListener('astro:page-load', initHome);
+  document.addEventListener("astro:page-load", initHome);
 </script>
