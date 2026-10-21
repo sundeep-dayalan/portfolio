@@ -318,7 +318,7 @@ const navItems = [
     toggle.setAttribute('aria-expanded', (!expanded).toString());
     overlay?.setAttribute('aria-hidden', expanded.toString());
     document.body.style.overflow = expanded ? '' : 'hidden';
-  });
+  }, { signal });
 
   // Close mobile nav on link click
   overlay?.querySelectorAll('.mobile-nav-link').forEach(link => {
@@ -328,7 +328,7 @@ const navItems = [
       toggle?.setAttribute('aria-expanded', 'false');
       overlay?.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
-    });
+    }, { signal });
   });
 
   // ======== Scroll Spy ========
@@ -423,10 +423,6 @@ const navItems = [
   }, { passive: true, signal });
   }
 
+  // astro:page-load fires on initial load and after every client-side navigation
   document.addEventListener('astro:page-load', initNav);
-  if (document.readyState === 'interactive' || document.readyState === 'complete') {
-    initNav();
-  } else {
-    document.addEventListener('DOMContentLoaded', initNav);
-  }
 </script>
